@@ -28,12 +28,15 @@ export default function Timer() {
     return (
         <>
             <p>{formatTime(currentCount)}</p>
-            <button onClick={() => setIsTimerActive(true)}>
-                Start
-            </button>
-            <button onClick={() => setIsTimerActive(false)}>
-                Pause
-            </button>
+            { !isTimerActive ?
+                <button onClick={() => setIsTimerActive(true)}>
+                    Start
+                </button>
+                :
+                <button onClick={() => setIsTimerActive(false)}>
+                    Pause
+                </button>
+            }
             <button onClick={() => { setCurrentCount(0); setIsTimerActive(false) }}>
                 Reset
             </button>
