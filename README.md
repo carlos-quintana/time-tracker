@@ -9,8 +9,8 @@ Here are some current features that I will be progressively implementing in this
 
 >Basic barebones functionality (1st sprint):
 - ~~Have a working timer that increments every second.~~
-- Have a working timer that displays time in the shape of `hh:mm:ss`.
-- The timer should have controls to start, pause, resume and stop (reset).
+- ~~Have a working timer that displays time in the shape of `hh:mm:ss`.~~
+- ~~The timer should have controls to start, pause, resume and stop (reset).~~
 - Have an input field to assign each timer session the name of a task.
 - To have each of the inputted tasks be displayed on a list.
 - Minimum page styling.
@@ -25,7 +25,7 @@ Here are some current features that I will be progressively implementing in this
 - Be able to assign each task to one or more projects.
 
 > Additional notes:
-- Incrementing the timer inside an interval is not a good idea, as JavaScript is single threaded, and the interval is to small delays. Look into utilising timestamps and the unix time.
+- Incrementing the timer inside an interval is not a good idea, as JavaScript is single threaded, and the interval is sensitive to small delays. Look into using timestamps and the unix time.
 
 
 ## How to use
