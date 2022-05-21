@@ -39,7 +39,8 @@ export default function InputPanel() {
                 currentSecondsCount={currentSeconds} />
             <TimerControls
                 timerStatus={timerStatus}
-                setTimerStatus={status => setTimerStatus(status)} />
+                taskSubmitTrigger={_ => setSubmittingTask(true)}
+            />
         </>
     );
 }

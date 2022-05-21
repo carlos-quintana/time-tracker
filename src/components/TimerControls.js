@@ -1,4 +1,4 @@
-export default function TimerControls({timerStatus, setTimerStatus}) {
+export default function TimerControls({timerStatus, setTimerStatus, taskSubmitTrigger}) {
 
     if (timerStatus === "initial") {
         return (
@@ -10,7 +10,7 @@ export default function TimerControls({timerStatus, setTimerStatus}) {
     if (timerStatus === "stopped") {
         return (
             <>
-                <button onClick={() => { alert("Submit button pressed") }}>
+                <button onClick={() => { console.log("Submit button pressed"); taskSubmitTrigger(); }}>
                     Submit
                 </button>
                 <button onClick={() => setTimerStatus("running") }>
