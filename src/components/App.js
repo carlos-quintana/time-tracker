@@ -11,8 +11,9 @@ export default function App() {
   return (
     <>
       <h1>Time Tracker Application</h1>
-      < InputPanel />
-      < ListPanel />
+      < InputPanel
+        entriesList={entriesList}
+        setEntriesList={setEntriesList} />
     </>
   );
 }
