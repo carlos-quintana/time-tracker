@@ -14,6 +14,12 @@ export default function App() {
     { id: 3, description: "Example Task Three", secondsCount: 3605 }];
   useEffect(() => setEntriesList(exampleTasks),[])
 
+  const deleteTask = id => {
+    const selectedTask = entriesList.filter(task => task.id === id);
+    console.log(selectedTask);
+    setEntriesList(entriesList.filter(task => task.id !== id));
+  }
+
   return (
     <>
       <h1>Time Tracker Application</h1>
@@ -21,7 +27,9 @@ export default function App() {
         entriesList={entriesList}
         setEntriesList={setEntriesList} />
       < ListPanel
-        entriesList={entriesList} />
+        entriesList={entriesList}
+        deleteTask={deleteTask}
+      />
     </>
   );
 }
