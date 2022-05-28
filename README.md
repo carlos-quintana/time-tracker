@@ -7,20 +7,18 @@ This is a Work In Progress (WIP) to be showcased on my online portfolio.
 
 Here are some current features that I will be progressively implementing in this project:
 
->Basic barebones functionality (1st sprint):
 - ~~Have a working timer that increments every second.~~
 - ~~Have a working timer that displays time in the shape of `hh:mm:ss`.~~
 - ~~The timer should have controls to start, pause, resume and stop (reset).~~
-- Have an input field to assign each timer session the name of a task.
-- To have each of the inputted tasks be displayed on a list.
-- Minimum page styling.
+- ~~Have an input field to assign each timer session the name of a task.~~
+- ~~To have each of the inputted tasks be displayed on a list.~~
 
->(2nd sprint):
-- Be able to edit a task's description and time elapsed.
+- Some page styling.
+
 - Be able to delete a task.
+- Be able to edit a task's description and time elapsed.
 - Tasks should not only have time but also dates.
 
->(3rd sprint):
 - Be able to add, delete and edit projects.
 - Be able to assign each task to one or more projects.
 
