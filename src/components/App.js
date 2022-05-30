@@ -20,6 +20,18 @@ export default function App() {
     setEntriesList(entriesList.filter(task => task.id !== id));
   }
 
+  const editTask = (id, newDescription) => {
+    console.log(`Requested to edit the task with ${id} with a new description of "${newDescription}"`)
+    setEntriesList(
+      entriesList.map(task =>
+        task.id === id ?
+          { ...task, description: newDescription, }
+          :
+          task
+      )
+    )
+  }
+
   return (
     <>
       <h1>Time Tracker Application</h1>
@@ -28,7 +40,8 @@ export default function App() {
         setEntriesList={setEntriesList} />
       < ListPanel
         entriesList={entriesList}
-        deleteTask={deleteTask}
+        deleteTaskCallback={deleteTask}
+        editTaskCallback={editTask}
       />
     </>
   );
