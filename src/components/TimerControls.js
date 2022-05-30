@@ -10,14 +10,14 @@ export default function TimerControls({timerStatus, setTimerStatus, taskSubmitTr
     if (timerStatus === "stopped") {
         return (
             <>
-                <button onClick={() => { console.log("Submit button pressed"); taskSubmitTrigger(); }}>
-                    Submit
-                </button>
                 <button onClick={() => setTimerStatus("running") }>
                     Resume
                 </button>
                 <button onClick={() => setTimerStatus("initial") }>
                     Reset
+                </button>
+                <button onClick={() => { console.log("Submit button pressed"); taskSubmitTrigger(); }}>
+                    Submit
                 </button>
             </>
         );
