@@ -9,10 +9,21 @@ export default function App() {
   const [entriesList, setEntriesList] = useState([])
 
   const exampleTasks = [
-    { id: 1, description: "Example Task One", secondsCount: 20015 },
-    { id: 2, description: "Example Task Two", secondsCount: 12057 },
-    { id: 3, description: "Example Task Three", secondsCount: 3605 }];
-  useEffect(() => setEntriesList(exampleTasks),[])
+    ["Example Task One", 20015],
+    ["Example Task Two", 12057],
+    ["Example Task Three", 3605],
+    ["Example Task Four", 5179],
+    ["Example Task Five", 17873],
+    ["Example Task Six", 2150],
+    ["Example Task Seven", 4102]];
+
+  useEffect(() => setEntriesList(exampleTasks.map((entry, index) => {
+    return {
+      id: index,
+      description: entry[0],
+      secondsCount: entry[1],
+    }
+  })), [])
 
   const deleteTask = id => {
     const selectedTask = entriesList.filter(task => task.id === id);
