@@ -45,7 +45,9 @@ export default function App() {
 
   return (
     <>
-      <h1>Time Tracker Application</h1>
+      <header>
+        <h1>Time Tracker Application</h1>
+      </header>
       < InputPanel
         entriesList={entriesList}
         setEntriesList={setEntriesList} />

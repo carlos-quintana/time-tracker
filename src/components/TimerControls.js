@@ -1,8 +1,11 @@
-export default function TimerControls({timerStatus, setTimerStatus, taskSubmitTrigger}) {
+export default function TimerControls({ timerStatus, setTimerStatus, taskSubmitTrigger }) {
 
     if (timerStatus === "initial") {
         return (
-            <button onClick={() => setTimerStatus("running") }>
+            <button
+                className="button btn-primary"
+                onClick={() => setTimerStatus("running")}
+            >
                 Start
             </button>
         );
@@ -10,13 +13,22 @@ export default function TimerControls({timerStatus, setTimerStatus, taskSubmitTr
     if (timerStatus === "stopped") {
         return (
             <>
-                <button onClick={() => setTimerStatus("running") }>
+                <button
+                    className="button"
+                    onClick={() => setTimerStatus("running")}
+                >
                     Resume
                 </button>
-                <button onClick={() => setTimerStatus("initial") }>
+                <button
+                    className="button btn-yellow"
+                    onClick={() => setTimerStatus("initial")}
+                >
                     Reset
                 </button>
-                <button onClick={() => { console.log("Submit button pressed"); taskSubmitTrigger(); }}>
+                <button
+                    className="button btn-primary"
+                    onClick={() => { console.log("Submit button pressed"); taskSubmitTrigger(); }}
+                >
                     Submit
                 </button>
             </>
@@ -24,7 +36,10 @@ export default function TimerControls({timerStatus, setTimerStatus, taskSubmitTr
     }
 
     return (
-        <button onClick={() => setTimerStatus("stopped")}>
+        <button
+            className="button btn-red"
+            onClick={() => setTimerStatus("stopped")}
+        >
             Stop
         </button>
     );

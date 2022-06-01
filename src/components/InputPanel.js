@@ -55,23 +55,23 @@ export default function InputPanel({ entriesList, setEntriesList }) {
     }, [submittingTask])
 
     return (
-        <>
-            <h2>Time tracker input panel:</h2>
-            <input
-                id="task-input"
-                type="text"
-                placeholder="Input a new task"
-                value={taskDescription}
-                onChange={event => setTaskDescription(event.target.value)}
-            />
-            <TimerDisplay
-                currentSecondsCount={currentSeconds} />
+        <div className="input-panel">
+            <div className="input-area">
+                <input
+                    id="task-input"
+                    className="task-input"
+                    type="text"
+                    placeholder="Input a new task"
+                    value={taskDescription}
+                    onChange={event => setTaskDescription(event.target.value)}
+                />
             <TimerControls
                 timerStatus={timerStatus}
                 setTimerStatus={status => setTimerStatus(status)}
                 taskSubmitTrigger={_ => setSubmittingTask(true)}
             />
-        </>
+            </div>
+        </div>
     );
 }
 

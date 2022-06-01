@@ -1,7 +1,7 @@
 // HMS stands for Hours Minutes Seconds (hh:mm:ss)
 export default function TimerDisplay({ currentSecondsCount }) {
     return (
-        <div>
+        <div class="timer-display">
             {formatToHoursMinutesSeconds(currentSecondsCount)}
         </div>
     );

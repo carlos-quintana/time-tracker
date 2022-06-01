@@ -2,17 +2,28 @@ export default function ListItem({ itemData, editTaskCallback, deleteTaskCallbac
     const { id, description, secondsCount } = itemData;
     const timeToDisplay = formatToHoursMinutesSeconds(secondsCount);
     return (
-        <div>
+        <>
             <li>
-                {`(${id}) ${description} | ${timeToDisplay}`}
-                <button onClick={() => editTaskCallback(id)}>
-                    Edit
-                </button>
-                <button onClick={() => deleteTaskCallback(id)}>
-                    Delete
-                </button>
+                <p className="task-id">{`(${id})`}</p>
+                <p className="task-description">{`${description}`}</p>
+                <p className="task-time">{`${timeToDisplay}`}</p>
+                {/* {`(${id}) ${description} | ${timeToDisplay}`} */}
+                <div className="entry-controls">
+                    <button
+                        className="button btn-yellow"
+                        onClick={() => editTaskCallback(id)}
+                    >
+                        Edit
+                    </button>
+                    <button
+                        className="button btn-red"
+                        onClick={() => deleteTaskCallback(id)}
+                    >
+                        Delete
+                    </button>
+                </div>
             </li>
-        </div>
+        </>
     );
 }
 

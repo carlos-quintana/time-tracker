@@ -20,9 +20,9 @@ export default function ListPanel({ entriesList, deleteTaskCallback, editTaskCal
     console.log("Entries list", entriesList)
     console.log("Editable entries list", editableEntries)
     return (
-        <>
+        <div className="list-panel">
             <h2>List panel:</h2>
-            <ul>
+            <ul className="entries-list">
                 {entriesList.map((entry, index) =>
                     editableEntries[index] ?
                         <EditableListItem
@@ -39,6 +39,6 @@ export default function ListPanel({ entriesList, deleteTaskCallback, editTaskCal
                         />
                 )}
             </ul>
-        </>
+        </div>
     );
 }
