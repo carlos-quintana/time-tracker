@@ -65,11 +65,13 @@ export default function InputPanel({ entriesList, setEntriesList }) {
                     value={taskDescription}
                     onChange={event => setTaskDescription(event.target.value)}
                 />
-            <TimerControls
-                timerStatus={timerStatus}
-                setTimerStatus={status => setTimerStatus(status)}
-                taskSubmitTrigger={_ => setSubmittingTask(true)}
-            />
+                <TimerControls
+                    timerStatus={timerStatus}
+                    setTimerStatus={status => setTimerStatus(status)}
+                    taskSubmitTrigger={_ => setSubmittingTask(true)}
+                />
+                <TimerDisplay
+                    currentSecondsCount={currentSeconds} />
             </div>
         </div>
     );
