@@ -5,6 +5,10 @@ With this application you will be able to track your time and improve your produ
 
 This is a Work In Progress (WIP) to be showcased on my online portfolio.
 
+Check out the live version at:
+
+https://carlos-quintana.github.io/time-tracker/
+
 Here are some current features that I will be progressively implementing in this project:
 
 - ~~Have a working timer that increments every second.~~
@@ -12,11 +16,10 @@ Here are some current features that I will be progressively implementing in this
 - ~~The timer should have controls to start, pause, resume and stop (reset).~~
 - ~~Have an input field to assign each timer session the name of a task.~~
 - ~~To have each of the inputted tasks be displayed on a list.~~
+- ~~Some page styling.~~
+- ~~Be able to delete a task.~~
+- ~~Be able to edit a task's description and time elapsed.~~
 
-- Some page styling.
-
-- Be able to delete a task.
-- Be able to edit a task's description and time elapsed.
 - Tasks should not only have time but also dates.
 
 - Be able to add, delete and edit projects.
