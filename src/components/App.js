@@ -26,6 +26,7 @@ export default function App() {
   })), [])
 
   const deleteTask = id => {
+    console.log(`Requested to delete the task with ${id}`)
     const selectedTask = entriesList.filter(task => task.id === id);
     console.log(selectedTask);
     setEntriesList(entriesList.filter(task => task.id !== id));
