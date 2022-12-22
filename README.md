@@ -5,28 +5,17 @@ With this application you will be able to track your time and improve your produ
 
 This is a Work In Progress (WIP) to be showcased on my online portfolio.
 
-Check out the live version at:
+Check out the live build version at:
 
 https://carlos-quintana.github.io/time-tracker/
 
 Here are some current features that I will be progressively implementing in this project:
 
-- ~~Have a working timer that increments every second.~~
-- ~~Have a working timer that displays time in the shape of `hh:mm:ss`.~~
-- ~~The timer should have controls to start, pause, resume and stop (reset).~~
-- ~~Have an input field to assign each timer session the name of a task.~~
-- ~~To have each of the inputted tasks be displayed on a list.~~
-- ~~Some page styling.~~
-- ~~Be able to delete a task.~~
-- ~~Be able to edit a task's description and time elapsed.~~
+- To keep track of time even when the application is closed, by logging the time and date of the entries instead of keeping the time in memory.
 
-- Tasks should not only have time but also dates.
+- Be able to add, delete and edit projects to organize the tasks.
 
-- Be able to add, delete and edit projects.
-- Be able to assign each task to one or more projects.
-
-> Additional notes:
-- Incrementing the timer inside an interval is not a good idea, as JavaScript is single threaded, and the interval is sensitive to small delays. Look into using timestamps and the unix time.
+- To extract useful metrics from the different entries.
 
 
 ## How to use
