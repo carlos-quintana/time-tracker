@@ -23,6 +23,19 @@ export default function App() {
   const startTimer = () => setTimerStatus("running")
   const stopTimer = () => setTimerStatus("stopped")
   const resetTimer = () => { setTimerStatus("stopped"); setSeconds(0) }
+  // These functions belong to the new task form
+  const [newTask, setNewTask] = useState("")
+  const handleChangeNewTask = event => {
+    setNewTask(event.target.value)
+  }
+  const handleSubmitNewTask = event => {
+    event.preventDefault()
+    // Submit the new task
+    alert(`The new task "${newTask}" with a time of "${seconds}s" has been logged`)
+    // Reset the form
+    setNewTask("")
+    resetTimer()
+  }
 
   return (
     <div>
@@ -33,6 +46,10 @@ export default function App() {
       <button onClick={startTimer}>Start</button>
       <button onClick={stopTimer}>Stop</button>
       <button onClick={resetTimer}>Reset</button>
+      <form onSubmit={handleSubmitNewTask}>
+        <input id="newTaskInput" name="newTaskInput" type="text" value={newTask} onChange={handleChangeNewTask} placeholder="Input your task"/>
+        <input id="submitNewTask" name="submitNewTask" type="submit" value="Submit" />
+      </form>
 
     </div>
   )
