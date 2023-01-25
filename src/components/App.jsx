@@ -75,7 +75,12 @@ export default function App() {
         <input id="newTaskInput" name="newTaskInput" type="text" value={newTask} onChange={handleChangeNewTask} placeholder="Input your task"/>
         <input id="submitNewTask" name="submitNewTask" type="submit" value="Submit" />
       </form>
-
+      {/* List of tasks */}
+      <ul>
+        {tasksList.map((task, i) =>
+            <li key={i}>{task.duration} | {task.name}</li>
+        )}
+      </ul>
     </div>
   )
 }
