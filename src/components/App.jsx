@@ -61,6 +61,8 @@ export default function App() {
     localStorage.setItem('tasksList', JSON.stringify(tasksList));
   }, [tasksList])
 
+  const deleteTask = id => setTasksList(tasksList.filter(el => el.id !== id))
+
   return (
     <div>
       <h2>Time Tracker application</h2>
@@ -78,7 +80,10 @@ export default function App() {
       {/* List of tasks */}
       <ul>
         {tasksList.map((task, i) =>
+          <>
             <li key={i}>{task.duration} | {task.name}</li>
+            <button onClick={() => deleteTask(task.id)}>X</button>
+          </>
         )}
       </ul>
     </div>
