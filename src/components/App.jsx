@@ -37,11 +37,29 @@ export default function App() {
   const handleSubmitNewTask = event => {
     event.preventDefault()
     // Submit the new task
-    alert(`The new task "${newTask}" with a time of "${seconds}s" has been logged`)
+    //alert(`The new task "${newTask}" with a time of "${seconds}s" has been logged`)
+    createNewTask(newTask, seconds)
     // Reset the form
     setNewTask("")
     resetTimer()
   }
+  // For the time being the LocalStorage will be used a data base
+  const [tasksList, setTasksList] = useState([])
+  // Function that acts as the Create data whenever the new task input is submitted
+  const createNewTask = (name, duration) => {
+    console.log("Inside createTask", tasksList)
+    let newTaskObject = {
+      id: Date.now(),
+      name: name,
+      duration: duration
+    }
+    setTasksList([...tasksList, newTaskObject])
+  }
+  useEffect(() => {
+    console.log("new Taskslist", tasksList)
+    console.log("Updating the LocalStorage")
+    localStorage.setItem('tasksList', JSON.stringify(tasksList));
+  }, [tasksList])
 
   return (
     <div>
