@@ -8,7 +8,7 @@ const PanelInputs = ({ createNewTask }) => {
     // Holds the current amount of seconds the timer has counted
     const [seconds, setSeconds] = useState(0)
     // Keeps track of the state of the timer: it's running or it's stopped or it's zero
-    const [timerStatus, setTimerStatus] = useState("stopped");
+    const [timerStatus, setTimerStatus] = useState("reset");
 
     // Whenever the timer status is changed, it either creates an interval or clears it to keep track of the seconds
     useEffect(() => {
@@ -38,16 +38,12 @@ const PanelInputs = ({ createNewTask }) => {
     // These functions are used in the timer control buttons
     const startTimer = () => setTimerStatus("running")
     const stopTimer = () => setTimerStatus("stopped")
-    const resetTimer = () => { setTimerStatus("stopped"); setSeconds(0) }
+    const resetTimer = () => { setTimerStatus("reset"); setSeconds(0) }
 
     return (
         <div>
             {/* Timer Display */}
             <p>Seconds elapsed: {seconds}</p>
-            {/* Timer Controls */}
-            <button onClick={startTimer}>Start</button>
-            <button onClick={stopTimer}>Stop</button>
-            <button onClick={resetTimer}>Reset</button>
             {/* New Task Input */}
             <form onSubmit={handleSubmitNewTask}>
                 <input id="newTaskInput"
@@ -59,8 +55,14 @@ const PanelInputs = ({ createNewTask }) => {
                 <input id="submitNewTask"
                     name="submitNewTask"
                     type="submit"
-                    value="Submit" />
+                    value="Submit"
+                    // Only allow submissions when the timer is stopped and there is text in the input field
+                    disabled={!(timerStatus === "stopped") || (newTask === "")} />
             </form>
+            {/* Timer Controls */}
+            {timerStatus === "reset" && <button onClick={startTimer}>Start</button>}
+            {timerStatus === "running" && <button onClick={stopTimer}>Stop</button>}
+            {timerStatus === "stopped" && <button onClick={resetTimer}>Reset</button>}
         </div >
     );
 }
