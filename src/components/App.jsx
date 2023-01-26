@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import exampleTasks from "../exampleTasks.json"
 
 
 // This next variables are used for debugging the timer
@@ -62,6 +63,9 @@ export default function App() {
   }, [tasksList])
 
   const deleteTask = id => setTasksList(tasksList.filter(el => el.id !== id))
+
+  // Load a set of example tasks from a json file
+  useEffect(() => setTasksList(exampleTasks), [])
 
   return (
     <div>
