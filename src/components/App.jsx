@@ -3,12 +3,6 @@ import exampleTasks from "../exampleTasks.json"
 import PanelData from "./PanelData"
 import PanelInputs from "./PanelInputs"
 
-
-// This next variables are used for debugging the timer
-const TIMER_INCREMENT = 1
-const TIMER_INTERVAL_MS = 25 // TODO: Reset to 1000 ms
-
-// TODO: Break down the App component into the major subcomponents: Input and Display
 export default function App() {
   // For the time being the LocalStorage will be used a data base
   const [tasksList, setTasksList] = useState([])
@@ -23,14 +17,18 @@ export default function App() {
     }
     setTasksList([...tasksList, newTaskObject])
   }
-  
+
   useEffect(() => {
     console.log("new Taskslist", tasksList)
     console.log("Updating the LocalStorage")
     localStorage.setItem('tasksList', JSON.stringify(tasksList));
   }, [tasksList])
 
-  const deleteTask = id => setTasksList(tasksList.filter(el => el.id !== id))
+
+  const deleteTask = id => {
+    console.log(`Deleting the task with id ${id}`)
+    setTasksList(tasksList.filter(el => el.id !== id))
+  }
 
   // Load a set of example tasks from a json file
   useEffect(() => setTasksList(exampleTasks), [])
@@ -38,8 +36,12 @@ export default function App() {
   return (
     <div>
       <h2>Time Tracker application</h2>
-      <PanelInputs createNewTask={createNewTask} />
-      <PanelData tasksList={tasksList} deleteTask={deleteTask} />
+      <PanelInputs
+        createNewTask={createNewTask} />
+      <PanelData
+        tasksList={tasksList}
+        editTask={editTask}
+        deleteTask={deleteTask} />
     </div>
   )
 }
