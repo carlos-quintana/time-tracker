@@ -1,15 +1,15 @@
-const PanelData = ({ tasksList, deleteTask }) => {
+import DisplayTaskRow from "./DisplayTaskRow";
     return (
-        < ul >
+        <div>
             {
                 tasksList.map((task, i) =>
-                    <>
-                        <li key={i}>{task.duration} | {task.name}</li>
-                        <button onClick={() => deleteTask(task.id)}>X</button>
-                    </>
+                    <DisplayTaskRow
+                        key={i}
+                        task={task}
+                        deleteTask={() => deleteTask(task.id)} />
                 )
             }
-        </ul >
+        </div>
     );
 }
 
