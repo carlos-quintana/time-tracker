@@ -1,4 +1,5 @@
-    const DisplayTaskRow = ({ task: { id, name, duration }, deleteTask }) => {
+import { secondsToFormattedHMS } from "../helpers/timeConversion"
+
     const handleDeleteTask = () => {
         deleteTask(id)
     }
@@ -9,7 +10,7 @@
             {/* Task name */}
                 <span> {name}</span>
             | | |
-                <span> {duration}s</span>
+                <span> {secondsToFormattedHMS(duration)}</span>
             <button
                 onClick={() => handleDeleteTask()}>
                 Eliminar

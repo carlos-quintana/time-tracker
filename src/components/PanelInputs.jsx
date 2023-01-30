@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import TimerControls from "./TimerControls"
+import { secondsToFormattedHMS } from "../helpers/timeConversion"
 
 // This next variables are used for debugging the timer
 const TIMER_INCREMENT = 1
@@ -40,7 +41,7 @@ const PanelInputs = ({ createNewTask }) => {
     return (
         <div>
             {/* Timer Display */}
-            <p>Seconds elapsed: {seconds}</p>
+            <p>Time elapsed: {secondsToFormattedHMS(seconds)}s</p>
             {/* New Task Input */}
             <form onSubmit={handleSubmitNewTask}>
                 <input id="newTaskInput"
