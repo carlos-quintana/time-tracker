@@ -1,4 +1,7 @@
 import DisplayTaskRow from "./DisplayTaskRow";
+
+const PanelData = ({ tasksList, editTask, deleteTask }) => {
+
     return (
         <div>
             {
@@ -6,7 +9,8 @@ import DisplayTaskRow from "./DisplayTaskRow";
                     <DisplayTaskRow
                         key={i}
                         task={task}
-                        deleteTask={() => deleteTask(task.id)} />
+                        deleteTask={() => deleteTask(task.id)}
+                        editTask={editTask} />
                 )
             }
         </div>

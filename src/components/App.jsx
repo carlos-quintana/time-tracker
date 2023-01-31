@@ -24,6 +24,11 @@ export default function App() {
     localStorage.setItem('tasksList', JSON.stringify(tasksList));
   }, [tasksList])
 
+  const editTask = (idEdit, newTask) => {
+    console.log(`Editing the task with id ${idEdit}`)
+    console.log(newTask)
+    setTasksList(tasksList.map(task => task.id === idEdit ? newTask : task))
+  }
 
   const deleteTask = id => {
     console.log(`Deleting the task with id ${id}`)
