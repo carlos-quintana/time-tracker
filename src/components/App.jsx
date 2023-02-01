@@ -1,52 +1,52 @@
 import React, { useState, useEffect } from "react"
-import exampleTasks from "../exampleTasks.json"
+import exampleEntries from "../exampleEntries.json"
 import PanelData from "./PanelData"
 import PanelInputs from "./PanelInputs"
 
 export default function App() {
   // For the time being the LocalStorage will be used a data base
-  const [tasksList, setTasksList] = useState([])
+  const [entriesList, setEntriesList] = useState([])
 
   // Function that acts as the Create data whenever the new task input is submitted
-  const createNewTask = (name, duration) => {
-    console.log("Inside createTask", tasksList)
-    let newTaskObject = {
+  const createNewEntry = (name, duration) => {
+    console.log("Inside createNewEntry", entriesList)
+    let newEntryObject = {
       id: Date.now(),
       name: name,
       duration: duration
     }
-    setTasksList([...tasksList, newTaskObject])
+    setEntriesList([...entriesList, newEntryObject])
   }
 
   useEffect(() => {
-    console.log("new Taskslist", tasksList)
+    console.log("new entriesList", entriesList)
     console.log("Updating the LocalStorage")
-    localStorage.setItem('tasksList', JSON.stringify(tasksList));
-  }, [tasksList])
+    localStorage.setItem('entriesList', JSON.stringify(entriesList));
+  }, [entriesList])
 
-  const editTask = (idEdit, newTask) => {
-    console.log(`Editing the task with id ${idEdit}`)
-    console.log(newTask)
-    setTasksList(tasksList.map(task => task.id === idEdit ? newTask : task))
+  const editEntry = (idEdit, newEntry) => {
+    console.log(`Editing the entry with id ${idEdit}`)
+    console.log(newEntry)
+    setEntriesList(entriesList.map(entry => entry.id === idEdit ? newEntry : entry))
   }
 
-  const deleteTask = id => {
-    console.log(`Deleting the task with id ${id}`)
-    setTasksList(tasksList.filter(el => el.id !== id))
+  const deleteEntry = id => {
+    console.log(`Deleting the entry with id ${id}`)
+    setEntriesList(entriesList.filter(el => el.id !== id))
   }
 
   // Load a set of example tasks from a json file
-  useEffect(() => setTasksList(exampleTasks), [])
+  useEffect(() => setEntriesList(exampleEntries), [])
 
   return (
     <div>
       <h2>Time Tracker application</h2>
       <PanelInputs
-        createNewTask={createNewTask} />
+        createNewEntry={createNewEntry} />
       <PanelData
-        tasksList={tasksList}
-        editTask={editTask}
-        deleteTask={deleteTask} />
+        entriesList={entriesList}
+        editEntry={editEntry}
+        deleteEntry={deleteEntry} />
     </div>
   )
 }

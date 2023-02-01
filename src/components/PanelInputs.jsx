@@ -6,11 +6,11 @@ import { secondsToFormattedHMS } from "../helpers/timeConversion"
 const TIMER_INCREMENT = 1
 const TIMER_INTERVAL_MS = 25 // TODO: Reset to 1000 ms
 
-const PanelInputs = ({ createNewTask }) => {
+const PanelInputs = ({ createNewEntry }) => {
     // Holds the current amount of seconds the timer has counted
     const [seconds, setSeconds] = useState(0)
-    // These functions belong to the new task form
-    const [newTask, setNewTask] = useState("")
+    // These functions belong to the new entry form
+    const [newEntry, setNewEntry] = useState("")
     // Keeps track of the state of the timer: it's running or it's stopped or it's zero
     const [timerStatus, setTimerStatus] = useState("reset");
 
@@ -27,12 +27,12 @@ const PanelInputs = ({ createNewTask }) => {
         return () => clearInterval(timerSetInterval);
     }, [timerStatus])
 
-    const handleSubmitNewTask = event => {
+    const handleSubmitNewEntry = event => {
         event.preventDefault()
-        // Submit the new task
-        createNewTask(newTask, seconds)
+        // Submit the new entry
+        createNewEntry(newEntry, seconds)
         // Reset the form
-        setNewTask("")
+        setNewEntry("")
         resetTimer()
     }
 
@@ -42,20 +42,20 @@ const PanelInputs = ({ createNewTask }) => {
         <div>
             {/* Timer Display */}
             <p>Time elapsed: {secondsToFormattedHMS(seconds)}s</p>
-            {/* New Task Input */}
-            <form onSubmit={handleSubmitNewTask}>
-                <input id="newTaskInput"
-                    name="newTaskInput"
+            {/* New Entry Input */}
+            <form onSubmit={handleSubmitNewEntry}>
+                <input id="newEntryInput"
+                    name="newEntryInput"
                     type="text"
-                    value={newTask}
-                    onChange={event => setNewTask(event.target.value)}
-                    placeholder="Input your task" />
-                <input id="submitNewTask"
-                    name="submitNewTask"
+                    value={newEntry}
+                    onChange={event => setNewEntry(event.target.value)}
+                    placeholder="Input what you're working on" />
+                <input id="submitNewEntry"
+                    name="submitNewEntry"
                     type="submit"
                     value="Submit"
                     // Only allow submissions when the timer is stopped and there is text in the input field
-                    disabled={!(timerStatus === "stopped") || (newTask === "")} />
+                    disabled={!(timerStatus === "stopped") || (newEntry === "")} />
             </form>
             <TimerControls
                 timerStatus={timerStatus}

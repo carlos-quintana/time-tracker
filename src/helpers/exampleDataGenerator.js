@@ -59,7 +59,7 @@ for (let i = 1; i <= NUM_ENTRIES; i++) {
     console.log("New entry interval: ", newEntryInterval)
     examples.push({
         id: i,
-        // For the entry name just put one of the tasks from the pool0
+        // For the entry name just put one of the tasks from the pool
         name: `Task ${taskAssigned}`,
         duration: newEntryInterval[1]-newEntryInterval[0],
         intervals: newEntryInterval,
@@ -67,7 +67,7 @@ for (let i = 1; i <= NUM_ENTRIES; i++) {
         formattedIntervals: [new Date(newEntryInterval[0]),new Date(newEntryInterval[1])]
     })
 
-    // Chain the next task with the last pointer from the previous one
+    // Chain the next entry with the last pointer from the previous one
     timestampPointer = newEntryInterval[1] + Math.floor(Math.random() * MIN_GAP_TIME);
     console.log(`timestampPointer: ${timestampPointer}`)
     console.log(`hour timestampPointer: ${(new Date(timestampPointer)).getHours()}`)

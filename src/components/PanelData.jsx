@@ -1,16 +1,16 @@
-import DisplayTaskRow from "./DisplayTaskRow";
+import DisplayEntryRow from "./DisplayEntryRow";
 
-const PanelData = ({ tasksList, editTask, deleteTask }) => {
+const PanelData = ({ entriesList, editEntry, deleteEntry }) => {
 
     return (
         <div>
             {
-                tasksList.map((task, i) =>
-                    <DisplayTaskRow
+                entriesList.map((entry, i) =>
+                    <DisplayEntryRow
                         key={i}
-                        task={task}
-                        deleteTask={() => deleteTask(task.id)}
-                        editTask={editTask} />
+                        entry={entry}
+                        deleteEntry={() => deleteEntry(entry.id)}
+                        editEntry={editEntry} />
                 )
             }
         </div>

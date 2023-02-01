@@ -1,22 +1,22 @@
 import { secondsToFormattedHMS } from "../helpers/timeConversion"
 import React, { useEffect, useState } from "react"
 
-const DisplayTaskRow = ({ task: { id, name, duration }, editTask, deleteTask }) => {
+const DisplayEntryRow = ({ entry: { id, name, duration }, editEntry, deleteEntry }) => {
     // These state variables are kept on the editing forms
     const [editingName, setTempName] = useState(name)
     const [editingDuration, setTempDuration] = useState(duration)
     // With these variables we use conditional rendering to show or hide the editing forms
     const [isEditingName, setIsEditingName] = useState(false)
     const [isEditingTime, setIsEditingTime] = useState(false)
-    // Update the inner task state used for editing, everytime the props change
+    // Update the inner entry state used for editing, everytime the props change
     useEffect(() => {
         setTempName(name)
         setTempDuration(duration)
     }, [name, duration])
-    // When the forms are submitted we check the inputs and then send the new task up in the callbacks
+    // When the forms are submitted we check the inputs and then send the new entry up in the callbacks
     const handleSubmit = event => {
         event.preventDefault()
-        console.log(`An edit has been submitted for the task ${id}`)
+        console.log(`An edit has been submitted for the entry ${id}`)
         if (editingName !== "")
             setIsEditingName(false)
         else
@@ -27,27 +27,27 @@ const DisplayTaskRow = ({ task: { id, name, duration }, editTask, deleteTask }) 
         else
             alert("The name cannot be empty!") // #TODO Implement a better notification
         
-        // If there are no changes we can skip making the call to edit the task as it is not necessary
+        // If there are no changes we can skip making the call to edit the entry as it is not necessary
         if (editingName === name) return
         if (editingDuration === duration) return
         
-        console.log("Submitting an edit task, event: ", event)
-        editTask(id, { id, name: editingName, duration: editingDuration })
+        console.log("Submitting an edit entry, event: ", event)
+        editEntry(id, { id, name: editingName, duration: editingDuration })
     }
 
-    const handleDeleteTask = () => {
-        deleteTask(id)
+    const handleDeleteEntry = () => {
+        deleteEntry(id)
     }
 
     return (
         <div>
             {id}
-            {/* Task name */}
+            {/* Entry name */}
             {isEditingName ?
                 <form onSubmit={event => handleSubmit(event)}>
                     <input
-                        id={`${id}-editTaskName`}
-                        name="editTaskName"
+                        id={`${id}-editEntryName`}
+                        name="editEntryName"
                         type="text"
                         value={editingName}
                         onChange={event => setTempName(event.target.value)}
@@ -62,8 +62,8 @@ const DisplayTaskRow = ({ task: { id, name, duration }, editTask, deleteTask }) 
             {isEditingTime ?
                 <form onSubmit={event => handleSubmit(event)}>
                     <input
-                        id={`${id}-editTaskDuration`}
-                        name="editTaskDuration"
+                        id={`${id}-editEntryDuration`}
+                        name="editEntryDuration"
                         type="text"
                         value={editingDuration}
                         onChange={event => setTempDuration(event.target.value)}
@@ -85,11 +85,11 @@ const DisplayTaskRow = ({ task: { id, name, duration }, editTask, deleteTask }) 
                 Editar duración
             </button>
             <button
-                onClick={() => handleDeleteTask()}>
+                onClick={() => handleDeleteEntry()}>
                 Eliminar
             </button>
         </div>
     );
 }
 
-export default DisplayTaskRow
+export default DisplayEntryRow
