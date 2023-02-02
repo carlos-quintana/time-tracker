@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import TimerControls from "./TimerControls"
 import { secondsToFormattedHMS } from "../helpers/timeConversion"
 
 // This next variables are used for debugging the timer
@@ -11,8 +10,8 @@ const PanelInputs = ({ createNewEntry }) => {
     const [seconds, setSeconds] = useState(0)
     // These functions belong to the new entry form
     const [newEntry, setNewEntry] = useState("")
-    // Keeps track of the state of the timer: it's running or it's stopped or it's zero
-    const [timerStatus, setTimerStatus] = useState("reset");
+    // Keeps track of the state of the timer: it's running or it's stopped 
+    const [timerStatus, setTimerStatus] = useState("stopped");
 
     // Whenever the timer status is changed, it either creates an interval or clears it to keep track of the seconds
     useEffect(() => {
@@ -29,14 +28,14 @@ const PanelInputs = ({ createNewEntry }) => {
 
     const handleSubmitNewEntry = event => {
         event.preventDefault()
+        // Stop the timer
+        setTimerStatus("stopped")
         // Submit the new entry
-        createNewEntry(newEntry, seconds)
+        // createNewEntry(newEntry, seconds)
         // Reset the form
         setNewEntry("")
-        resetTimer()
+        setSeconds(0)
     }
-
-    const resetTimer = () => { setTimerStatus("reset"); setSeconds(0) }
 
     return (
         <div>
@@ -50,18 +49,22 @@ const PanelInputs = ({ createNewEntry }) => {
                     value={newEntry}
                     onChange={event => setNewEntry(event.target.value)}
                     placeholder="Input what you're working on" />
-                <input id="submitNewEntry"
-                    name="submitNewEntry"
-                    type="submit"
-                    value="Submit"
-                    // Only allow submissions when the timer is stopped and there is text in the input field
-                    disabled={!(timerStatus === "stopped") || (newEntry === "")} />
+                <div>
+                    {timerStatus === "stopped" &&
+                        <button onClick={() => setTimerStatus("running")}
+                            // Only allow the timer to start when there is text in the input field
+                            disabled={newEntry.trim() === ""}>
+                            Start
+                        </button>}
+                    {timerStatus === "running" &&
+                        <input id="submitNewEntry"
+                            name="submitNewEntry"
+                            type="submit"
+                            value="Stop"
+                            // Only allow submissions when the timer is stopped and there is text in the input field
+                            disabled={newEntry.trim() === ""} />}
+                </div>
             </form>
-            <TimerControls
-                timerStatus={timerStatus}
-                startTimer={() => setTimerStatus("running")}
-                stopTimer={() => setTimerStatus("stopped")}
-                resetTimer={() => resetTimer()} />
         </div >
     );
 }
