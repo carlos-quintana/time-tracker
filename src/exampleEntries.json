@@ -2,326 +2,301 @@
     {
         "id": 1,
         "name": "Task 5",
-        "duration": 6100000,
-        "intervals": [
-            1672650000001,
-            1672656100001
-        ],
-        "formattedIntervals": [
-            "2023-01-02T09:00:00.001Z",
-            "2023-01-02T10:41:40.001Z"
-        ]
+        "interval": {
+            "start": 1672650000001,
+            "end": 1672656100001
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-02T09:00:00.001Z",
+            "formattedEnd": "2023-01-02T10:41:40.001Z"
+        }
     },
     {
         "id": 2,
         "name": "Task 7",
-        "duration": 7178000,
-        "intervals": [
-            1672656106002,
-            1672663284002
-        ],
-        "formattedIntervals": [
-            "2023-01-02T10:41:46.002Z",
-            "2023-01-02T12:41:24.002Z"
-        ]
+        "interval": {
+            "start": 1672656106002,
+            "end": 1672663284002
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-02T10:41:46.002Z",
+            "formattedEnd": "2023-01-02T12:41:24.002Z"
+        }
     },
     {
         "id": 3,
         "name": "Task 6",
-        "duration": 6600000,
-        "intervals": [
-            1672663404003,
-            1672670004003
-        ],
-        "formattedIntervals": [
-            "2023-01-02T12:43:24.003Z",
-            "2023-01-02T14:33:24.003Z"
-        ]
+        "interval": {
+            "start": 1672663404003,
+            "end": 1672670004003
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-02T12:43:24.003Z",
+            "formattedEnd": "2023-01-02T14:33:24.003Z"
+        }
     },
     {
         "id": 4,
         "name": "Task 1",
-        "duration": 5812000,
-        "intervals": [
-            1672670057004,
-            1672675869004
-        ],
-        "formattedIntervals": [
-            "2023-01-02T14:34:17.004Z",
-            "2023-01-02T16:11:09.004Z"
-        ]
+        "interval": {
+            "start": 1672670057004,
+            "end": 1672675869004
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-02T14:34:17.004Z",
+            "formattedEnd": "2023-01-02T16:11:09.004Z"
+        }
     },
     {
         "id": 5,
         "name": "Task 1",
-        "duration": 7281000,
-        "intervals": [
-            1672675941005,
-            1672683222005
-        ],
-        "formattedIntervals": [
-            "2023-01-02T16:12:21.005Z",
-            "2023-01-02T18:13:42.005Z"
-        ]
+        "interval": {
+            "start": 1672675941005,
+            "end": 1672683222005
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-02T16:12:21.005Z",
+            "formattedEnd": "2023-01-02T18:13:42.005Z"
+        }
     },
     {
         "id": 6,
         "name": "Task 3",
-        "duration": 2031000,
-        "intervals": [
-            1672736400006,
-            1672738431006
-        ],
-        "formattedIntervals": [
-            "2023-01-03T09:00:00.006Z",
-            "2023-01-03T09:33:51.006Z"
-        ]
+        "interval": {
+            "start": 1672736400006,
+            "end": 1672738431006
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-03T09:00:00.006Z",
+            "formattedEnd": "2023-01-03T09:33:51.006Z"
+        }
     },
     {
         "id": 7,
         "name": "Task 3",
-        "duration": 2175000,
-        "intervals": [
-            1672738604007,
-            1672740779007
-        ],
-        "formattedIntervals": [
-            "2023-01-03T09:36:44.007Z",
-            "2023-01-03T10:12:59.007Z"
-        ]
+        "interval": {
+            "start": 1672738604007,
+            "end": 1672740779007
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-03T09:36:44.007Z",
+            "formattedEnd": "2023-01-03T10:12:59.007Z"
+        }
     },
     {
         "id": 8,
         "name": "Task 1",
-        "duration": 4884000,
-        "intervals": [
-            1672740960008,
-            1672745844008
-        ],
-        "formattedIntervals": [
-            "2023-01-03T10:16:00.008Z",
-            "2023-01-03T11:37:24.008Z"
-        ]
+        "interval": {
+            "start": 1672740960008,
+            "end": 1672745844008
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-03T10:16:00.008Z",
+            "formattedEnd": "2023-01-03T11:37:24.008Z"
+        }
     },
     {
         "id": 9,
         "name": "Task 1",
-        "duration": 4070000,
-        "intervals": [
-            1672745847009,
-            1672749917009
-        ],
-        "formattedIntervals": [
-            "2023-01-03T11:37:27.009Z",
-            "2023-01-03T12:45:17.009Z"
-        ]
+        "interval": {
+            "start": 1672745847009,
+            "end": 1672749917009
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-03T11:37:27.009Z",
+            "formattedEnd": "2023-01-03T12:45:17.009Z"
+        }
     },
     {
         "id": 10,
         "name": "Task 1",
-        "duration": 4585000,
-        "intervals": [
-            1672750216010,
-            1672754801010
-        ],
-        "formattedIntervals": [
-            "2023-01-03T12:50:16.010Z",
-            "2023-01-03T14:06:41.010Z"
-        ]
+        "interval": {
+            "start": 1672750216010,
+            "end": 1672754801010
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-03T12:50:16.010Z",
+            "formattedEnd": "2023-01-03T14:06:41.010Z"
+        }
     },
     {
         "id": 11,
         "name": "Task 5",
-        "duration": 3455000,
-        "intervals": [
-            1672754869011,
-            1672758324011
-        ],
-        "formattedIntervals": [
-            "2023-01-03T14:07:49.011Z",
-            "2023-01-03T15:05:24.011Z"
-        ]
+        "interval": {
+            "start": 1672754869011,
+            "end": 1672758324011
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-03T14:07:49.011Z",
+            "formattedEnd": "2023-01-03T15:05:24.011Z"
+        }
     },
     {
         "id": 12,
         "name": "Task 1",
-        "duration": 6074000,
-        "intervals": [
-            1672758325012,
-            1672764399012
-        ],
-        "formattedIntervals": [
-            "2023-01-03T15:05:25.012Z",
-            "2023-01-03T16:46:39.012Z"
-        ]
+        "interval": {
+            "start": 1672758325012,
+            "end": 1672764399012
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-03T15:05:25.012Z",
+            "formattedEnd": "2023-01-03T16:46:39.012Z"
+        }
     },
     {
         "id": 13,
         "name": "Task 6",
-        "duration": 2413000,
-        "intervals": [
-            1672764463013,
-            1672766876013
-        ],
-        "formattedIntervals": [
-            "2023-01-03T16:47:43.013Z",
-            "2023-01-03T17:27:56.013Z"
-        ]
+        "interval": {
+            "start": 1672764463013,
+            "end": 1672766876013
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-03T16:47:43.013Z",
+            "formattedEnd": "2023-01-03T17:27:56.013Z"
+        }
     },
     {
         "id": 14,
         "name": "Task 2",
-        "duration": 4460000,
-        "intervals": [
-            1672767024014,
-            1672771484014
-        ],
-        "formattedIntervals": [
-            "2023-01-03T17:30:24.014Z",
-            "2023-01-03T18:44:44.014Z"
-        ]
+        "interval": {
+            "start": 1672767024014,
+            "end": 1672771484014
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-03T17:30:24.014Z",
+            "formattedEnd": "2023-01-03T18:44:44.014Z"
+        }
     },
     {
         "id": 15,
         "name": "Task 1",
-        "duration": 2227000,
-        "intervals": [
-            1672822800015,
-            1672825027015
-        ],
-        "formattedIntervals": [
-            "2023-01-04T09:00:00.015Z",
-            "2023-01-04T09:37:07.015Z"
-        ]
+        "interval": {
+            "start": 1672822800015,
+            "end": 1672825027015
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-04T09:00:00.015Z",
+            "formattedEnd": "2023-01-04T09:37:07.015Z"
+        }
     },
     {
         "id": 16,
         "name": "Task 4",
-        "duration": 7122000,
-        "intervals": [
-            1672825226016,
-            1672832348016
-        ],
-        "formattedIntervals": [
-            "2023-01-04T09:40:26.016Z",
-            "2023-01-04T11:39:08.016Z"
-        ]
+        "interval": {
+            "start": 1672825226016,
+            "end": 1672832348016
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-04T09:40:26.016Z",
+            "formattedEnd": "2023-01-04T11:39:08.016Z"
+        }
     },
     {
         "id": 17,
         "name": "Task 7",
-        "duration": 5968000,
-        "intervals": [
-            1672832551017,
-            1672838519017
-        ],
-        "formattedIntervals": [
-            "2023-01-04T11:42:31.017Z",
-            "2023-01-04T13:21:59.017Z"
-        ]
+        "interval": {
+            "start": 1672832551017,
+            "end": 1672838519017
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-04T11:42:31.017Z",
+            "formattedEnd": "2023-01-04T13:21:59.017Z"
+        }
     },
     {
         "id": 18,
         "name": "Task 3",
-        "duration": 2128000,
-        "intervals": [
-            1672838542018,
-            1672840670018
-        ],
-        "formattedIntervals": [
-            "2023-01-04T13:22:22.018Z",
-            "2023-01-04T13:57:50.018Z"
-        ]
+        "interval": {
+            "start": 1672838542018,
+            "end": 1672840670018
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-04T13:22:22.018Z",
+            "formattedEnd": "2023-01-04T13:57:50.018Z"
+        }
     },
     {
         "id": 19,
         "name": "Task 4",
-        "duration": 5108000,
-        "intervals": [
-            1672840716019,
-            1672845824019
-        ],
-        "formattedIntervals": [
-            "2023-01-04T13:58:36.019Z",
-            "2023-01-04T15:23:44.019Z"
-        ]
+        "interval": {
+            "start": 1672840716019,
+            "end": 1672845824019
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-04T13:58:36.019Z",
+            "formattedEnd": "2023-01-04T15:23:44.019Z"
+        }
     },
     {
         "id": 20,
         "name": "Task 5",
-        "duration": 4670000,
-        "intervals": [
-            1672846050020,
-            1672850720020
-        ],
-        "formattedIntervals": [
-            "2023-01-04T15:27:30.020Z",
-            "2023-01-04T16:45:20.020Z"
-        ]
+        "interval": {
+            "start": 1672846050020,
+            "end": 1672850720020
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-04T15:27:30.020Z",
+            "formattedEnd": "2023-01-04T16:45:20.020Z"
+        }
     },
     {
         "id": 21,
         "name": "Task 3",
-        "duration": 6538000,
-        "intervals": [
-            1672850730021,
-            1672857268021
-        ],
-        "formattedIntervals": [
-            "2023-01-04T16:45:30.021Z",
-            "2023-01-04T18:34:28.021Z"
-        ]
+        "interval": {
+            "start": 1672850730021,
+            "end": 1672857268021
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-04T16:45:30.021Z",
+            "formattedEnd": "2023-01-04T18:34:28.021Z"
+        }
     },
     {
         "id": 22,
         "name": "Task 4",
-        "duration": 2072000,
-        "intervals": [
-            1672909200022,
-            1672911272022
-        ],
-        "formattedIntervals": [
-            "2023-01-05T09:00:00.022Z",
-            "2023-01-05T09:34:32.022Z"
-        ]
+        "interval": {
+            "start": 1672909200022,
+            "end": 1672911272022
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-05T09:00:00.022Z",
+            "formattedEnd": "2023-01-05T09:34:32.022Z"
+        }
     },
     {
         "id": 23,
         "name": "Task 3",
-        "duration": 6819000,
-        "intervals": [
-            1672911461023,
-            1672918280023
-        ],
-        "formattedIntervals": [
-            "2023-01-05T09:37:41.023Z",
-            "2023-01-05T11:31:20.023Z"
-        ]
+        "interval": {
+            "start": 1672911461023,
+            "end": 1672918280023
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-05T09:37:41.023Z",
+            "formattedEnd": "2023-01-05T11:31:20.023Z"
+        }
     },
     {
         "id": 24,
         "name": "Task 6",
-        "duration": 4008000,
-        "intervals": [
-            1672918336024,
-            1672922344024
-        ],
-        "formattedIntervals": [
-            "2023-01-05T11:32:16.024Z",
-            "2023-01-05T12:39:04.024Z"
-        ]
+        "interval": {
+            "start": 1672918336024,
+            "end": 1672922344024
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-05T11:32:16.024Z",
+            "formattedEnd": "2023-01-05T12:39:04.024Z"
+        }
     },
     {
         "id": 25,
         "name": "Task 4",
-        "duration": 4524000,
-        "intervals": [
-            1672922642025,
-            1672927166025
-        ],
-        "formattedIntervals": [
-            "2023-01-05T12:44:02.025Z",
-            "2023-01-05T13:59:26.025Z"
-        ]
+        "interval": {
+            "start": 1672922642025,
+            "end": 1672927166025
+        },
+        "formattedInterval": {
+            "formattedStart": "2023-01-05T12:44:02.025Z",
+            "formattedEnd": "2023-01-05T13:59:26.025Z"
+        }
     }
 ]
