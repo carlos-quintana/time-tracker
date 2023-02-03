@@ -1,18 +1,27 @@
 import { secondsToFormattedHMS } from "../helpers/timeConversion"
 import React, { useEffect, useState } from "react"
 
-const DisplayEntryRow = ({ entry: { id, name, duration }, editEntry, deleteEntry }) => {
+const DisplayEntryRow = ({ entry: { id, name, interval: { start, end } }, editEntry, deleteEntry }) => {
+
+    
+
+    const [duration, setDuration] = useState(Math.floor((end - start) / 1000))
     // These state variables are kept on the editing forms
     const [editingName, setTempName] = useState(name)
     const [editingDuration, setTempDuration] = useState(duration)
     // With these variables we use conditional rendering to show or hide the editing forms
     const [isEditingName, setIsEditingName] = useState(false)
     const [isEditingTime, setIsEditingTime] = useState(false)
+
+    // Update the duration calculated from the difference of the two timestamps of the entry
+    useEffect(() => setDuration(Math.floor((end - start) / 1000))
+        , [start, end])
     // Update the inner entry state used for editing, everytime the props change
     useEffect(() => {
         setTempName(name)
         setTempDuration(duration)
     }, [name, duration])
+
     // When the forms are submitted we check the inputs and then send the new entry up in the callbacks
     const handleSubmit = event => {
         event.preventDefault()
@@ -61,7 +70,7 @@ const DisplayEntryRow = ({ entry: { id, name, duration }, editEntry, deleteEntry
                 }
             </div>
             <div>
-                {(new Date(interval[0])).toUTCString()}-{(new Date(interval[1])).toUTCString()}
+                {(new Date(start)).toUTCString()}-{(new Date(end)).toUTCString()}
             </div>
             <div>
                 {isEditingTime ?
