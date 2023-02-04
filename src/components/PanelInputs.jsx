@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { secondsToFormattedHMS } from "../helpers/timeConversion"
 
 // This next variables are used for debugging the timer
@@ -6,18 +6,22 @@ const TIMER_INCREMENT = 1
 const TIMER_INTERVAL_MS = 25 // TODO: Reset to 1000 ms
 
 const PanelInputs = ({ createNewEntry }) => {
-    // Holds the current amount of seconds the timer has counted
+    // Holds the current amount of seconds the timer will display
     const [seconds, setSeconds] = useState(0)
     // These functions belong to the new entry form
     const [newEntry, setNewEntry] = useState("")
     // Keeps track of the state of the timer: it's running or it's stopped 
     const [timerStatus, setTimerStatus] = useState("stopped");
 
+    let starterTimestamp = useRef(0);
+
     // Whenever the timer status is changed, it either creates an interval or clears it to keep track of the seconds
     useEffect(() => {
         console.log("Timer status: ", timerStatus)
         let timerSetInterval = null;
         if (timerStatus === "running") {
+            starterTimestamp.current = Date.now();
+            console.log(`The timer is running now, the starterTimestamp will be ${starterTimestamp.current}`)
             timerSetInterval = setInterval(() => {
                 setSeconds(prevTime => prevTime + TIMER_INCREMENT)
             }, TIMER_INTERVAL_MS);
@@ -30,8 +34,17 @@ const PanelInputs = ({ createNewEntry }) => {
         event.preventDefault()
         // Stop the timer
         setTimerStatus("stopped")
+        console.log("Stopped the timer")
+        // This is the real amount of ms in between the timer being started and stopped
+        let rawDuration = Date.now() - starterTimestamp.current
+        // However, given that we can modify the speed of the timer for testing purpouses we will take that
+        // into account and adjust the timestamps for this duration. In a normal setting this adjustment would be 1.0
+        let endTimestamp = starterTimestamp.current + (rawDuration * TIMER_INCREMENT * (1000 / TIMER_INTERVAL_MS))
         // Submit the new entry
-        // createNewEntry(newEntry, seconds)
+        console.log(`The value of starterTimestamp is ${starterTimestamp.current}`)
+        console.log(`The value of the ending timestamp is ${endTimestamp}`)
+        console.log(`For a duration value of  ${rawDuration}`)
+        createNewEntry(newEntry, { start: starterTimestamp.current, end: endTimestamp })
         // Reset the form
         setNewEntry("")
         setSeconds(0)
