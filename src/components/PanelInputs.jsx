@@ -1,19 +1,10 @@
-import React, { useState, useEffect, useRef } from "react"
-import { secondsToFormattedHMS } from "../helpers/timeConversion"
-
-// This next variables are used for debugging the timer
+import React, { useState } from "react"
+import InputCustomInterval from "./InputCustomInterval"
 import InputTimer from "./InputTimer"
-const TIMER_INTERVAL_MS = 25 // TODO: Reset to 1000 ms
 
 const PanelInputs = ({ createNewEntry }) => {
-    // Holds the current amount of seconds the timer will display
-    const [seconds, setSeconds] = useState(0)
-    // These functions belong to the new entry form
-    const [newEntry, setNewEntry] = useState("")
-    // Keeps track of the state of the timer: it's running or it's stopped 
-    const [timerStatus, setTimerStatus] = useState("stopped");
 
-    let starterTimestamp = useRef(0);
+    const [inputMethod, setInputMethod] = useState("timer")
 
     const handleNewEntrySubmitted = (entryName, interval) => {
         // TODO
@@ -22,9 +13,22 @@ const PanelInputs = ({ createNewEntry }) => {
 
     return (
         <div>
+            <form name="inputTypeSelector" onChange={event => setInputMethod(event.target.value)}>
+                <input type="radio" name="inputSelector" id="inputSelectorTimer" value="timer" defaultChecked/>
+                <label htmlFor="inputSelectorTimer">Timer</label>
+                <input type="radio" name="inputSelector" id="inputSelectorCustom" value="custon"/>
+                <label htmlFor="inputSelectorCustom">Custom dates and time</label>
+            </form>
+            {
+                inputMethod === "timer" ?
                     <InputTimer
                         handleSubmit={handleNewEntrySubmitted}
                     />
+                    :
+                    <InputCustomInterval
+                        handleSubmit={handleNewEntrySubmitted}
+                    />
+            }
         </div>
     )
 }
