@@ -12,7 +12,7 @@ const DisplayEntryRow = ({ entry, editEntry, deleteEntry }) => {
 
     const handleIntervalUpdate = newInterval => {
         console.log(`Updating the interval of the entry ${entry.id}, 
-                     previous interval ${entry.start}-${entry.end}, 
+                     previous interval ${entry.interval.start}-${entry.interval.end}, 
                      new interval ${newInterval.start}-${newInterval.end}`)
         editEntry(entry.id, { ...entry, interval: newInterval })
     }
@@ -33,9 +33,7 @@ const DisplayEntryRow = ({ entry, editEntry, deleteEntry }) => {
             </div>
             {/* Entry start and end datetimes */}
             <div>
-                {(new Date(entry.interval.start)).toUTCString()}
-                -
-                {(new Date(entry.interval.end)).toUTCString()}
+                {(new Date(entry.interval.start)).toLocaleString()} - {(new Date(entry.interval.end)).toLocaleString()}
                 <button disabled>
                     Editar intervalo
                 </button>
