@@ -7,10 +7,15 @@ import PanelInputs from "./PanelInputs"
 // does not run when the component is mounted, as it would keep overwriting the Local Storage with empty data.
 // This will also work when in Strict Mode
 const INITIAL_ENTRIES_STATE = null
+const INITIAL_CURRENT_ENTRY_STATE = false
 
 export default function App() {
   // For the time being the LocalStorage will be used a data base
   const [entriesList, setEntriesList] = useState(INITIAL_ENTRIES_STATE)
+  // This currentTask referes to the task that is running in the timer, and the program will keep track
+  // even when it's closed, as using intervals we only need to know when it started.
+  // This currentTask will have the shape of {name: String, timestampStart: int}
+  const [currentRunningTask, setCurrentRunningTask] = useState(INITIAL_CURRENT_ENTRY_STATE)
 
   // At the first loading of the app we will perform a check on the Local storage:
   // If there is no data in the Local storage it means it's the first time of the user in the page
@@ -20,8 +25,10 @@ export default function App() {
   useEffect(() => {
     console.log("> Entering the initial useEffect")
     let localStorageEntries = localStorage.getItem("entriesList")
+    let localStorageCurrentTask = localStorage.getItem("currentTask")
     console.log("Current stuff in the local Storage:")
     console.log({ localStorageEntries })
+    console.log({ localStorageCurrentTask })
     if (localStorageEntries === null) {
       console.log("+ The stuff in local storage is NULL, will store example tasks:")
       localStorage.clear()
@@ -36,6 +43,7 @@ export default function App() {
     else {
       console.log("- The stuff in local storage is NOT NULL, will update state with its current tasks:")
       setEntriesList(JSON.parse(localStorageEntries))
+      setCurrentRunningTask(JSON.parse(localStorageCurrentTask))
     }
     console.log("< Exiting the initial useEffect")
   }, [])
@@ -43,17 +51,30 @@ export default function App() {
   // Everytime the list of entries is updated, the Local Storage shall be updated as well. This includes
   // actions of creating, editing or removing entries. This is where REST operations will go
   useEffect(() => {
-    console.log("> Entering the entriesList useEffect")
-    console.log({ localStorageEntries: localStorage.getItem("entriesList") })
-    console.log({ currentStateEntries: entriesList })
+    // console.log("> Entering the entriesList useEffect")
+    // console.log({ localStorageEntries: localStorage.getItem("entriesList") })
+    // console.log({ currentStateEntries: entriesList })
     // The first time the component is mounted we will ignore this hook and not set any data in local storage
     if (entriesList !== INITIAL_ENTRIES_STATE) {
       localStorage.setItem('entriesList', JSON.stringify(entriesList));
-      console.log({ localStorageEntries: localStorage.getItem("entriesList") })
-      console.log({ currentStateEntries: entriesList })
+      // console.log({ localStorageEntries: localStorage.getItem("entriesList") })
+      // console.log({ currentStateEntries: entriesList })
     }
-    console.log("< Exiting the entriesList useEffect")
+    // console.log("< Exiting the entriesList useEffect")
   }, [entriesList])
+
+  useEffect(() => {
+    console.log("> (App) Entering the currentRunningTask useEffect")
+    console.log({ currentTask: localStorage.getItem("currentTask") })
+    console.log({ currentRunningTask: currentRunningTask })
+    // The first time the component is mounted we will ignore this hook and not set any data in local storage
+    if (currentRunningTask !== INITIAL_CURRENT_ENTRY_STATE) {
+      localStorage.setItem('currentTask', JSON.stringify(currentRunningTask));
+      console.log({ currentTask: localStorage.getItem("currentTask") })
+      console.log({ currentRunningTask: currentRunningTask })
+    }
+    console.log("< (App) Exiting the currentRunningTask useEffect")
+  }, [currentRunningTask])
 
   // Function that acts as the Create data whenever the new task input is submitted
   const createNewEntry = (entryName, entryInterval) => {
@@ -89,11 +110,15 @@ export default function App() {
     <div>
       <h2>Time Tracker application</h2>
       <PanelInputs
-        createNewEntry={createNewEntry} />
+        createNewEntry={createNewEntry}
+        currentRunningTask={currentRunningTask}
+        setCurrentRunningTask={setCurrentRunningTask}
+      />
       <PanelData
         entriesList={entriesList !== INITIAL_ENTRIES_STATE ? entriesList : []}
         editEntry={editEntry}
-        deleteEntry={deleteEntry} />
+        deleteEntry={deleteEntry}
+      />
       <button onClick={resetAppData}> Reset the LocalStorage </button>
     </div>
   )

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import InputCustomInterval from "./InputCustomInterval"
 import InputTimer from "./InputTimer"
 
-const PanelInputs = ({ createNewEntry }) => {
+const PanelInputs = ({ createNewEntry, currentRunningTask, setCurrentRunningTask }) => {
 
     const [inputMethod, setInputMethod] = useState("timer")
 
@@ -23,6 +23,8 @@ const PanelInputs = ({ createNewEntry }) => {
                 inputMethod === "timer" ?
                     <InputTimer
                         handleSubmit={handleNewEntrySubmitted}
+                        currentRunningTask={currentRunningTask}
+                        setCurrentRunningTask={setCurrentRunningTask}
                     />
                     :
                     <InputCustomInterval
