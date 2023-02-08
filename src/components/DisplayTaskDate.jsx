@@ -7,7 +7,7 @@ const DisplayTaskDate = ({ id, interval: { start, end }, handleIntervalUpdate, i
     const [tempTimestamp, setTempTimestamp] = useState(intervalPosition === "start" ? start : end)
     const [isEditingDate, setIsEditingDate] = useState(false)
 
-    useEffect(() => setTempTimestamp(intervalPosition === "start" ? start : end), [start, end])
+    useEffect(() => setTempTimestamp(intervalPosition === "start" ? start : end), [start, end, intervalPosition])
 
     const handleInputChange = event => {
         let formattedDate = dateSnakeToTimestamp(event.target.value, tempTimestamp)
@@ -65,16 +65,20 @@ const DisplayTaskDate = ({ id, interval: { start, end }, handleIntervalUpdate, i
                         />
                     </form>
                     :
-                    <span>
-                        {timestampToDateToDisplay(tempTimestamp)}
-                    </span>
+                    <button
+                        onClick={() => setIsEditingDate(true)}
+                    >
+                        <span>
+                            {timestampToDateToDisplay(tempTimestamp)}
+                        </span>
+                    </button>
             }
-            <button
+            {/* <button
                 onClick={() => setIsEditingDate(true)}
                 disabled={isEditingDate}
             >
                 Editar date
-            </button>
+            </button> */}
         </>
     )
 }

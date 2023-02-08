@@ -43,16 +43,21 @@ const DisplayTaskDuration = ({ id, interval: { start, end }, handleIntervalUpdat
                         />
                     </form>
                     :
-                    <span>
-                        {secondsToFormattedHMS(duration)}
-                    </span>
+
+                    <button
+                        onClick={() => setIsEditingDuration(true)}
+                    >
+                        <span>
+                            {secondsToFormattedHMS(duration)}
+                        </span>
+                    </button>
             }
-            <button
+            {/* <button
                 onClick={() => setIsEditingDuration(true)}
                 disabled={isEditingDuration}
             >
                 Editar duración
-            </button>
+            </button> */}
         </>
     )
 }

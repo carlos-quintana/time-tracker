@@ -28,7 +28,7 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
     }
 
     return (
-        <div>
+        <div className="task-row">
             {/* Task id */}
             {task.id}
             {/* Task name */}
@@ -40,9 +40,9 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
                 />
             </div>
             {/* Task start and end datetimes */}
-            <div>
+            {/* <div>
                 {(new Date(task.interval.start)).toLocaleString()} - {(new Date(task.interval.end)).toLocaleString()}
-            </div>
+            </div> */}
             <div>
                 <DisplayTaskDate
                     id={task.id}

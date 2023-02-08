@@ -7,7 +7,7 @@ const DisplayTaskTime = ({ id, interval: { start, end }, handleIntervalUpdate, i
     const [tempTimestamp, setTempTimestamp] = useState(intervalPosition === "start" ? start : end)
     const [isEditingTime, setIsEditingTime] = useState(false)
 
-    useEffect(() => setTempTimestamp(intervalPosition === "start" ? start : end), [start, end])
+    useEffect(() => setTempTimestamp(intervalPosition === "start" ? start : end), [start, end, intervalPosition])
 
     const handleInputChange = event => {
         // console.log(`~An edit for the ${intervalPosition === "start" ? "start" : "end"} time field has been made for the task ${id}`)
@@ -67,16 +67,20 @@ const DisplayTaskTime = ({ id, interval: { start, end }, handleIntervalUpdate, i
                         />
                     </form>
                     :
-                    <span>
-                        {timestampToTimeToDisplay(tempTimestamp)}
-                    </span>
+                    <button
+                        onClick={() => setIsEditingTime(true)}
+                    >
+                        <span>
+                            {timestampToTimeToDisplay(tempTimestamp)}
+                        </span>
+                    </button>
             }
-            <button
+            {/* <button
                 onClick={() => setIsEditingTime(true)}
                 disabled={isEditingTime}
             >
                 Editar time
-            </button>
+            </button> */}
         </>
     )
 }

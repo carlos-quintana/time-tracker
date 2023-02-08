@@ -15,6 +15,7 @@ const DisplayTaskName = ({ id, name, handleNameUpdate }) => {
         }
         if (tempName === "") {
             alert("The name cannot be empty") // #TODO Implement a better notification
+            setTempName(name)
             return
         }
         // Edit submission
@@ -40,16 +41,20 @@ const DisplayTaskName = ({ id, name, handleNameUpdate }) => {
                         />
                     </form>
                     :
-                    <span>
-                        {name}
-                    </span>
+                    <button
+                        onClick={() => setIsEditingName(true)}
+                    >
+                        <span>
+                            {name}
+                        </span>
+                    </button>
             }
-            <button
+            {/* <button
                 onClick={() => setIsEditingName(true)}
                 disabled={isEditingName}
             >
                 Editar nombre
-            </button>
+            </button> */}
         </>
     )
 }
