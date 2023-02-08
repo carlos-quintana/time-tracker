@@ -1,6 +1,6 @@
 import DisplayEntryRow from "./DisplayEntryRow";
 
-const PanelData = ({ entriesList, editEntry, deleteEntry }) => {
+const PanelData = ({ entriesList, editEntry, deleteEntry, currentRunningTask, setCurrentRunningTask }) => {
 
     return (
         <div>
@@ -10,7 +10,10 @@ const PanelData = ({ entriesList, editEntry, deleteEntry }) => {
                         key={i}
                         entry={entry}
                         deleteEntry={() => deleteEntry(entry.id)}
-                        editEntry={editEntry} />
+                        editEntry={editEntry}
+                        currentRunningTask={currentRunningTask}
+                        setCurrentRunningTask={setCurrentRunningTask}
+                    />
                 )
             }
         </div>

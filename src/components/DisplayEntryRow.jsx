@@ -4,7 +4,7 @@ import DisplayEntryDuration from "./DisplayEntryDuration"
 import DisplayEntryDate from "./DisplayEntryDate"
 import DisplayEntryTime from "./DisplayEntryTime"
 
-const DisplayEntryRow = ({ entry, editEntry, deleteEntry }) => {
+const DisplayEntryRow = ({ entry, editEntry, deleteEntry, currentRunningTask, setCurrentRunningTask }) => {
 
     const handleNameUpdate = newName => {
         console.log(`Updating the name of the entry ${entry.id},
@@ -21,6 +21,13 @@ const DisplayEntryRow = ({ entry, editEntry, deleteEntry }) => {
 
     const handleDeleteEntry = () => deleteEntry(entry.id)
 
+    const handleRestartEntry = () => {
+        if (currentRunningTask) 
+            alert("There is an active task currently running in the timer. To restart this task please stop the active task")  // <- Change for a modal in the future
+         else 
+         setCurrentRunningTask({ name: entry.name, starterTimestamp: Date.now() })
+    }
+
     return (
         <div>
             {/* Entry id */}
@@ -36,9 +43,6 @@ const DisplayEntryRow = ({ entry, editEntry, deleteEntry }) => {
             {/* Entry start and end datetimes */}
             <div>
                 {(new Date(entry.interval.start)).toLocaleString()} - {(new Date(entry.interval.end)).toLocaleString()}
-                <button disabled>
-                    Editar intervalo
-                </button>
             </div>
             <div>
                 <DisplayEntryDate
@@ -83,8 +87,16 @@ const DisplayEntryRow = ({ entry, editEntry, deleteEntry }) => {
             {/* Entry delete button */}
             <button
                 onClick={() => handleDeleteEntry()}
-                disabled={false}>
+                disabled={false}
+            >
                 Delete
+            </button>
+            {/* Restart this entry button */}
+            <button
+                onClick={handleRestartEntry}
+                // disabled={currentRunningTask}
+            >
+                Restart this task
             </button>
         </div>
     );

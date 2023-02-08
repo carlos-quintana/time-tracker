@@ -118,6 +118,8 @@ export default function App() {
         entriesList={entriesList !== INITIAL_ENTRIES_STATE ? entriesList : []}
         editEntry={editEntry}
         deleteEntry={deleteEntry}
+        currentRunningTask={currentRunningTask}
+        setCurrentRunningTask={setCurrentRunningTask}
       />
       <button onClick={resetAppData}> Reset the LocalStorage </button>
     </div>

@@ -22,9 +22,9 @@ const InputTimer = ({ handleSubmit, currentRunningTask, setCurrentRunningTask })
             console.log("There is a task currently running so it will be assigned to the values of the form")
             setFormNewEntryName(currentRunningTask.name)
             console.log(`Assignned the name ${currentRunningTask.name}`)
-            starterTimestamp.current = currentRunningTask.initialTimestamp
-            console.log(`Assignned the starterTimestamp ${currentRunningTask.initialTimestamp}`)
-            let initialSeconds = Math.floor((Date.now() - currentRunningTask.initialTimestamp) / 1000 * (1000 / TIMER_INTERVAL_MS))
+            starterTimestamp.current = currentRunningTask.starterTimestamp
+            console.log(`Assignned the starterTimestamp ${currentRunningTask.starterTimestamp}`)
+            let initialSeconds = Math.floor((Date.now() - currentRunningTask.starterTimestamp) / 1000 * (1000 / TIMER_INTERVAL_MS))
             setSecondsToDisplay(initialSeconds)
             console.log(`Assignned the initial seconds value to ${initialSeconds} `)
             setTimerStatus("running")
