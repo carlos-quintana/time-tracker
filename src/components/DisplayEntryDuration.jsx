@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { secondsToFormattedHMS } from "../helpers/timeConversion"
+import { secondsToFormattedHMS } from "../helpers/timeFormatting"
 
 const DisplayEntryDuration = ({ id, interval: { start, end }, handleIntervalUpdate }) => {
 
