@@ -1,6 +1,8 @@
 // import React, { useEffect, useState } from "react"
 import DisplayEntryName from "./DisplayEntryName"
 import DisplayEntryDuration from "./DisplayEntryDuration"
+import DisplayEntryDate from "./DisplayEntryDate"
+import DisplayEntryTime from "./DisplayEntryTime"
 
 const DisplayEntryRow = ({ entry, editEntry, deleteEntry }) => {
 
@@ -37,6 +39,38 @@ const DisplayEntryRow = ({ entry, editEntry, deleteEntry }) => {
                 <button disabled>
                     Editar intervalo
                 </button>
+            </div>
+            <div>
+                <DisplayEntryDate
+                    id={entry.id}
+                    interval={entry.interval}
+                    handleIntervalUpdate={handleIntervalUpdate}
+                    intervalPosition="start"
+                />
+            </div>
+            <div>
+                <DisplayEntryTime
+                    id={entry.id}
+                    interval={entry.interval}
+                    handleIntervalUpdate={handleIntervalUpdate}
+                    intervalPosition="start"
+                />
+            </div>
+            <div>
+                <DisplayEntryDate
+                    id={entry.id}
+                    interval={entry.interval}
+                    handleIntervalUpdate={handleIntervalUpdate}
+                    intervalPosition="end"
+                />
+            </div>
+            <div>
+                <DisplayEntryTime
+                    id={entry.id}
+                    interval={entry.interval}
+                    handleIntervalUpdate={handleIntervalUpdate}
+                    intervalPosition="end"
+                />
             </div>
             {/* Entry duration */}
             <div>
