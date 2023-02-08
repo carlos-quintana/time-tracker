@@ -1,21 +1,30 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { timestampToHMS, HMSToTimestamp, timestampToTimeToDisplay } from "../helpers/timeFormatting"
 
-const DisplayEntryTime = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }) => {
+const DisplayTaskTime = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }) => {
 
     // The component will hold the date in the state in the form of a UNIX timestamp
     const [tempTimestamp, setTempTimestamp] = useState(intervalPosition === "start" ? start : end)
     const [isEditingTime, setIsEditingTime] = useState(false)
 
+    useEffect(() => setTempTimestamp(intervalPosition === "start" ? start : end), [start, end])
+
     const handleInputChange = event => {
+        // console.log(`~An edit for the ${intervalPosition === "start" ? "start" : "end"} time field has been made for the task ${id}`)
+        // console.log({ previousValue: tempTimestamp })
+        // console.log({ previousValue: new Date(tempTimestamp) })
+        // console.log({ newValue: event.target.value })
+        // console.log({ newValue: new Date(event.target.value) })
         let formattedTime = HMSToTimestamp(event.target.value, tempTimestamp)
         setTempTimestamp(formattedTime)
     }
 
     const handleSubmit = event => {
         event.preventDefault();
-        console.log(`An edit for the ${intervalPosition === "start" ? "start" : "end"} time field has been submitted for the entry ${id}`)
-        console.log({ tempTime: tempTimestamp })
+        // console.log(`An edit for the ${intervalPosition === "start" ? "start" : "end"} time field has been submitted for the task ${id}`)
+        // console.log({ start, end })
+        // console.log({ start: new Date(start), end: new Date(end) })
+        // console.log({ tempTimestamp })
         // Form validations
         if (intervalPosition === "start" && tempTimestamp > end) {
             alert("The starting time cannot be after the end time")
@@ -29,8 +38,8 @@ const DisplayEntryTime = ({ id, interval: { start, end }, handleIntervalUpdate, 
             setIsEditingTime(false)
             return
         }
-        // Edit Entry
-        console.log("About to fire the handleIntervalUpdate")
+        // Edit Task
+        // console.log("About to fire the handleIntervalUpdate")
         if (intervalPosition === "start")
             handleIntervalUpdate({ start: tempTimestamp, end })
         else
@@ -45,8 +54,8 @@ const DisplayEntryTime = ({ id, interval: { start, end }, handleIntervalUpdate, 
                 isEditingTime ?
                     <form onSubmit={event => handleSubmit(event)}>
                         <input
-                            id={`${id}-editEntry${intervalPosition === "start" ? "Start" : "End"}Time`}
-                            name={`editEntry${intervalPosition === "start" ? "Start" : "End"}Time`}
+                            id={`${id}-editTask${intervalPosition === "start" ? "Start" : "End"}Time`}
+                            name={`editTask${intervalPosition === "start" ? "Start" : "End"}Time`}
                             type="time"
                             value={timestampToHMS(tempTimestamp)}
                             onChange={handleInputChange}
@@ -72,4 +81,4 @@ const DisplayEntryTime = ({ id, interval: { start, end }, handleIntervalUpdate, 
     )
 }
 
-export default DisplayEntryTime;
+export default DisplayTaskTime;

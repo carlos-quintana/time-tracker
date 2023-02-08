@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 const InputCustomInterval = ({ handleSubmit: handleEntrySubmit }) => {
 
-    const [entryName, setEntryName] = useState("")
+    const [taskName, setEntryName] = useState("")
     const [startDate, setStartDate] = useState("")
     const [endDate, setEndDate] = useState("")
     const [startTime, setStartTime] = useState("")
@@ -11,7 +11,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit }) => {
     const handleFormSubmit = event => {
         event.preventDefault();
 
-        console.log(startDate, startTime, endDate, endTime)
+        // console.log(startDate, startTime, endDate, endTime)
         // Validation empty fields
         if (!(startDate && startTime && endDate && endTime))
             alert("Please fill in all of the fields")
@@ -21,19 +21,19 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit }) => {
         
         if (startTimestamp >= endTimestamp)
             alert("The times selected are not valid")
-        console.log(`Submitting new entry with the name "${entryName}", starterTimestamp: ${startTimestamp}, endTimestamp:${endTimestamp}`)
-        handleEntrySubmit(entryName, { start: startTimestamp, end: endTimestamp })
+        // console.log(`Submitting new task with the name "${taskName}", starterTimestamp: ${startTimestamp}, endTimestamp:${endTimestamp}`)
+        handleEntrySubmit(taskName, { start: startTimestamp, end: endTimestamp })
     }
 
     return (
         <div>
-            <p>Input the custom dates and times for the new entry:</p>
+            <p>Input the custom dates and times for the new task:</p>
             <form onSubmit={handleFormSubmit}>
-                <label htmlFor="entryName">Name of the task: </label>
-                <input id="entryName"
-                    name="entryName"
+                <label htmlFor="taskName">Name of the task: </label>
+                <input id="taskName"
+                    name="taskName"
                     type="text"
-                    value={entryName}
+                    value={taskName}
                     onChange={event => setEntryName(event.target.value)}
                     placeholder="Input what you're working on" />
 
@@ -63,7 +63,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit }) => {
 
                 <input type="submit"
                     value="Submit"
-                    disabled={entryName.trim() === ""} />
+                    disabled={taskName.trim() === ""} />
             </form>
         </div>
     )

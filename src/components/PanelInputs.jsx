@@ -2,13 +2,13 @@ import React, { useState } from "react"
 import InputCustomInterval from "./InputCustomInterval"
 import InputTimer from "./InputTimer"
 
-const PanelInputs = ({ createNewEntry, currentRunningTask, setCurrentRunningTask }) => {
+const PanelInputs = ({ createNewTask, currentRunningTask, setCurrentRunningTask }) => {
 
     const [inputMethod, setInputMethod] = useState("timer")
 
-    const handleNewEntrySubmitted = (entryName, interval) => {
+    const handleNewTaskSubmitted = (taskName, interval) => {
         // TODO
-        createNewEntry(entryName, interval)
+        createNewTask(taskName, interval)
     }
 
     return (
@@ -22,13 +22,13 @@ const PanelInputs = ({ createNewEntry, currentRunningTask, setCurrentRunningTask
             {
                 inputMethod === "timer" ?
                     <InputTimer
-                        handleSubmit={handleNewEntrySubmitted}
+                        handleSubmit={handleNewTaskSubmitted}
                         currentRunningTask={currentRunningTask}
                         setCurrentRunningTask={setCurrentRunningTask}
                     />
                     :
                     <InputCustomInterval
-                        handleSubmit={handleNewEntrySubmitted}
+                        handleSubmit={handleNewTaskSubmitted}
                     />
             }
         </div>

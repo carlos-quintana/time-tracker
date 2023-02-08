@@ -1,11 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { timestampToDateSnake, dateSnakeToTimestamp, timestampToDateToDisplay } from "../helpers/timeFormatting"
 
-const DisplayEntryDate = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }) => {
+const DisplayTaskDate = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }) => {
 
     // The component will hold the date in the state in the form of a UNIX timestamp
     const [tempTimestamp, setTempTimestamp] = useState(intervalPosition === "start" ? start : end)
     const [isEditingDate, setIsEditingDate] = useState(false)
+
+    useEffect(() => setTempTimestamp(intervalPosition === "start" ? start : end), [start, end])
 
     const handleInputChange = event => {
         let formattedDate = dateSnakeToTimestamp(event.target.value, tempTimestamp)
@@ -14,8 +16,9 @@ const DisplayEntryDate = ({ id, interval: { start, end }, handleIntervalUpdate, 
 
     const handleSubmit = event => {
         event.preventDefault()
-        console.log(`An edit for the ${intervalPosition === "start" ? "start" : "end"} date field has been submitted for the entry ${id}`)
-        console.log({ tempDate: tempTimestamp })
+        // console.log(`An edit for the ${intervalPosition === "start" ? "start" : "end"} date field has been submitted for the task ${id}`)
+        // console.log({ tempDate: tempTimestamp })
+        // console.log({ tempDate: new Date(tempTimestamp) })
         // Form validations
         if (tempTimestamp < 0) {
             alert("The date is not valid")
@@ -34,8 +37,8 @@ const DisplayEntryDate = ({ id, interval: { start, end }, handleIntervalUpdate, 
             return
         }
 
-        // Edit Entry
-        console.log("About to fire the handleIntervalUpdate")
+        // Edit Task
+        // console.log("About to fire the handleIntervalUpdate")
         if (intervalPosition === "start")
             handleIntervalUpdate({ start: tempTimestamp, end })
         else
@@ -50,8 +53,8 @@ const DisplayEntryDate = ({ id, interval: { start, end }, handleIntervalUpdate, 
                 isEditingDate ?
                     <form onSubmit={event => handleSubmit(event)}>
                         <input
-                            id={`${id}-editEntry${intervalPosition === "start" ? "Start" : "End"}Date`}
-                            name={`editEntry${intervalPosition === "start" ? "Start" : "End"}Date`}
+                            id={`${id}-editTask${intervalPosition === "start" ? "Start" : "End"}Date`}
+                            name={`editTask${intervalPosition === "start" ? "Start" : "End"}Date`}
                             type="date"
                             value={timestampToDateSnake(tempTimestamp)}
                             onChange={handleInputChange}
@@ -76,4 +79,4 @@ const DisplayEntryDate = ({ id, interval: { start, end }, handleIntervalUpdate, 
     )
 }
 
-export default DisplayEntryDate;
+export default DisplayTaskDate;

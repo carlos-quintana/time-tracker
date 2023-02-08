@@ -51,11 +51,17 @@ export function timestampToHMS(timestamp) {
 
 // The reason the function asks for a timestamp is to preserve the information about the time (hours, minutes and seconds)
 export function HMSToTimestamp(timeString, oldTimestamp) {
+    // console.log("Inside of HMSToTimestamp")
+    // console.log({timeSplit: timeString.split(":")})
     let [hours, minutes, seconds] = timeString.split(":")
     let dateObject = new Date(oldTimestamp)
     dateObject.setHours(hours)
     dateObject.setMinutes(minutes)
     dateObject.setSeconds(seconds)
+    // console.log({oldTimestamp})
+    // console.log({oldTimestamp: new Date(oldTimestamp)})
+    // console.log({newTimestamp: dateObject.getTime()})
+    // console.log({newTimestamp: new Date(dateObject.getTime())})
     return dateObject.getTime()
 }
 

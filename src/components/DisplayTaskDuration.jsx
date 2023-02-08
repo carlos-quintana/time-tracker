@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { secondsToFormattedHMS } from "../helpers/timeFormatting"
 
-const DisplayEntryDuration = ({ id, interval: { start, end }, handleIntervalUpdate }) => {
+const DisplayTaskDuration = ({ id, interval: { start, end }, handleIntervalUpdate }) => {
 
     const duration = Math.floor((end - start) / 1000)
 
@@ -10,7 +10,7 @@ const DisplayEntryDuration = ({ id, interval: { start, end }, handleIntervalUpda
 
     const handleSubmit = event => {
         event.preventDefault()
-        console.log(`An edit for the duration has been submitted for the entry ${id}`)
+        // console.log(`An edit for the duration has been submitted for the task ${id}`)
         // Form validations
         if (tempDuration === duration) {
             setIsEditingDuration(false)
@@ -21,7 +21,7 @@ const DisplayEntryDuration = ({ id, interval: { start, end }, handleIntervalUpda
             return
         }
         // Edit submission
-        console.log("About to fire the handleIntervalUpdate")
+        // console.log("About to fire the handleIntervalUpdate")
         handleIntervalUpdate({ start, end: (start + tempDuration * 1000) })
         // Cleanup
         setIsEditingDuration(false)
@@ -33,8 +33,8 @@ const DisplayEntryDuration = ({ id, interval: { start, end }, handleIntervalUpda
                 isEditingDuration ?
                     <form onSubmit={event => handleSubmit(event)}>
                         <input
-                            id={`${id}-editEntryDuration`}
-                            name="editEntryDuration"
+                            id={`${id}-editTaskDuration`}
+                            name="editTaskDuration"
                             type="text"
                             value={tempDuration}
                             onChange={event => setTempDuration(event.target.value)}
@@ -57,4 +57,4 @@ const DisplayEntryDuration = ({ id, interval: { start, end }, handleIntervalUpda
     )
 }
 
-export default DisplayEntryDuration;
+export default DisplayTaskDuration;

@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "name": "Task 5",
+        "name": "Write documentation",
         "interval": {
             "start": 1672650000001,
             "end": 1672656100001
@@ -13,7 +13,7 @@
     },
     {
         "id": 2,
-        "name": "Task 7",
+        "name": "Design the data flow",
         "interval": {
             "start": 1672656106002,
             "end": 1672663284002
@@ -25,7 +25,7 @@
     },
     {
         "id": 3,
-        "name": "Task 6",
+        "name": "Write documentation",
         "interval": {
             "start": 1672663404003,
             "end": 1672670004003
@@ -37,7 +37,7 @@
     },
     {
         "id": 4,
-        "name": "Task 1",
+        "name": "Design the UI",
         "interval": {
             "start": 1672670057004,
             "end": 1672675869004
@@ -49,7 +49,7 @@
     },
     {
         "id": 5,
-        "name": "Task 1",
+        "name": "Design the UI",
         "interval": {
             "start": 1672675941005,
             "end": 1672683222005
@@ -61,7 +61,7 @@
     },
     {
         "id": 6,
-        "name": "Task 3",
+        "name": "Write functionalities",
         "interval": {
             "start": 1672736400006,
             "end": 1672738431006
@@ -73,7 +73,7 @@
     },
     {
         "id": 7,
-        "name": "Task 3",
+        "name": "Write functionalities",
         "interval": {
             "start": 1672738604007,
             "end": 1672740779007
@@ -85,7 +85,7 @@
     },
     {
         "id": 8,
-        "name": "Task 1",
+        "name": "Design the UI",
         "interval": {
             "start": 1672740960008,
             "end": 1672745844008
@@ -97,7 +97,7 @@
     },
     {
         "id": 9,
-        "name": "Task 1",
+        "name": "Design the UI",
         "interval": {
             "start": 1672745847009,
             "end": 1672749917009
@@ -109,7 +109,7 @@
     },
     {
         "id": 10,
-        "name": "Task 1",
+        "name": "Design the UI",
         "interval": {
             "start": 1672750216010,
             "end": 1672754801010
@@ -121,7 +121,7 @@
     },
     {
         "id": 11,
-        "name": "Task 5",
+        "name": "Write documentation",
         "interval": {
             "start": 1672754869011,
             "end": 1672758324011
@@ -133,7 +133,7 @@
     },
     {
         "id": 12,
-        "name": "Task 1",
+        "name": "Design the UI",
         "interval": {
             "start": 1672758325012,
             "end": 1672764399012
@@ -145,7 +145,7 @@
     },
     {
         "id": 13,
-        "name": "Task 6",
+        "name": "Write documentation",
         "interval": {
             "start": 1672764463013,
             "end": 1672766876013
@@ -157,7 +157,7 @@
     },
     {
         "id": 14,
-        "name": "Task 2",
+        "name": "Design the data flow",
         "interval": {
             "start": 1672767024014,
             "end": 1672771484014
@@ -169,7 +169,7 @@
     },
     {
         "id": 15,
-        "name": "Task 1",
+        "name": "Design the UI",
         "interval": {
             "start": 1672822800015,
             "end": 1672825027015
@@ -181,7 +181,7 @@
     },
     {
         "id": 16,
-        "name": "Task 4",
+        "name": "Fixed bugs",
         "interval": {
             "start": 1672825226016,
             "end": 1672832348016
@@ -193,7 +193,7 @@
     },
     {
         "id": 17,
-        "name": "Task 7",
+        "name": "Design the data flow",
         "interval": {
             "start": 1672832551017,
             "end": 1672838519017
@@ -205,7 +205,7 @@
     },
     {
         "id": 18,
-        "name": "Task 3",
+        "name": "Write functionalities",
         "interval": {
             "start": 1672838542018,
             "end": 1672840670018
@@ -217,7 +217,7 @@
     },
     {
         "id": 19,
-        "name": "Task 4",
+        "name": "Fixed bugs",
         "interval": {
             "start": 1672840716019,
             "end": 1672845824019
@@ -229,7 +229,7 @@
     },
     {
         "id": 20,
-        "name": "Task 5",
+        "name": "Write documentation",
         "interval": {
             "start": 1672846050020,
             "end": 1672850720020
@@ -241,7 +241,7 @@
     },
     {
         "id": 21,
-        "name": "Task 3",
+        "name": "Write functionalities",
         "interval": {
             "start": 1672850730021,
             "end": 1672857268021
@@ -253,7 +253,7 @@
     },
     {
         "id": 22,
-        "name": "Task 4",
+        "name": "Fixed bugs",
         "interval": {
             "start": 1672909200022,
             "end": 1672911272022
@@ -265,7 +265,7 @@
     },
     {
         "id": 23,
-        "name": "Task 3",
+        "name": "Write functionalities",
         "interval": {
             "start": 1672911461023,
             "end": 1672918280023
@@ -277,7 +277,7 @@
     },
     {
         "id": 24,
-        "name": "Task 6",
+        "name": "Write documentation",
         "interval": {
             "start": 1672918336024,
             "end": 1672922344024
@@ -289,7 +289,7 @@
     },
     {
         "id": 25,
-        "name": "Task 4",
+        "name": "Fixed bugs",
         "interval": {
             "start": 1672922642025,
             "end": 1672927166025
