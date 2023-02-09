@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import exampleTasksFromJSON from "../exampleTasks.json"
-import PanelData from "./PanelData"
-import PanelInputs from "./PanelInputs"
+import PanelInputs from "./InputPanel/PanelInputs"
+import PanelData from "./DisplayPanel/PanelData"
 
 // The purpose of initializing the state to null is so that the useEffect with the tasksList as dependencies does not run when the component is mounted, as it would keep overwriting the Local Storage with empty data. This will also work when in Strict Mode
 const INITIAL_TASKS_STATE = null

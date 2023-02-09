@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { secondsToFormattedHMS } from "../helpers/timeFormatting"
+import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
 
 // This next variables are used for debugging the timer
 const TIMER_INCREMENT = 1

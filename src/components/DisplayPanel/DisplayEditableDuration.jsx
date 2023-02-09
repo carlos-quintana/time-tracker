@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { secondsToFormattedHMS, formattedHMSToSeconds } from "../helpers/timeFormatting"
-import InputTimeCustom from "./InputTimeCustom"
+import { secondsToFormattedHMS, formattedHMSToSeconds } from "../../helpers/timeFormatting"
+import InputTime from "./InputTime"
 
 const calculateSeconds = (start, end) => Math.floor((end - start) / 1000);
 
@@ -43,7 +43,7 @@ const DisplayTaskDuration = ({ id, interval: { start, end }, handleIntervalUpdat
     return (
         <>{isEditingDuration ?
             <form onSubmit={event => handleSubmit(event)}>
-                <InputTimeCustom
+                <InputTime
                     id={id}
                     durationSeconds={durationSeconds}
                     handleSubmit={handleSubmit}

@@ -1,7 +1,7 @@
-import DisplayTaskName from "./DisplayTaskName"
-import DisplayTaskDuration from "./DisplayTaskDuration"
-import DisplayTaskDate from "./DisplayTaskDate"
-import DisplayTaskTime from "./DisplayTaskTime"
+import DisplayEditableName from "./DisplayEditableName"
+import DisplayEditableDuration from "./DisplayEditableDuration"
+import DisplayEditableDate from "./DisplayEditableDate"
+import DisplayEditableTime from "./DisplayEditableTime"
 
 const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCurrentRunningTask }) => {
 
@@ -33,7 +33,7 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
             {task.id}
             {/* Task name */}
             <div>
-                <DisplayTaskName
+                <DisplayEditableName
                     id={task.id}
                     name={task.name}
                     handleNameUpdate={handleNameUpdate}
@@ -44,7 +44,7 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
                 {(new Date(task.interval.start)).toLocaleString()} - {(new Date(task.interval.end)).toLocaleString()}
             </div> */}
             <div>
-                <DisplayTaskDate
+                <DisplayEditableDate
                     id={task.id}
                     interval={task.interval}
                     handleIntervalUpdate={handleIntervalUpdate}
@@ -52,7 +52,7 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
                 />
             </div>
             <div>
-                <DisplayTaskTime
+                <DisplayEditableTime
                     id={task.id}
                     interval={task.interval}
                     handleIntervalUpdate={handleIntervalUpdate}
@@ -60,7 +60,7 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
                 />
             </div>
             <div>
-                <DisplayTaskDate
+                <DisplayEditableDate
                     id={task.id}
                     interval={task.interval}
                     handleIntervalUpdate={handleIntervalUpdate}
@@ -68,7 +68,7 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
                 />
             </div>
             <div>
-                <DisplayTaskTime
+                <DisplayEditableTime
                     id={task.id}
                     interval={task.interval}
                     handleIntervalUpdate={handleIntervalUpdate}
@@ -77,7 +77,7 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
             </div>
             {/* Task duration */}
             <div>
-                <DisplayTaskDuration
+                <DisplayEditableDuration
                     id={task.id}
                     interval={task.interval}
                     handleIntervalUpdate={handleIntervalUpdate}

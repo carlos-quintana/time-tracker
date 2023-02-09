@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { timestampToHMS, HMSToTimestamp, timestampToTimeToDisplay } from "../helpers/timeFormatting"
+import { timestampToHMS, HMSToTimestamp, timestampToTimeToDisplay } from "../../helpers/timeFormatting"
 
 const DisplayTaskTime = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }) => {
 

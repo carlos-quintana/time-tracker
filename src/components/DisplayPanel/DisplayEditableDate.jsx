@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { timestampToDateSnake, dateSnakeToTimestamp, timestampToDateToDisplay } from "../helpers/timeFormatting"
+import { timestampToDateSnake, dateSnakeToTimestamp, timestampToDateToDisplay } from "../../helpers/timeFormatting"
 
 const DisplayTaskDate = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }) => {
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { secondsToFormattedHMS } from "../helpers/timeFormatting"
+import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
 
 // Example: replaceCharacter("abcde", 2, "x") returns "abxde"
 // TODO: Move the function to another file and write its respective tests
