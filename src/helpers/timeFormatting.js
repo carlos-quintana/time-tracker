@@ -15,6 +15,16 @@ export function secondsToFormattedHMS(secondsInput) {
     return `${hours}:${minutes}:${seconds}`
 }
 
+// TODO: remove the 'formatted' from the name
+export function formattedHMSToSeconds(HMSstring) {
+    // console.log(`(HMS) Converting a string ${HMSstring} to seconds`)
+    let [hours, minutes, seconds,] = HMSstring.split(":")
+    // console.log(`(HMS) Got hours ${hours}, minutes ${minutes}, seconds ${seconds} `)
+    let total = Number.parseInt(hours) * 3600 + Number.parseInt(minutes) * 60 + Number.parseInt(seconds)
+    // console.log(`(HMS) For a total of ${total} `)
+    return total
+}
+
 // TODO
 export function timestampToDateSnake(timestamp) {
     let dateObject = new Date(timestamp)
