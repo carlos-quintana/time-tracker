@@ -1,6 +1,6 @@
 import DisplayTaskRow from "./DisplayTaskRow";
 
-const PanelData = ({ tasksList, editTask, deleteTask }) => {
+const PanelData = ({ tasksList, editTask, deleteTask, currentRunningTask, setCurrentRunningTask }) => {
 
     return (
         <div>
@@ -10,7 +10,10 @@ const PanelData = ({ tasksList, editTask, deleteTask }) => {
                         key={i}
                         task={task}
                         deleteTask={() => deleteTask(task.id)}
-                        editTask={editTask} />
+                        editTask={editTask}
+                        currentRunningTask={currentRunningTask}
+                        setCurrentRunningTask={setCurrentRunningTask}
+                    />
                 )
             }
         </div>
