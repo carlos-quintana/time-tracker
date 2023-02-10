@@ -18,11 +18,14 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit }) => {
 
         let startTimestamp = new Date(startDate + " " + startTime).getTime();
         let endTimestamp = new Date(endDate + " " + endTime).getTime();
-        
-        if (startTimestamp >= endTimestamp)
-            alert("The times selected are not valid")
+
+        if (startTimestamp >= endTimestamp) {
+            alert("The times selected are not valid") // TODO: A better notifications system (maybe modals or tooltips)
+            return
+        }
         // console.log(`Submitting new task with the name "${taskName}", starterTimestamp: ${startTimestamp}, endTimestamp:${endTimestamp}`)
         handleEntrySubmit(taskName, { start: startTimestamp, end: endTimestamp })
+        setEntryName("");
     }
 
     return (
@@ -42,6 +45,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit }) => {
                     name="startDate"
                     type="date"
                     value={startDate}
+                    max={endDate ? endDate : undefined}
                     onChange={event => setStartDate(event.target.value)} />
                 <input id="startTime"
                     name="startTime"
@@ -54,6 +58,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit }) => {
                     name="endDate"
                     type="date"
                     value={endDate}
+                    min={startDate ? startDate : undefined}
                     onChange={event => setEndDate(event.target.value)} />
                 <input id="endTime"
                     name="endTime"
