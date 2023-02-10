@@ -26,7 +26,7 @@ export default function App() {
     if (localStorageTasks === null) {
       // console.log("+ The stuff in local storage is NULL, will store example tasks:")
       localStorage.clear()
-      let exampleTasks = exampleTasksFromJSON.slice(0, 4)
+      let exampleTasks = exampleTasksFromJSON.reverse()
       // console.log("The example tasks to be added are:")
       // console.log({ exampleTasks })
       localStorage.setItem('tasksList', JSON.stringify(exampleTasks));
@@ -77,10 +77,11 @@ export default function App() {
     let newTaskObject = {
       id: Date.now(),
       name: taskName,
-      interval: taskInterval
+      interval: taskInterval,
+      formattedInterval: { start: new Date(taskInterval.start), end: new Date(taskInterval.end) }
     }
     // console.log({ tasksList })
-    setTasksList([...tasksList, newTaskObject])
+    setTasksList([newTaskObject, ...tasksList])
   }
 
   const editTask = (idEdit, newTask) => {
