@@ -1,10 +1,12 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 const DisplayTaskName = ({ id, name, handleNameUpdate }) => {
 
     const [tempName, setTempName] = useState(name)
     const [isEditingName, setIsEditingName] = useState(false)
-
+    
+    useEffect(() => setTempName(name), [name])
+    
     const handleSubmit = event => {
         event.preventDefault()
         // console.log(`An edit for the name has been submitted for the task ${id}`)
