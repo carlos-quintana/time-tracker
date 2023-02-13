@@ -14,6 +14,7 @@ const PanelData = ({ tasksList, editTask, deleteTask, currentRunningTask, setCur
                             editTask={editTask}
                             currentRunningTask={currentRunningTask}
                             setCurrentRunningTask={setCurrentRunningTask}
+                            projectsList={projectsList}
                         />
                     )
                 }

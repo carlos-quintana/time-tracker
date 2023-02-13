@@ -2,13 +2,21 @@ import DisplayEditableName from "./DisplayEditableName"
 import DisplayEditableDuration from "./DisplayEditableDuration"
 import DisplayEditableDate from "./DisplayEditableDate"
 import DisplayEditableTime from "./DisplayEditableTime"
+import DropdownSearch from "../Reusable/DropdownSearch"
 
-const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCurrentRunningTask }) => {
+const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCurrentRunningTask, projectsList }) => {
 
     const handleNameUpdate = newName => {
         // console.log(`Updating the name of the task ${task.id},
         //              previous name ${task.name}, new name ${newName}`)
         editTask(task.id, { ...task, name: newName })
+    }
+
+    const handleProjectUpdate = newProjectID => {
+        if (newProjectID !== null)
+            editTask(task.id, { ...task, project: newProjectID })
+        else
+            editTask(task.id, { ...task, project: undefined })
     }
 
     const handleIntervalUpdate = newInterval => {
@@ -37,6 +45,19 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
                     id={task.id}
                     name={task.name}
                     handleNameUpdate={handleNameUpdate}
+                />
+            </div>
+            {/* Task project */}
+            <div>
+                <DropdownSearch
+                    buttonText={"Add a project"}
+                    searchPlaceholderText={"Search a project or create a new one"}
+                    optionsList={projectsList}
+                    initialSelection={
+                        task.project ?
+                            projectsList.find(project => project.id === task.project).name :
+                            null}
+                    onSelectCallback={handleProjectUpdate}
                 />
             </div>
             {/* Task start and end datetimes */}
