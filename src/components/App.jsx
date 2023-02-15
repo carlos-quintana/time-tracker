@@ -3,6 +3,7 @@ import exampleTasksFromJSON from "../exampleTasks.json"
 import exampleProjectsFromJSON from "../exampleProjects.json"
 import PanelInputs from "./InputPanel/PanelInputs"
 import PanelData from "./DisplayPanel/PanelData"
+import PanelProjects from "./ProjectsPanel/PanelProjects"
 
 // The purpose of initializing the state to null is so that the useEffect with the tasksList as dependencies does not run when the component is mounted, as it would keep overwriting the Local Storage with empty data. This will also work when in Strict Mode
 const INITIAL_TASKS_STATE = null
@@ -85,14 +86,14 @@ export default function App() {
   }, [projectsList])
 
   // Function that acts as the Create data whenever the new task input is submitted
-  const createNewTask = (taskName, taskInterval) => {
+  const createNewTask = (taskName, taskInterval, project) => {
     // console.log("Inside createNewTask")
     // console.log({ tasksList })
     let newTaskObject = {
       id: Date.now(),
       name: taskName,
       interval: taskInterval,
-      formattedInterval: { start: new Date(taskInterval.start), end: new Date(taskInterval.end) }
+      project: project
     }
     // console.log({ tasksList })
     setTasksList([newTaskObject, ...tasksList])
@@ -146,6 +147,8 @@ export default function App() {
         createNewTask={createNewTask}
         currentRunningTask={currentRunningTask}
         setCurrentRunningTask={setCurrentRunningTask}
+        projectsList={projectsList}
+        createProject={createProject}
       />
       <PanelData
         tasksList={tasksList !== INITIAL_TASKS_STATE ? tasksList : []}

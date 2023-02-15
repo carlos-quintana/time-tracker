@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react"
 import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
+import DropdownSearch from "../Shared Components/DropdownSearch"
 
 // This next variables are used for debugging the timer
 const TIMER_INCREMENT = 1
 const TIMER_INTERVAL_MS = 50 // TODO: Reset to 1000 ms
 
-const InputTimer = ({ handleSubmit, currentRunningTask, setCurrentRunningTask }) => {
+const InputTimer = ({ handleSubmit, currentRunningTask, setCurrentRunningTask, projectsList, createProject }) => {
     // Holds the current amount of seconds the timer will display
     const [secondsToDisplay, setSecondsToDisplay] = useState(0)
     // These functions belong to the new task form
@@ -13,7 +14,15 @@ const InputTimer = ({ handleSubmit, currentRunningTask, setCurrentRunningTask })
     // Keeps track of the state of the timer: it's running or it's stopped 
     const [timerStatus, setTimerStatus] = useState("stopped");
 
+    const [taskProject, setTaskProject] = useState(null)
+    const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0)
+
     let starterTimestamp = useRef(0);
+
+    const handleProjectCreation = newProjectName => {
+        let newProjectID = createProject(newProjectName)
+        return newProjectID
+    }
 
     useEffect(() => {
         // console.log("> (InputTimer) Entering the currentRunningTask useEffect")
@@ -81,9 +90,11 @@ const InputTimer = ({ handleSubmit, currentRunningTask, setCurrentRunningTask })
         // console.log(`The value of starterTimestamp is ${starterTimestamp.current} `)
         // console.log(`The value of the ending timestamp is ${endTimestamp} `)
         // console.log(`For a duration value of  ${rawDuration} `)
-        handleSubmit(formNewTaskName, { start: starterTimestamp.current, end: endTimestamp })
+        handleSubmit(formNewTaskName, { start: starterTimestamp.current, end: endTimestamp }, taskProject || undefined)
         // Reset the form
-        setFormNewTaskName("")
+        setFormNewTaskName("") // The input for the name of the new task
+        setTaskProject(null); // The state in the panel for which project is selected
+        setDropdownResetTrigger(dropdownResetTrigger+1) // Trigger a useEffect hook in the child component to change state
         setSecondsToDisplay(0)
         // Change the state of the variable in the App component too
         setCurrentRunningTask(null)
@@ -102,6 +113,19 @@ const InputTimer = ({ handleSubmit, currentRunningTask, setCurrentRunningTask })
                     value={formNewTaskName}
                     onChange={handleNameChange}
                     placeholder="Input what you're working on" />
+
+                {/* Task project */}
+                <div>
+                    <DropdownSearch
+                        buttonText={"Add a project"}
+                        searchPlaceholderText={"Search a project or create a new one"}
+                        optionsList={projectsList}
+                        initialSelection={null}
+                        onCreateCallback={handleProjectCreation}
+                        onSelectCallback={setTaskProject}
+                        resetTrigger={dropdownResetTrigger}
+                    />
+                </div>
                 <div>
                     {timerStatus === "stopped" &&
                         <button onClick={handleStartTimer}
