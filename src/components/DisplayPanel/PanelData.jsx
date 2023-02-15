@@ -1,6 +1,6 @@
 import DisplayTaskRow from "./DisplayTaskRow";
 
-const PanelData = ({ tasksList, editTask, deleteTask, currentRunningTask, setCurrentRunningTask }) => {
+const PanelData = ({ tasksList, editTask, deleteTask, currentRunningTask, setCurrentRunningTask, projectsList, createProject }) => {
 
     return (
         <div>
@@ -13,6 +13,8 @@ const PanelData = ({ tasksList, editTask, deleteTask, currentRunningTask, setCur
                         editTask={editTask}
                         currentRunningTask={currentRunningTask}
                         setCurrentRunningTask={setCurrentRunningTask}
+                        projectsList={projectsList}
+                        createProject={createProject}
                     />
                 )
             }

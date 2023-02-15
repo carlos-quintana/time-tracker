@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react"
 import exampleTasksFromJSON from "../exampleTasks.json"
+import exampleProjectsFromJSON from "../exampleProjects.json"
 import PanelInputs from "./InputPanel/PanelInputs"
 import PanelData from "./DisplayPanel/PanelData"
+import PanelProjects from "./ProjectsPanel/PanelProjects"
 
 // The purpose of initializing the state to null is so that the useEffect with the tasksList as dependencies does not run when the component is mounted, as it would keep overwriting the Local Storage with empty data. This will also work when in Strict Mode
 const INITIAL_TASKS_STATE = null
 const INITIAL_CURRENT_TASK_STATE = false
+const INITIAL_PROJECTS_STATE = null
 
 export default function App() {
   // For the time being the LocalStorage will be used a data base
   const [tasksList, setTasksList] = useState(INITIAL_TASKS_STATE)
   // This currentRunningTask referes to the task that is running in the timer, and the program will keep track even when it's closed, as using intervals we only need to know when it started. This currentRunningTask will have the shape of {name: String, timestampStart: int}
   const [currentRunningTask, setCurrentRunningTask] = useState(INITIAL_CURRENT_TASK_STATE)
+  //
+  const [projectsList, setProjectsList] = useState(INITIAL_PROJECTS_STATE)
 
   // At the first loading of the app we will perform a check on the Local storage:
   // If there is no data in the Local storage it means it's the first time of the user in the page so we load a set of example tasks from a json file
@@ -20,6 +25,7 @@ export default function App() {
     // console.log("> Entering the initial useEffect")
     let localStorageTasks = localStorage.getItem("tasksList")
     let localStorageCurrentTask = localStorage.getItem("currentTask")
+    let localStorageProjects = localStorage.getItem("projectsList")
     // console.log("Current stuff in the local Storage:")
     // console.log({ localStorageTasks })
     // console.log({ localStorageCurrentTask })
@@ -27,10 +33,13 @@ export default function App() {
       // console.log("+ The stuff in local storage is NULL, will store example tasks:")
       localStorage.clear()
       let exampleTasks = exampleTasksFromJSON.reverse()
+      let exampleProjects = exampleProjectsFromJSON
       // console.log("The example tasks to be added are:")
       // console.log({ exampleTasks })
       localStorage.setItem('tasksList', JSON.stringify(exampleTasks));
       setTasksList(exampleTasks)
+      localStorage.setItem('projectsList', JSON.stringify(exampleProjects));
+      setProjectsList(exampleProjects)
       // console.log("Stored the example tasks in the local storage and set the state")
       // console.log({ localStorageTasks: localStorage.getItem("tasksList") })
     }
@@ -38,6 +47,7 @@ export default function App() {
       // console.log("- The stuff in local storage is NOT NULL, will update state with its current tasks:")
       setTasksList(JSON.parse(localStorageTasks))
       setCurrentRunningTask(JSON.parse(localStorageCurrentTask))
+      setProjectsList(JSON.parse(localStorageProjects))
     }
     // console.log("< Exiting the initial useEffect")
   }, [])
@@ -70,15 +80,20 @@ export default function App() {
     // console.log("< (App) Exiting the currentRunningTask useEffect")
   }, [currentRunningTask])
 
+  useEffect(() => {
+    if (projectsList !== INITIAL_PROJECTS_STATE)
+      localStorage.setItem('projectsList', JSON.stringify(projectsList));
+  }, [projectsList])
+
   // Function that acts as the Create data whenever the new task input is submitted
-  const createNewTask = (taskName, taskInterval) => {
+  const createNewTask = (taskName, taskInterval, project) => {
     // console.log("Inside createNewTask")
     // console.log({ tasksList })
     let newTaskObject = {
       id: Date.now(),
       name: taskName,
       interval: taskInterval,
-      formattedInterval: { start: new Date(taskInterval.start), end: new Date(taskInterval.end) }
+      project: project
     }
     // console.log({ tasksList })
     setTasksList([newTaskObject, ...tasksList])
@@ -95,6 +110,30 @@ export default function App() {
     setTasksList(tasksList.filter(el => el.id !== id))
   }
 
+  const createProject = (newProjectName) => {
+    let newProjectId = Date.now();
+    setProjectsList([{
+      id: newProjectId,
+      name: newProjectName
+    }, ...projectsList])
+    return newProjectId;
+  }
+  const editProject = (idEdit, newProject) => {
+    setProjectsList(projectsList.map(project => project.id === idEdit ? {id: idEdit, name: newProject} : project))
+  }
+  const deleteProject = id => {
+    console.log(`Deleting the project with id ${id}`)
+    console.log("Removing the project from the tasks list")
+    setTasksList(
+      tasksList.map(task => {
+        if (task.project === id)
+          return {...task, project: undefined}
+        return task
+      }))
+    setProjectsList(projectsList.filter(el => el.id !== id))
+    console.log("Filtered the list of projects")
+  }
+
   const resetAppData = () => {
     // console.warn("Resetting the Local Storage data stored in the app")
     localStorage.clear()
@@ -108,6 +147,8 @@ export default function App() {
         createNewTask={createNewTask}
         currentRunningTask={currentRunningTask}
         setCurrentRunningTask={setCurrentRunningTask}
+        projectsList={projectsList}
+        createProject={createProject}
       />
       <PanelData
         tasksList={tasksList !== INITIAL_TASKS_STATE ? tasksList : []}
@@ -115,6 +156,15 @@ export default function App() {
         deleteTask={deleteTask}
         currentRunningTask={currentRunningTask}
         setCurrentRunningTask={setCurrentRunningTask}
+        projectsList={projectsList}
+        createProject={createProject}
+      />
+      <hr/>
+      <PanelProjects
+        projectsList={projectsList}
+        createProject={createProject}
+        editProject={editProject}
+        deleteProject={deleteProject}
       />
       <button onClick={resetAppData}> Reset the LocalStorage </button>
     </div>

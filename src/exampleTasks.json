@@ -1,14 +1,10 @@
 [
     {
         "id": 1,
-        "name": "Write documentation",
+        "name": "Assist weekly meeting",
         "interval": {
             "start": 1672650000001,
             "end": 1672656100001
-        },
-        "formattedInterval": {
-            "formattedStart": "2023-01-02T09:00:00.001Z",
-            "formattedEnd": "2023-01-02T10:41:40.001Z"
         }
     },
     {
@@ -18,10 +14,7 @@
             "start": 1672656106002,
             "end": 1672663284002
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-02T10:41:46.002Z",
-            "formattedEnd": "2023-01-02T12:41:24.002Z"
-        }
+        "project": 200
     },
     {
         "id": 3,
@@ -30,10 +23,7 @@
             "start": 1672663404003,
             "end": 1672670004003
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-02T12:43:24.003Z",
-            "formattedEnd": "2023-01-02T14:33:24.003Z"
-        }
+        "project": 300
     },
     {
         "id": 4,
@@ -42,10 +32,7 @@
             "start": 1672670057004,
             "end": 1672675869004
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-02T14:34:17.004Z",
-            "formattedEnd": "2023-01-02T16:11:09.004Z"
-        }
+        "project": 200
     },
     {
         "id": 5,
@@ -54,10 +41,7 @@
             "start": 1672675941005,
             "end": 1672683222005
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-02T16:12:21.005Z",
-            "formattedEnd": "2023-01-02T18:13:42.005Z"
-        }
+        "project": 300
     },
     {
         "id": 6,
@@ -66,10 +50,7 @@
             "start": 1672736400006,
             "end": 1672738431006
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-03T09:00:00.006Z",
-            "formattedEnd": "2023-01-03T09:33:51.006Z"
-        }
+        "project": 100
     },
     {
         "id": 7,
@@ -78,10 +59,7 @@
             "start": 1672738604007,
             "end": 1672740779007
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-03T09:36:44.007Z",
-            "formattedEnd": "2023-01-03T10:12:59.007Z"
-        }
+        "project": 200
     },
     {
         "id": 8,
@@ -90,10 +68,7 @@
             "start": 1672740960008,
             "end": 1672745844008
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-03T10:16:00.008Z",
-            "formattedEnd": "2023-01-03T11:37:24.008Z"
-        }
+        "project": 300
     },
     {
         "id": 9,
@@ -102,10 +77,7 @@
             "start": 1672745847009,
             "end": 1672749917009
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-03T11:37:27.009Z",
-            "formattedEnd": "2023-01-03T12:45:17.009Z"
-        }
+        "project": 200
     },
     {
         "id": 10,
@@ -114,10 +86,7 @@
             "start": 1672750216010,
             "end": 1672754801010
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-03T12:50:16.010Z",
-            "formattedEnd": "2023-01-03T14:06:41.010Z"
-        }
+        "project": 300
     },
     {
         "id": 11,
@@ -125,10 +94,6 @@
         "interval": {
             "start": 1672754869011,
             "end": 1672758324011
-        },
-        "formattedInterval": {
-            "formattedStart": "2023-01-03T14:07:49.011Z",
-            "formattedEnd": "2023-01-03T15:05:24.011Z"
         }
     },
     {
@@ -137,10 +102,6 @@
         "interval": {
             "start": 1672758325012,
             "end": 1672764399012
-        },
-        "formattedInterval": {
-            "formattedStart": "2023-01-03T15:05:25.012Z",
-            "formattedEnd": "2023-01-03T16:46:39.012Z"
         }
     },
     {
@@ -150,10 +111,7 @@
             "start": 1672764463013,
             "end": 1672766876013
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-03T16:47:43.013Z",
-            "formattedEnd": "2023-01-03T17:27:56.013Z"
-        }
+        "project": 300
     },
     {
         "id": 14,
@@ -162,10 +120,7 @@
             "start": 1672767024014,
             "end": 1672771484014
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-03T17:30:24.014Z",
-            "formattedEnd": "2023-01-03T18:44:44.014Z"
-        }
+        "project": 200
     },
     {
         "id": 15,
@@ -174,10 +129,7 @@
             "start": 1672822800015,
             "end": 1672825027015
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-04T09:00:00.015Z",
-            "formattedEnd": "2023-01-04T09:37:07.015Z"
-        }
+        "project": 200
     },
     {
         "id": 16,
@@ -186,21 +138,14 @@
             "start": 1672825226016,
             "end": 1672832348016
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-04T09:40:26.016Z",
-            "formattedEnd": "2023-01-04T11:39:08.016Z"
-        }
+        "project": 300
     },
     {
         "id": 17,
-        "name": "Design the data flow",
+        "name": "Meeting",
         "interval": {
             "start": 1672832551017,
             "end": 1672838519017
-        },
-        "formattedInterval": {
-            "formattedStart": "2023-01-04T11:42:31.017Z",
-            "formattedEnd": "2023-01-04T13:21:59.017Z"
         }
     },
     {
@@ -210,10 +155,7 @@
             "start": 1672838542018,
             "end": 1672840670018
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-04T13:22:22.018Z",
-            "formattedEnd": "2023-01-04T13:57:50.018Z"
-        }
+        "project": 200
     },
     {
         "id": 19,
@@ -222,10 +164,7 @@
             "start": 1672840716019,
             "end": 1672845824019
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-04T13:58:36.019Z",
-            "formattedEnd": "2023-01-04T15:23:44.019Z"
-        }
+        "project": 300
     },
     {
         "id": 20,
@@ -233,10 +172,6 @@
         "interval": {
             "start": 1672846050020,
             "end": 1672850720020
-        },
-        "formattedInterval": {
-            "formattedStart": "2023-01-04T15:27:30.020Z",
-            "formattedEnd": "2023-01-04T16:45:20.020Z"
         }
     },
     {
@@ -245,10 +180,6 @@
         "interval": {
             "start": 1672850730021,
             "end": 1672857268021
-        },
-        "formattedInterval": {
-            "formattedStart": "2023-01-04T16:45:30.021Z",
-            "formattedEnd": "2023-01-04T18:34:28.021Z"
         }
     },
     {
@@ -258,10 +189,7 @@
             "start": 1672909200022,
             "end": 1672911272022
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-05T09:00:00.022Z",
-            "formattedEnd": "2023-01-05T09:34:32.022Z"
-        }
+        "project": 300
     },
     {
         "id": 23,
@@ -269,10 +197,6 @@
         "interval": {
             "start": 1672911461023,
             "end": 1672918280023
-        },
-        "formattedInterval": {
-            "formattedStart": "2023-01-05T09:37:41.023Z",
-            "formattedEnd": "2023-01-05T11:31:20.023Z"
         }
     },
     {
@@ -281,10 +205,6 @@
         "interval": {
             "start": 1672918336024,
             "end": 1672922344024
-        },
-        "formattedInterval": {
-            "formattedStart": "2023-01-05T11:32:16.024Z",
-            "formattedEnd": "2023-01-05T12:39:04.024Z"
         }
     },
     {
@@ -294,9 +214,6 @@
             "start": 1672922642025,
             "end": 1672927166025
         },
-        "formattedInterval": {
-            "formattedStart": "2023-01-05T12:44:02.025Z",
-            "formattedEnd": "2023-01-05T13:59:26.025Z"
-        }
+        "project": 300
     }
 ]

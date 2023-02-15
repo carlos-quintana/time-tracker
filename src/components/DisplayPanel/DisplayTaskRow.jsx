@@ -2,13 +2,27 @@ import DisplayEditableName from "./DisplayEditableName"
 import DisplayEditableDuration from "./DisplayEditableDuration"
 import DisplayEditableDate from "./DisplayEditableDate"
 import DisplayEditableTime from "./DisplayEditableTime"
+import DropdownSearch from "../Shared Components/DropdownSearch"
 
-const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCurrentRunningTask }) => {
+const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCurrentRunningTask, projectsList, createProject }) => {
 
     const handleNameUpdate = newName => {
         // console.log(`Updating the name of the task ${task.id},
         //              previous name ${task.name}, new name ${newName}`)
         editTask(task.id, { ...task, name: newName })
+    }
+
+    const handleProjectUpdate = newProjectID => {
+        if (newProjectID !== null)
+            editTask(task.id, { ...task, project: newProjectID })
+        else
+            editTask(task.id, { ...task, project: undefined })
+    }
+
+    const handleProjectCreation = newProjectName => {
+        let newProjectID = createProject(newProjectName)
+        handleProjectUpdate(newProjectID)
+        return newProjectID
     }
 
     const handleIntervalUpdate = newInterval => {
@@ -37,6 +51,20 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
                     id={task.id}
                     name={task.name}
                     handleNameUpdate={handleNameUpdate}
+                />
+            </div>
+            {/* Task project */}
+            <div>
+                <DropdownSearch
+                    buttonText={"Add a project"}
+                    searchPlaceholderText={"Search a project or create a new one"}
+                    optionsList={projectsList}
+                    initialSelection={
+                        task.project && projectsList.find(project => project.id === task.project) ?
+                            projectsList.find(project => project.id === task.project).id :
+                            null}
+                    onCreateCallback={handleProjectCreation}
+                    onSelectCallback={handleProjectUpdate}
                 />
             </div>
             {/* Task start and end datetimes */}
