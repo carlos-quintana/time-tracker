@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: options, initialSelection, onSelectCallback, }) => {
+// Options are of the form {id: number, name: string}
+const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: options, initialSelection, onSelectCallback, onCreateCallback }) => {
 
     const [selection, setSelection] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
@@ -14,7 +15,16 @@ const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: option
         }
     }, [])
 
-    useEffect(() => setOptionsList(options), [options]);
+    useEffect(() => {
+        // If the options list thats given changes this might mean the option that was selected was deleted. So we check for this and in case it doesn't exist anymore then select the default option
+        if (selection != null) {
+            setOptionsList(options)
+            if (!options.find(el => el.id === selection))
+                setSelection(null)
+        }
+    }, [options])
+
+
 
     useEffect(() => {
         if (searchText.trim() === "")
@@ -35,10 +45,16 @@ const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: option
         }
         else {
             // Callback to submit this option
-            let newSelection = optionsList.find(option => option.id === id)?.name || buttonText
+            let newSelection = optionsList.find(option => option.id === id)?.id || null
             setSelection(newSelection)
             onSelectCallback(newSelection)
         }
+        setIsOpen(false)
+        setSearchText("")
+    }
+
+    const handleNewProject = () => {
+        setSelection(onCreateCallback(searchText))
         setIsOpen(false)
         setSearchText("")
     }
@@ -49,7 +65,7 @@ const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: option
             <button
                 onClick={() => setIsOpen(!isOpen)}
             >
-                {selection || buttonText}
+                {options.find(option => option.id === selection)?.name || buttonText}
             </button>
             {/* The dropdown */}
             {isOpen &&
@@ -78,7 +94,14 @@ const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: option
                                         </li>
                                 )
                             :
-                            <p>No results</p>
+                            <>
+                                <p>No results</p>
+                            </>
+
+                    }
+                    {/* If there is no project named exactly as the search text then give the user the option to create it right there */}
+                    {searchText.trim() !== "" && !optionsList.find(option => option.name === searchText.trim()) &&
+                        <button onClick={handleNewProject}>Create project "{searchText}"</button>
                     }
                 </div>
             }
