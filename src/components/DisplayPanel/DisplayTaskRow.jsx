@@ -2,7 +2,7 @@ import DisplayEditableName from "./DisplayEditableName"
 import DisplayEditableDuration from "./DisplayEditableDuration"
 import DisplayEditableDate from "./DisplayEditableDate"
 import DisplayEditableTime from "./DisplayEditableTime"
-import DropdownSearch from "../Reusable/DropdownSearch"
+import DropdownSearch from "../Shared Components/DropdownSearch"
 
 const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCurrentRunningTask, projectsList, createProject }) => {
 

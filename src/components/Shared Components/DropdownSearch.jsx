@@ -1,32 +1,56 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
 
 // Options are of the form {id: number, name: string}
-const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: options, initialSelection, onSelectCallback, onCreateCallback }) => {
+const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: options, initialSelection, onSelectCallback, onCreateCallback, resetTrigger }) => {
 
     const [selection, setSelection] = useState(null)
     const [isOpen, setIsOpen] = useState(false)
     const [searchText, setSearchText] = useState("")
     const [optionsList, setOptionsList] = useState([])
 
+    const initialRender = useRef(true)
+
     useEffect(() => {
-        console.log(initialSelection)
+        console.log("> Inside of initial useEffect inside of dropdown")
+        console.log({ initialSelection })
+        console.log({ options })
         if (initialSelection) {
+            console.log(`Setting selection to initial selection ${initialSelection}`)
             setSelection(initialSelection)
         }
+        console.log("< Outside of initial useEffect inside of dropdown")
     }, [])
 
+    useEffect(() => setSelection(initialSelection), [initialSelection])
+
     useEffect(() => {
-        // If the options list thats given changes this might mean the option that was selected was deleted. So we check for this and in case it doesn't exist anymore then select the default option
-        if (selection != null) {
-            setOptionsList(options)
-            if (!options.find(el => el.id === selection))
-                setSelection(null)
+        console.log("> Inside of options useEffect inside of dropdown")
+        console.log({ options })
+        if (initialRender.current) {
+            console.log("Initial render, returning")
+        } else {
+            // If the options list thats given changes this might mean the option that was selected was deleted. So we check for this and in case it doesn't exist anymore then select the default option
+            if (options !== null) {
+                console.log("Setting the options")
+                console.log("%cSetting the options list inside of options useEffect", { backgroundColor: "green" })
+                setOptionsList(options)
+                if (selection && !options.find(el => el.id === selection)) {
+                    console.log(`Setting selection to ${null}`)
+                    setSelection(null)
+                }
+            }
         }
+        initialRender.current = false;
+        console.log("< Outside of options useEffect inside of dropdown")
     }, [options])
 
-
-
     useEffect(() => {
+        console.log("> Inside of searchText useEffect inside of dropdown")
+        if (initialRender.current) {
+            console.log("Initial render, returning")
+            return
+        }
         if (searchText.trim() === "")
             setOptionsList(options)
         else
@@ -35,7 +59,17 @@ const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: option
                     option.name.toLowerCase()
                         .includes(searchText.trim().toLowerCase()))
             )
+        console.log("< Outside of searchText useEffect inside of dropdown")
     }, [searchText])
+
+    useEffect(() => {
+        console.log("> Inside of resetTrigger useEffect inside of dropdown")
+        if (selection && resetTrigger) {
+            console.log("Setting selection to null")
+            setSelection(null)
+        }
+        console.log("< Outside of resetTrigger useEffect inside of dropdown")
+    }, [resetTrigger])
 
     const handleSelectOption = id => {
         if (id === null) {
@@ -63,9 +97,10 @@ const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: option
         <div>
             {/* The Dropdown trigger */}
             <button
+                type="button"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                {options.find(option => option.id === selection)?.name || buttonText}
+                {options?.find(option => option.id === selection)?.name || buttonText}
             </button>
             {/* The dropdown */}
             {isOpen &&
@@ -75,6 +110,7 @@ const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: option
                 >
                     {/* The search input */}
                     <input
+                        name="dropdown-search"
                         placeholder={searchPlaceholderText}
                         onChange={event => setSearchText(event.target.value)}
                         value={searchText}
@@ -99,15 +135,14 @@ const DropdownSearch = ({ buttonText, searchPlaceholderText, optionsList: option
                             </>
 
                     }
-                    {/* If there is no project named exactly as the search text then give the user the option to create it right there */}
+                    {/* If there is no option named exactly as the search text then give the user the option to create it right there */}
                     {searchText.trim() !== "" && !optionsList.find(option => option.name === searchText.trim()) &&
                         <button onClick={handleNewProject}>Create project "{searchText}"</button>
                     }
                 </div>
             }
             {/* A small button to the side of the dropdown to reset its selection */}
-            {
-                selection !== null &&
+            {selection !== null &&
                 <button
                     onClick={() => handleSelectOption(null)}
                 >
