@@ -4,7 +4,7 @@ import DisplayEditableDate from "./DisplayEditableDate"
 import DisplayEditableTime from "./DisplayEditableTime"
 import DropdownSearch from "../Reusable/DropdownSearch"
 
-const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCurrentRunningTask, projectsList }) => {
+const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCurrentRunningTask, projectsList, createProject }) => {
 
     const handleNameUpdate = newName => {
         // console.log(`Updating the name of the task ${task.id},
@@ -17,6 +17,12 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
             editTask(task.id, { ...task, project: newProjectID })
         else
             editTask(task.id, { ...task, project: undefined })
+    }
+
+    const handleProjectCreation = newProjectName => {
+        let newProjectID = createProject(newProjectName)
+        handleProjectUpdate(newProjectID)
+        return newProjectID
     }
 
     const handleIntervalUpdate = newInterval => {
@@ -54,9 +60,10 @@ const DisplayTaskRow = ({ task, editTask, deleteTask, currentRunningTask, setCur
                     searchPlaceholderText={"Search a project or create a new one"}
                     optionsList={projectsList}
                     initialSelection={
-                        task.project ?
-                            projectsList.find(project => project.id === task.project).name :
+                        task.project && projectsList.find(project => project.id === task.project) ?
+                            projectsList.find(project => project.id === task.project).id :
                             null}
+                    onCreateCallback={handleProjectCreation}
                     onSelectCallback={handleProjectUpdate}
                 />
             </div>

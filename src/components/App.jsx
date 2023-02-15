@@ -109,6 +109,30 @@ export default function App() {
     setTasksList(tasksList.filter(el => el.id !== id))
   }
 
+  const createProject = (newProjectName) => {
+    let newProjectId = Date.now();
+    setProjectsList([{
+      id: newProjectId,
+      name: newProjectName
+    }, ...projectsList])
+    return newProjectId;
+  }
+  const editProject = (idEdit, newProject) => {
+    setProjectsList(projectsList.map(project => project.id === idEdit ? {id: idEdit, name: newProject} : project))
+  }
+  const deleteProject = id => {
+    console.log(`Deleting the project with id ${id}`)
+    console.log("Removing the project from the tasks list")
+    setTasksList(
+      tasksList.map(task => {
+        if (task.project === id)
+          return {...task, project: undefined}
+        return task
+      }))
+    setProjectsList(projectsList.filter(el => el.id !== id))
+    console.log("Filtered the list of projects")
+  }
+
   const resetAppData = () => {
     // console.warn("Resetting the Local Storage data stored in the app")
     localStorage.clear()
@@ -130,6 +154,14 @@ export default function App() {
         currentRunningTask={currentRunningTask}
         setCurrentRunningTask={setCurrentRunningTask}
         projectsList={projectsList}
+        createProject={createProject}
+      />
+      <hr/>
+      <PanelProjects
+        projectsList={projectsList}
+        createProject={createProject}
+        editProject={editProject}
+        deleteProject={deleteProject}
       />
       <button onClick={resetAppData}> Reset the LocalStorage </button>
     </div>
