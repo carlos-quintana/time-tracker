@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 
 import PanelInputs from "./InputPanel/PanelInputs"
-import PanelData from "./DisplayPanel/PanelData"
+import PanelTasks from "./DisplayPanel/PanelTasks"
 import PanelProjects from "./ProjectsPanel/PanelProjects"
 // JSON files that contain example dummy data to populate the application
 import exampleTasksFromJSON from "../exampleTasks.json"
@@ -153,9 +153,7 @@ export default function App() {
     setTasksList(tasksList.map((task) => task.id === idEdit ? newTask : task))
   }
 
-  /**
-   * @param {Number} idDelete - The id of the Task to delete
-   */
+  /** @param {Number} idDelete - The id of the Task to delete */
   const deleteTask = idDelete => {
     setTasksList(tasksList.filter(el => el.id !== idDelete))
   }
@@ -220,7 +218,7 @@ export default function App() {
         projectsList={projectsList}
         createProject={createProject}
       />
-      <PanelData
+      <PanelTasks
         tasksList={tasksList}
         editTask={editTask}
         deleteTask={deleteTask}
