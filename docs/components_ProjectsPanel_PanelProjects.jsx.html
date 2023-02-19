@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>React Time Tracker Documentation: components/ProjectsPanel/PanelProjects.jsx</title>
+    
+      <link type="text/css" rel="stylesheet" href="styles/vendor/prism-custom.css">
+    
+    <link type="text/css" rel="stylesheet" href="styles/styles.css">
+    
+</head>
+<body>
+
+<header class="layout-header">
+  
+  <h1>
+    <a href="./index.html">
+      React Time Tracker Documentation
+    </a>
+  </h1>
+  <nav class="layout-nav">
+    <ul><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module" title="module">M</span><span class="nav-item-name is-module"><a href="module-TimeFunctions.html">TimeFunctions</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.HMSToTimestamp">HMSToTimestamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.dateSnakeToTimestamp">dateSnakeToTimestamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.formattedHMSToSeconds">formattedHMSToSeconds</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.secondsToFormattedHMS">secondsToFormattedHMS</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToDateSnake">timestampToDateSnake</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToDateToDisplay">timestampToDateToDisplay</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToHMS">timestampToHMS</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToTimeToDisplay">timestampToTimeToDisplay</a></span></li></ul><ul><li class="nav-heading">Namespaces</li><li class="nav-heading"><span class="nav-item-type type-namespace" title="namespace">N</span><span class="nav-item-name is-namespace"><a href="Component_InputTimer.html">Component_InputTimer</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="Component_InputTimer.html#.TIMER_INTERVAL_MS">TIMER_INTERVAL_MS</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace" title="namespace">N</span><span class="nav-item-name is-namespace"><a href="typedefs.html">typedefs</a></span></li></ul><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#DropdownSearch">DropdownSearch</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableDate">EditableDate</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableDuration">EditableDuration</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableName">EditableName</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableTime">EditableTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#InputCustomInterval">InputCustomInterval</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#InputDuration">InputDuration</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#InputTimer">InputTimer</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#PanelInputs">PanelInputs</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#PanelProjects">PanelProjects</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#PanelTasks">PanelTasks</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#TaskRow">TaskRow</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#replaceCharacter">replaceCharacter</a></span></li>
+  </nav>
+</header>
+
+
+<main class="layout-main  layout-content--source">
+  <div class="container">
+    <p class="page-kind">source</p>
+    <h1 class="page-title">components/ProjectsPanel/PanelProjects.jsx</h1>
+    
+
+
+
+    
+
+<section>
+    <article>
+        <pre id="source" class="source-page line-numbers"><code class="language-js">import React, { useState } from "react";
+
+// eslint-disable-next-line no-unused-vars
+const typedefs = require("./../types"); // JSDoc Type Definitions
+
+/**
+ * This component is used for the time being to show a list of the current existing projects, as well as the controls to do CRUD operations on them.
+ * @param {Object} props - Component props object
+ * @param {Array} props.projectsList - The list of existing projects. This is used in the Dropdown component that is used to select a project to assign the task to.
+ * @param {function(String):Number} props.createProject - Callback function that will be fired when the form is used to create a new Project.
+ * @param {function(Number,typedefs.Project):void} props.editProject - Callback function that will be fired when the form is used to edit an existing Project.
+ * @param {function(Number):void} props.deleteProject - Callback function that will be fired when any Project is deleted.
+ */
+const PanelProjects = ({ projectsList, createProject, editProject, deleteProject }) => {
+
+    /** It's used in the controlled input field, and works to hold both the new Project name or an existing Project name, depending on wether the form is in creating or editing mode. */
+    const [newProjectName, setNewProjectName] = useState("");
+    /** When this is true the form will be used to change the details of any selected Project. For the time being the only field it's the name */
+    const [isEditing, setIsEditing] = useState(false);
+    /** When isEditing is true we need to keep track of the selected Project to edit */
+    const [editingId, setEditingId] = useState(null);
+
+    /** When the form is submitted in creation mode we validate the data for the new Project and then elevate this with the callback to submit the new Project. */
+    const handleSubmitNewProject = (event) => {
+        event.preventDefault();
+        createProject(newProjectName);
+        setNewProjectName("");
+    }
+
+    /** When the form is submitted in editing we validate the data for the new Project and then elevate this with the callback to edit an existing Project. */
+    const handleSubmitEditProject = (event) => {
+        event.preventDefault();
+        if (editingId === null) return;
+        /** @type {typedefs.Project} */
+        let newProject = { id: editingId, name: newProjectName };
+        editProject(editingId, newProject);
+        // Reset the form
+        setNewProjectName("");
+        setIsEditing(false);
+        setEditingId(null);
+    }
+
+    return (
+        &lt;div>
+            &lt;h3>Projects list:&lt;/h3>
+            {isEditing ?
+                &lt;>
+                    &lt;h5>Editing the project&lt;/h5>
+                    &lt;form onSubmit={handleSubmitEditProject}>
+                        &lt;input type="text"
+                            placeholder="Input a new name"
+                            value={newProjectName}
+                            onChange={e => setNewProjectName(e.target.value)} />
+                        &lt;input type="submit" value="Submit" />
+                    &lt;/form>
+                    &lt;button onClick={() => { setIsEditing(false); setEditingId(null); }}>
+                        Cancel
+                    &lt;/button>
+                &lt;/>
+                :
+                &lt;>
+                    &lt;h5>Create a new project&lt;/h5>
+                    &lt;form onSubmit={handleSubmitNewProject}>
+                        &lt;input type="text"
+                            placeholder="Input the name of the new project"
+                            value={newProjectName}
+                            onChange={e => setNewProjectName(e.target.value)} />
+                        &lt;input type="submit" value="Submit" />
+                    &lt;/form>
+                &lt;/>}
+            &lt;ul>
+                {projectsList?.map((project) =>
+                    &lt;li key={project.id}>
+                        &lt;span>{project.id} | {project.name} | &lt;/span>
+                        &lt;button onClick={() => deleteProject(project.id)}>
+                            Delete
+                        &lt;/button>
+                        &lt;button onClick={() => {
+                            setIsEditing(true);
+                            setEditingId(project.id);
+                            setNewProjectName(project.name);
+                        }} >
+                            Edit
+                        &lt;/button>
+                    &lt;/li>
+                )}
+            &lt;/ul>
+        &lt;/div>
+    );
+}
+
+export default PanelProjects</code></pre>
+    </article>
+</section>
+
+
+
+
+  </div>
+</main>
+
+<footer class="layout-footer">
+  <div class="container">
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Sun Feb 19 2023 12:17:38 GMT-0500 (hora estándar de Colombia)
+  </div>
+</footer>
+
+
+
+<script src="scripts/prism.dev.js"></script>
+</body>
+</html>

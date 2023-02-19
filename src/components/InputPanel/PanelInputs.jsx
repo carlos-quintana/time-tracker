@@ -1,30 +1,60 @@
 import React, { useState } from "react"
 import PanelInputTimer from "./PanelInputTimer"
 import PanelInputInterval from "./PanelInputInterval"
+// eslint-disable-next-line no-unused-vars
+const typedefs = require("./../types"); // JSDoc Type Definitions
 
-const PanelInputs = ({ createNewTask, currentRunningTask, setCurrentRunningTask, projectsList, createProject }) => {
+/**
+ * This component handles the conditional rendering of which of the input methods is presented to the user.
+ * For the time being the only two methods are: A timer that starts and ends and it's controlled by the user, which means the task will be set for the duration the timer was active, and a custom interval form that the user can use to input any arbitrary interval of time.
+ * @param {Object} props - Component props object
+ * @param {Function} props.createNewTask - Callback function that will be fired when any of the input panels submits a new task
+ * @param {null | typedefs.CurrentTask} props.currentTask - The current running Task state that represents the current task in the Timer. (The state initializes as null but it should change to CurrentTask after it's mounted)
+ * @param {Function} props.setCurrentTask - Callback function that will set the state for the new current running task, set in the Timer.
+ * @param {Array} props.projectsList - The list of existing projects. This is used in the Dropdown component that is used to select a project to assign the task to.
+ * @param {function(String):Number} props.createProject - Callback function that will be fired when any of the input panels submits a new project (this is used inside of the Dropdown components)
+ */
+const PanelInputs = ({ createNewTask, currentTask, setCurrentTask, projectsList, createProject }) => {
 
-    const [inputMethod, setInputMethod] = useState("timer")
+    /** This variable controls the conditional rendering of which input method is currently being displayed, either 'timer' or 'custom' */
+    const [inputMethod, setInputMethod] = useState("timer");
 
-    const handleNewTaskSubmitted = (taskName, interval, project=undefined) => {
-        // TODO
-        createNewTask(taskName, interval, project)
+    /**
+     * This function will be sent down to the different input methods components as a callback to handle the data used in the creation of a new Task. After receiving and validating the data this will elevate it through the createNewTask callback and the App component will append the new Task to the state.
+     * @param {String} taskName - The name of the new task.
+     * @param {typedefs.Interval} interval - The interval which contains the start and end points of the task.
+     * @param {Number} [projectId=undefined] - The id number for the project the task is assigned to. If no project was selected then this field will be undefined.
+     */
+    const handleNewTaskSubmitted = (taskName, interval, projectId = undefined) => {
+        // TODO - fields validation
+        createNewTask(taskName, interval, projectId);
     }
 
     return (
         <div>
+            <h4>Select an input method:</h4>
+            {/* @ts-ignore. The linter gives error for the event.target.value */}
             <form name="inputTypeSelector" onChange={event => setInputMethod(event.target.value)}>
-                <input type="radio" name="inputSelector" id="inputSelectorTimer" value="timer" defaultChecked/>
+                <input type="radio"
+                    name="inputSelector"
+                    id="inputSelectorTimer"
+                    value="timer"
+                    defaultChecked
+                />
                 <label htmlFor="inputSelectorTimer">Timer</label>
-                <input type="radio" name="inputSelector" id="inputSelectorCustom" value="custon"/>
-                <label htmlFor="inputSelectorCustom">Custom dates and time</label>
+                <input type="radio"
+                    name="inputSelector"
+                    id="inputSelectorInterval"
+                    value="interval"
+                />
+                <label htmlFor="inputSelectorInterval">Custom dates and time</label>
             </form>
             {
                 inputMethod === "timer" ?
                     <PanelInputTimer
                         handleSubmit={handleNewTaskSubmitted}
-                        currentRunningTask={currentRunningTask}
-                        setCurrentRunningTask={setCurrentRunningTask}
+                        currentTask={currentTask}
+                        setCurrentTask={setCurrentTask}
                         projectsList={projectsList}
                         createProject={createProject}
                     />

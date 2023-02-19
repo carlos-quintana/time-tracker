@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>React Time Tracker Documentation: components/InputPanel/PanelInputs.jsx</title>
+    
+      <link type="text/css" rel="stylesheet" href="styles/vendor/prism-custom.css">
+    
+    <link type="text/css" rel="stylesheet" href="styles/styles.css">
+    
+</head>
+<body>
+
+<header class="layout-header">
+  
+  <h1>
+    <a href="./index.html">
+      React Time Tracker Documentation
+    </a>
+  </h1>
+  <nav class="layout-nav">
+    <ul><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module" title="module">M</span><span class="nav-item-name is-module"><a href="module-TimeFunctions.html">TimeFunctions</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.HMSToTimestamp">HMSToTimestamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.dateSnakeToTimestamp">dateSnakeToTimestamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.formattedHMSToSeconds">formattedHMSToSeconds</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.secondsToFormattedHMS">secondsToFormattedHMS</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToDateSnake">timestampToDateSnake</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToDateToDisplay">timestampToDateToDisplay</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToHMS">timestampToHMS</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToTimeToDisplay">timestampToTimeToDisplay</a></span></li></ul><ul><li class="nav-heading">Namespaces</li><li class="nav-heading"><span class="nav-item-type type-namespace" title="namespace">N</span><span class="nav-item-name is-namespace"><a href="Component_InputTimer.html">Component_InputTimer</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="Component_InputTimer.html#.TIMER_INTERVAL_MS">TIMER_INTERVAL_MS</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace" title="namespace">N</span><span class="nav-item-name is-namespace"><a href="typedefs.html">typedefs</a></span></li></ul><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#DropdownSearch">DropdownSearch</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableDate">EditableDate</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableDuration">EditableDuration</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableName">EditableName</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableTime">EditableTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#InputCustomInterval">InputCustomInterval</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#InputDuration">InputDuration</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#InputTimer">InputTimer</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#PanelInputs">PanelInputs</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#PanelProjects">PanelProjects</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#PanelTasks">PanelTasks</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#TaskRow">TaskRow</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#replaceCharacter">replaceCharacter</a></span></li>
+  </nav>
+</header>
+
+
+<main class="layout-main  layout-content--source">
+  <div class="container">
+    <p class="page-kind">source</p>
+    <h1 class="page-title">components/InputPanel/PanelInputs.jsx</h1>
+    
+
+
+
+    
+
+<section>
+    <article>
+        <pre id="source" class="source-page line-numbers"><code class="language-js">import React, { useState } from "react"
+import PanelInputTimer from "./PanelInputTimer"
+import PanelInputInterval from "./PanelInputInterval"
+// eslint-disable-next-line no-unused-vars
+const typedefs = require("./../types"); // JSDoc Type Definitions
+
+/**
+ * This component handles the conditional rendering of which of the input methods is presented to the user.
+ * For the time being the only two methods are: A timer that starts and ends and it's controlled by the user, which means the task will be set for the duration the timer was active, and a custom interval form that the user can use to input any arbitrary interval of time.
+ * @param {Object} props - Component props object
+ * @param {Function} props.createNewTask - Callback function that will be fired when any of the input panels submits a new task
+ * @param {null | typedefs.CurrentTask} props.currentTask - The current running Task state that represents the current task in the Timer. (The state initializes as null but it should change to CurrentTask after it's mounted)
+ * @param {Function} props.setCurrentTask - Callback function that will set the state for the new current running task, set in the Timer.
+ * @param {Array} props.projectsList - The list of existing projects. This is used in the Dropdown component that is used to select a project to assign the task to.
+ * @param {function(String):Number} props.createProject - Callback function that will be fired when any of the input panels submits a new project (this is used inside of the Dropdown components)
+ */
+const PanelInputs = ({ createNewTask, currentTask, setCurrentTask, projectsList, createProject }) => {
+
+    /** This variable controls the conditional rendering of which input method is currently being displayed, either 'timer' or 'custom' */
+    const [inputMethod, setInputMethod] = useState("timer");
+
+    /**
+     * This function will be sent down to the different input methods components as a callback to handle the data used in the creation of a new Task. After receiving and validating the data this will elevate it through the createNewTask callback and the App component will append the new Task to the state.
+     * @param {String} taskName - The name of the new task.
+     * @param {typedefs.Interval} interval - The interval which contains the start and end points of the task.
+     * @param {Number} [projectId=undefined] - The id number for the project the task is assigned to. If no project was selected then this field will be undefined.
+     */
+    const handleNewTaskSubmitted = (taskName, interval, projectId = undefined) => {
+        // TODO - fields validation
+        createNewTask(taskName, interval, projectId);
+    }
+
+    return (
+        &lt;div>
+            &lt;h4>Select an input method:&lt;/h4>
+            {/* @ts-ignore. The linter gives error for the event.target.value */}
+            &lt;form name="inputTypeSelector" onChange={event => setInputMethod(event.target.value)}>
+                &lt;input type="radio"
+                    name="inputSelector"
+                    id="inputSelectorTimer"
+                    value="timer"
+                    defaultChecked
+                />
+                &lt;label htmlFor="inputSelectorTimer">Timer&lt;/label>
+                &lt;input type="radio"
+                    name="inputSelector"
+                    id="inputSelectorInterval"
+                    value="interval"
+                />
+                &lt;label htmlFor="inputSelectorInterval">Custom dates and time&lt;/label>
+            &lt;/form>
+            {
+                inputMethod === "timer" ?
+                    &lt;PanelInputTimer
+                        handleSubmit={handleNewTaskSubmitted}
+                        currentTask={currentTask}
+                        setCurrentTask={setCurrentTask}
+                        projectsList={projectsList}
+                        createProject={createProject}
+                    />
+                    :
+                    &lt;PanelInputInterval
+                        handleSubmit={handleNewTaskSubmitted}
+                        projectsList={projectsList}
+                        createProject={createProject}
+                    />
+            }
+        &lt;/div>
+    )
+}
+export default PanelInputs</code></pre>
+    </article>
+</section>
+
+
+
+
+  </div>
+</main>
+
+<footer class="layout-footer">
+  <div class="container">
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Sun Feb 19 2023 12:17:38 GMT-0500 (hora estándar de Colombia)
+  </div>
+</footer>
+
+
+
+<script src="scripts/prism.dev.js"></script>
+</body>
+</html>

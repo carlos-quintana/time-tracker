@@ -1,48 +1,68 @@
 import React, { useState } from "react"
 import DropdownSearch from "../Shared Components/DropdownSearch"
+// eslint-disable-next-line no-unused-vars
+const typedefs = require("./../types"); // JSDoc Type Definitions
 
-
+/**
+ * @param {Object} props - Component props object
+ * @param {function(String,typedefs.Interval,Number|undefined):void} props.handleSubmit - Callback function that will be fired when the form is submitted
+ * @param {Array<typedefs.Project>} props.projectsList - The list of existing projects. This is used in the dropdown component that is used to select a project to assign the task to.
+ * @param {function(String):Number} props.createProject - Callback function that will be fired when any of the input panels submits a new project (this is used inside of the Dropdown components)
+ */
 const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, createProject }) => {
 
-    const [taskName, setEntryName] = useState("")
-    const [taskProject, setTaskProject] = useState(null)
-    const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0)
-    const [startDate, setStartDate] = useState("")
-    const [endDate, setEndDate] = useState("")
-    const [startTime, setStartTime] = useState("")
-    const [endTime, setEndTime] = useState("")
+    /** The name the new task will have. The corresponding input is controlled by this state. */
+    const [taskName, setTaskName] = useState("");
+    /** A string that has the shape of 'YYYY-MM-DD' used in the controlled input for the start date. */
+    const [startDate, setStartDate] = useState("");
+    /** A string that has the shape of 'YYYY-MM-DD' used in the controlled input for the end date. */
+    const [endDate, setEndDate] = useState("");
+    /** A string that has the shape of 'H:MM:SS' used in the controlled input for the start time. */
+    const [startTime, setStartTime] = useState("");
+    /** A string that has the shape of 'H:MM:SS' used in the controlled input for the end time. */
+    const [endTime, setEndTime] = useState("");
+    /** Keeps track of the project selected through the Dropdown component. */
+    const [taskProject, setTaskProject] = useState(/**@type {null | Number}*/(null));
+    /** This variable is used to change the props given to the Dropdown component which triggers a hook to reset it's selection to none. */
+    const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0);
 
-    const handleProjectCreation = newProjectName => {
-        let newProjectID = createProject(newProjectName)
-        return newProjectID
-    }
-
-    const handleFormSubmit = event => {
+    /** When the form is submitted validate the data for the new task and then elevate this with the callback to submit the new task. */
+    const handleFormSubmit = (event) => {
         event.preventDefault();
-
-        // console.log(startDate, startTime, endDate, endTime)
-        // Validation empty fields
+        //      Validation
+        //      Validate empty fields
+        //      TODO: Validate task name
         if (!(startDate && startTime && endDate && endTime)) {
-            alert("Please fill in all of the fields")
-            return
+            alert("Please fill in all of the fields");
+            return;
         }
+        //      Validate start datetime is before end datetime
         let startTimestamp = new Date(startDate + " " + startTime).getTime();
         let endTimestamp = new Date(endDate + " " + endTime).getTime();
-
         if (startTimestamp >= endTimestamp) {
-            alert("The times selected are not valid") // TODO: A better notifications system (maybe modals or tooltips)
-            return
+            alert("The times selected are not valid"); // TODO: A better notifications system (maybe modals or tooltips)
+            return;
         }
-        console.log(`Submitting new task with the name "${taskName}", starterTimestamp: ${startTimestamp}, endTimestamp:${endTimestamp}, taskProject:${taskProject}`)
-        handleEntrySubmit(taskName, { start: startTimestamp, end: endTimestamp}, taskProject || undefined )
-        setEntryName("");
+        //      Callback to submit task
+        console.log(`Submitting new task with the name "${taskName}", starterTimestamp: ${startTimestamp}, endTimestamp:${endTimestamp}, taskProject:${taskProject}`);
+        handleEntrySubmit(taskName, { start: startTimestamp, end: endTimestamp }, taskProject || undefined);
+        //      Reset the form
+        setTaskName("");
         setStartDate("");
         setEndDate("");
         setStartTime("");
         setEndTime("");
         setTaskProject(null); // The state in the panel for which project is selected
-        setDropdownResetTrigger(dropdownResetTrigger+1) // Trigger a useEffect hook in the child component to change state
+        setDropdownResetTrigger(dropdownResetTrigger + 1); // Trigger a useEffect hook in the child component to change the selected state to none
     }
+
+    /**
+     * This function is used when a project is created in the Dropdown component.
+     * @param {String} newProjectName - The name for the new project.
+     * @returns {Number} - The id of the newly created project
+     */
+    const handleProjectCreation = newProjectName =>
+        createProject(newProjectName);
 
     return (
         <div>
@@ -53,7 +73,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                     name="taskName"
                     type="text"
                     value={taskName}
-                    onChange={event => setEntryName(event.target.value)}
+                    onChange={event => setTaskName(event.target.value)}
                     placeholder="Input what you're working on" />
 
                 <label htmlFor="startDate">Start: </label>
@@ -86,9 +106,12 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                 {/* Task project */}
                 <div>
                     <DropdownSearch
-                        buttonText={"Add a project"}
-                        searchPlaceholderText={"Search a project or create a new one"}
-                        optionsList={projectsList}
+                        defaultText={"Add a project"}
+                        searchPlaceholder={"Search a project or create a new one"}
+                        optionsList={
+                            projectsList.map(project => {
+                                return { id: project.id, value: project.name }
+                            })}
                         initialSelection={null}
                         onCreateCallback={handleProjectCreation}
                         onSelectCallback={setTaskProject}
@@ -98,6 +121,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
 
                 <input type="submit"
                     value="Submit"
+                    // Disable the submit button if the text field doesn't have any text
                     disabled={taskName.trim() === ""} />
             </form>
         </div>

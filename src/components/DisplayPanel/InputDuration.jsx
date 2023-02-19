@@ -1,13 +1,26 @@
 import React, { useEffect, useRef, useState } from "react"
 import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
 
-// Example: replaceCharacter("abcde", 2, "x") returns "abxde"
-// TODO: Move the function to another file and write its respective tests
+/**
+ * TODO: Move the function to another file and write its respective tests
+ * This function will receive a String and change a character located in a given position
+ * @param {String} string - The string to make the changes on
+ * @param {Number} position - The index of the character to replace
+ * @param {String} character - The character to replace
+ * @returns {String} The String with the character selected replaced.
+ * @example replaceCharacter("abcde", 2, "x")
+ * "abxde"
+ */
 const replaceCharacter = (string, position, character) => string.substring(0, position) + character + string.substring(position + 1)
 
-/*  This component will create an input element of type text, which we will control the position of the caret (cursor) and the values that are inputed, so that it always represents a valid time in the form of H:MM:SS, including the colon signs.
-To keep track of the position of the caret we will use the input properties of selectionStart and End, and we will use the event onKeyDown to receive the numeric inputs from the user and handle them appropriately, and the logic that comes with the constrainst of the format, for example, that seconds and minutes are 2 digits numbers and cannot be larger than 59, etc. */
-const InputTimeCustom = ({ id, durationSeconds, handleSubmit }) => {
+/** This component will create an input element of type text, which we will control the position of the caret (cursor) and the values that are inputed, so that it always represents a valid time in the form of H:MM:SS, including the colon signs.
+ * To keep track of the position of the caret we will use the input properties of selectionStart and selectionEnd, and we will use the event onKeyDown to receive the numeric inputs from the user and handle them appropriately, and the logic that comes with the constrainst of the format, for example, that seconds and minutes are 2 digits numbers and cannot be larger than 59, etc. 
+ * @param {Object} props - Component props object
+ * @param {Number} props.id - The id of the Task associated to this component object contained in this row, used when setting the id for the input tag.
+ * @param {Number} props.durationSeconds - The total duration of seconds to first display.
+ * @param {function(String):void} props.handleSubmit - Callback function that will be fired when the changes are submitted.
+ */
+const InputDuration = ({ id, durationSeconds, handleSubmit }) => {
     // This will be in the form of a formatted H:MM:SS string to be displayed
     const [durationString, setDurationString] = useState(null)
     // This points to the element of the input, so that we can access it's selectionStart and End properties to manually select and keep track of the position of the real caret abd the position that will be updated when the corresponding keystroke comes.
@@ -120,7 +133,7 @@ const InputTimeCustom = ({ id, durationSeconds, handleSubmit }) => {
     }
 
     const handleCloseInput = event => handleSubmit(event)
-
+    
     return (
         <>
             <input
@@ -137,12 +150,13 @@ const InputTimeCustom = ({ id, durationSeconds, handleSubmit }) => {
                 onInput={handlePositionUpdate}
                 onSelect={handlePositionUpdate}
                 onTouchStart={handlePositionUpdate}
-
+                
 
                 onPaste={e => e.preventDefault}
                 onCut={e => e.preventDefault}
-
+                
                 autoFocus
+                /** Since we are controlling the input there's no reason it shouldn't be valid when the input loses focus */
                 onBlur={handleCloseInput}
                 ref={inputRef}
             />
@@ -151,4 +165,4 @@ const InputTimeCustom = ({ id, durationSeconds, handleSubmit }) => {
 
 }
 
-export default InputTimeCustom;
+export default InputDuration;
