@@ -6,6 +6,7 @@
  * @typedef {Object} Interval - Signifies the time period some task took. It has a start and end point, in the form of UNIX timestamps.
  * @property {Number} start - The UNIX timestamp that represents the moment the task begins.
  * @property {Number} end - The UNIX timestamp that represents the moment the task ends.
+ * @memberof typedefs
  */
 
 /**
