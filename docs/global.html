@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>React Time Tracker Documentation: Global</title>
+    <link type="text/css" rel="stylesheet" href="styles/vendor/prism-custom.css">
+    <link type="text/css" rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body>
+    <header class="layout-header">
+        <h1>
+            <a href="./index.html">
+                React Time Tracker Documentation
+            </a>
+        </h1>
+        <nav class="layout-nav">
+            <ul>
+                <li class="nav-heading">Modules</li>
+                <li class="nav-heading"><span class="nav-item-type type-module" title="module">M</span><span
+                        class="nav-item-name is-module"><a href="module-TimeFunctions.html">TimeFunctions</a></span>
+                </li>
+                <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                        class="nav-item-name is-function"><a
+                            href="module-TimeFunctions.html#.HMSToTimestamp">HMSToTimestamp</a></span></li>
+                <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                        class="nav-item-name is-function"><a
+                            href="module-TimeFunctions.html#.dateSnakeToTimestamp">dateSnakeToTimestamp</a></span></li>
+                <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                        class="nav-item-name is-function"><a
+                            href="module-TimeFunctions.html#.formattedHMSToSeconds">formattedHMSToSeconds</a></span>
+                </li>
+                <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                        class="nav-item-name is-function"><a
+                            href="module-TimeFunctions.html#.secondsToFormattedHMS">secondsToFormattedHMS</a></span>
+                </li>
+                <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                        class="nav-item-name is-function"><a
+                            href="module-TimeFunctions.html#.timestampToDateSnake">timestampToDateSnake</a></span></li>
+                <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                        class="nav-item-name is-function"><a
+                            href="module-TimeFunctions.html#.timestampToDateToDisplay">timestampToDateToDisplay</a></span>
+                </li>
+                <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                        class="nav-item-name is-function"><a
+                            href="module-TimeFunctions.html#.timestampToHMS">timestampToHMS</a></span></li>
+                <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                        class="nav-item-name is-function"><a
+                            href="module-TimeFunctions.html#.timestampToTimeToDisplay">timestampToTimeToDisplay</a></span>
+                </li>
+            </ul>
+            <ul>
+                <li class="nav-heading">Namespaces</li>
+                <li class="nav-heading"><span class="nav-item-type type-namespace" title="namespace">N</span><span
+                        class="nav-item-name is-namespace"><a
+                            href="Component_InputTimer.html">Component_InputTimer</a></span></li>
+                <li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span
+                        class="nav-item-name is-member"><a
+                            href="Component_InputTimer.html#.TIMER_INTERVAL_MS">TIMER_INTERVAL_MS</a></span></li>
+                <li class="nav-heading"><span class="nav-item-type type-namespace" title="namespace">N</span><span
+                        class="nav-item-name is-namespace"><a href="typedefs.html">typedefs</a></span></li>
+            </ul>
+            <li class="nav-heading"><a href="global.html">Globals</a></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#DropdownSearch">DropdownSearch</a></span>
+            </li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#EditableDate">EditableDate</a></span></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#EditableDuration">EditableDuration</a></span>
+            </li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#EditableName">EditableName</a></span></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#EditableTime">EditableTime</a></span></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a
+                        href="global.html#InputCustomInterval">InputCustomInterval</a></span></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#InputDuration">InputDuration</a></span></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#InputTimer">InputTimer</a></span></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#PanelInputs">PanelInputs</a></span></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#PanelProjects">PanelProjects</a></span></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#PanelTasks">PanelTasks</a></span></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#TaskRow">TaskRow</a></span></li>
+            <li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span
+                    class="nav-item-name is-function"><a href="global.html#replaceCharacter">replaceCharacter</a></span>
+            </li>
+        </nav>
+    </header>
+    <main class="layout-main ">
+        <div class="container">
+            <p class="page-kind"></p>
+            <h1 class="page-title">Global</h1>
+            <section>
+                <header class="not-class">
+                    <!-- <h2></h2> -->
+                </header>
+                <article>
+                    <div class="container-overview">
+                        <div class="details">
+                        </div>
+                    </div>
+                    <h3 class="subtitle">Methods</h3>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="DropdownSearch">DropdownSearch<span
+                                class="signature">(props)</span><span class="return-type-signature"></span>
+                        </h4>
+                        <div class="method-description">
+                            <p>This component will act as a select dropdown input field, where the user can click on it
+                                to expand a menu listing all of the different options, and when clicking on any of these
+                                options it will change the state of the component to the selected option.
+                                This component has the ability to search and filter for a specific string to find an
+                                option more easily.
+                                This component will also have the feature to create a new option when using the search
+                                field and not finding an exact match.</p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <span class="param-attributes">
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                                <p class="param-properties">Properties</p>
+                                <ul class="method-params">
+                                    <li>
+                                        <span class="param-name">defaultText</span>
+                                        <span class="param-type">
+                                            <code>String</code>
+                                        </span>
+                                        <span class="param-attributes">
+                                            &lt;optional&gt;<br>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>This is the text the component will display when there is no option
+                                                selected. If none is provided the default text will be &quot;Click to
+                                                select an option&quot;</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">searchPlaceholder</span>
+                                        <span class="param-type">
+                                            <code>String</code>
+                                        </span>
+                                        <span class="param-attributes">
+                                            &lt;optional&gt;<br>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>This is the text the component will display in the input field for
+                                                searching options. If none is provided the default text will be
+                                                &quot;Search for an option&quot;</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">optionsList</span>
+                                        <span class="param-type">
+                                            <code>Array.&lt;{id:Number, value:string}></code>
+                                        </span>
+                                        <span class="param-attributes">
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The list of options the component will provide.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">initialSelection</span>
+                                        <span class="param-type">
+                                            <code>null</code>
+                                        </span>
+                                        |
+                                        <span class="param-type">
+                                            <code>Number</code>
+                                        </span>
+                                        <span class="param-attributes">
+                                            &lt;optional&gt;<br>
+                                        </span>
+                                        <span class="param-default">
+                                            null
+                                        </span>
+                                        <div class="param-description">
+                                            <p>If provided a number, the component will have the option selected which
+                                                id is equal to this value. Otherwise none will be selected.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">onSelectCallback</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <span class="param-attributes">null|Number
+                                        </span>
+                                        <div class="param-description">
+                                            <p>A callback function that will be triggered when the user selects an
+                                                option, it will receive the id of the option selected (or null if none
+                                                is).</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">onCreateCallback</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <span class="param-attributes">String
+                                        </span>
+                                        <div class="param-description">
+                                            <p>A callback function that will be triggered when the user creates an
+                                                option, it
+                                                will receive the name of the option and return the id for it. It was
+                                                designed
+                                                this way based on the specific logif of this project.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">resetTrigger</span>
+                                        <span class="param-type">
+                                            <code>Number</code>
+                                        </span>
+                                        <span class="param-attributes">
+                                            &lt;optional&gt;<br>
+                                        </span>
+                                        <span class="param-default">
+                                            0
+                                        </span>
+                                        <div class="param-description">
+                                            <p>This is a prop that will be used to trigger a useEffect hook from an
+                                                outside
+                                                component so that the option can be set back to null and effectively
+                                                reset the
+                                                selection. It has a default value of 0, so that the first render doesn't
+                                                execute
+                                                the reset value (and overwrite the initialSelection).</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a href="components_Shared%20Components_DropdownSearch.jsx.html">components/Shared
+                                    Components/DropdownSearch.jsx</a><a
+                                    href="components_Shared%20Components_DropdownSearch.jsx.html#source.16">, line
+                                    16</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="EditableDate">EditableDate<span
+                                class="signature">(props)</span><span class="return-type-signature"></span>
+                        </h4>
+                        <div class="method-description">
+                            <p>This component will display a date, used for displaying the start and end dates for the
+                                Tasks. When clicked, this component will allow the user to edit the value with an input
+                                of type date.</p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                                <p class="param-properties">Properties</p>
+                                <ul class="method-params">
+                                    <li>
+                                        <span class="param-name">id</span>
+                                        <span class="param-type">
+                                            <code>Number</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The id of the Task associated to this component object contained in this
+                                                row, used when setting the id for the input tag.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">interval</span>
+                                        <span class="param-type">
+                                            <code><a href="typedefs.html#.Interval">typedefs.Interval</a></code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The Interval object of the task, containing its timestamps.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">handleIntervalUpdate</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when the changes are submitted.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">intervalPosition</span>
+                                        <span class="param-type">
+                                            <code>"start"</code>
+                                        </span>
+                                        |
+                                        <span class="param-type">
+                                            <code>"end"</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>This value tells us what position of the interval this component
+                                                represents and modify the logic accordingly when submitting. This is so
+                                                we can use the same component for both the start and end dates.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_DisplayPanel_EditableDate.jsx.html">components/DisplayPanel/EditableDate.jsx</a><a
+                                    href="components_DisplayPanel_EditableDate.jsx.html#source.14">, line 14</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="EditableDuration">EditableDuration<span
+                                class="signature">(props)</span><span class="return-type-signature"></span>
+                        </h4>
+                        <div class="method-description">
+                            <p>This component will display a time, not as in a time in a 24h day but as in an arbitrary
+                                amount of time in the same shape of Hours, Minutes and Seconds, used for displaying the
+                                total duration of any task calculated using the start and end timestamps. When clicked,
+                                this component will allow the user to edit the value with another component that will
+                                act as an input for this custom format, so that it constraints the input to a valid
+                                format.</p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                                <p class="param-properties">Properties</p>
+                                <ul class="method-params">
+                                    <li>
+                                        <span class="param-name">id</span>
+                                        <span class="param-type">
+                                            <code>Number</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The id of the Task associated to this component object contained in this
+                                                row, used when setting the id for the input tag.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">interval</span>
+                                        <span class="param-type">
+                                            <code><a href="typedefs.html#.Interval">typedefs.Interval</a></code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The Interval object of the task, containing its timestamps.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">handleIntervalUpdate</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when the changes are submitted.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_DisplayPanel_EditableDuration.jsx.html">components/DisplayPanel/EditableDuration.jsx</a><a
+                                    href="components_DisplayPanel_EditableDuration.jsx.html#source.14">, line 14</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="EditableName">EditableName<span
+                                class="signature">(props)</span><span class="return-type-signature"></span>
+                        </h4>
+                        <div class="method-description">
+                            <p>This component will display the name of the Task. When clicked, this component will allow
+                                the user to edit the value with an input of type text.</p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                                <p class="param-properties">Properties</p>
+                                <ul class="method-params">
+                                    <li>
+                                        <span class="param-name">id</span>
+                                        <span class="param-type">
+                                            <code>Number</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The id of the Task associated to this component object contained in this
+                                                row, used when setting the id for the input tag.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">name</span>
+                                        <span class="param-type">
+                                            <code>String</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The name the Task already has.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">handleNameUpdate</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when the changes are submitted.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_DisplayPanel_EditableName.jsx.html">components/DisplayPanel/EditableName.jsx</a><a
+                                    href="components_DisplayPanel_EditableName.jsx.html#source.10">, line 10</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="EditableTime">EditableTime<span
+                                class="signature">(props)</span><span class="return-type-signature"></span>
+                        </h4>
+                        <div class="method-description">
+                            <p>This component will display a time, used for displaying the start and end times for the
+                                Tasks. When clicked, this component will allow the user to edit the value with an input
+                                of type time.</p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                                <p class="param-properties">Properties</p>
+                                <ul class="method-params">
+                                    <li>
+                                        <span class="param-name">id</span>
+                                        <span class="param-type">
+                                            <code>Number</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The id of the Task associated to this component object contained in this
+                                                row, used when setting the id for the input tag.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">interval</span>
+                                        <span class="param-type">
+                                            <code><a href="typedefs.html#.Interval">typedefs.Interval</a></code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The Interval object of the task, containing its timestamps.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">handleIntervalUpdate</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when the changes are submitted.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">intervalPosition</span>
+                                        <span class="param-type">
+                                            <code>"start"</code>
+                                        </span>
+                                        |
+                                        <span class="param-type">
+                                            <code>"end"</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>This value tells us what position of the interval this component
+                                                represents and modify the logic accordingly when submitting. This is so
+                                                we can use the same component for both the start and end times.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_DisplayPanel_EditableTime.jsx.html">components/DisplayPanel/EditableTime.jsx</a><a
+                                    href="components_DisplayPanel_EditableTime.jsx.html#source.14">, line 14</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="InputCustomInterval">InputCustomInterval<span
+                                class="signature">(props)</span><span class="return-type-signature"></span>
+                        </h4>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                            </li>
+                            <p class="param-properties">Properties</p>
+                            <ul class="method-params">
+                                <li>
+                                    <span class="param-name">handleSubmit</span>
+                                    <span class="param-type">
+                                        <code>function</code>
+                                    </span>
+                                    <div class="param-description">
+                                        <p>Callback function that will be fired when the form is submitted</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="param-name">projectsList</span>
+                                    <span class="param-type">
+                                        <code>Array.&lt;<a href="typedefs.html#.Project">typedefs.Project</a>></code>
+                                    </span>
+                                    <div class="param-description">
+                                        <p>The list of existing projects. This is used in the dropdown component that is
+                                            used to select a project to assign the task to.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="param-name">createProject</span>
+                                    <span class="param-type">
+                                        <code>function</code>
+                                    </span>
+                                    <div class="param-description">
+                                        <p>Callback function that will be fired when any of the input panels submits a
+                                            new
+                                            project (this is used inside of the Dropdown components)</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_InputPanel_PanelInputInterval.jsx.html">components/InputPanel/PanelInputInterval.jsx</a><a
+                                    href="components_InputPanel_PanelInputInterval.jsx.html#source.12">, line 12</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="InputDuration">InputDuration<span
+                                class="signature">(props)</span><span class="return-type-signature"></span>
+                        </h4>
+                        <div class="method-description">
+                            <p>This component will create an input element of type text, which we will control the
+                                position of the caret (cursor) and the values that are inputed, so that it always
+                                represents a valid time in the form of H:MM:SS, including the colon signs.
+                                To keep track of the position of the caret we will use the input properties of
+                                selectionStart and selectionEnd, and we will use the event onKeyDown to receive the
+                                numeric inputs from the user and handle them appropriately, and the logic that comes
+                                with the constrainst of the format, for example, that seconds and minutes are 2 digits
+                                numbers and cannot be larger than 59, etc.</p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                                <p class="param-properties">Properties</p>
+                                <ul class="method-params">
+                                    <li>
+                                        <span class="param-name">id</span>
+                                        <span class="param-type">
+                                            <code>Number</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The id of the Task associated to this component object contained in this
+                                                row, used when setting the id for the input tag.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">durationSeconds</span>
+                                        <span class="param-type">
+                                            <code>Number</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The total duration of seconds to first display.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">handleSubmit</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when the changes are submitted.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_DisplayPanel_InputDuration.jsx.html">components/DisplayPanel/InputDuration.jsx</a><a
+                                    href="components_DisplayPanel_InputDuration.jsx.html#source.23">, line 23</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="InputTimer">InputTimer<span class="signature">(props)</span><span
+                                class="return-type-signature"></span>
+                        </h4>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                            </li>
+                            <p class="param-properties">Properties</p>
+                            <ul class="method-params">
+                                <li>
+                                    <span class="param-name">handleSubmit</span>
+                                    <span class="param-type">
+                                        <code>function</code>
+                                    </span>
+                                    <div class="param-description">
+                                        <p>Callback function that will be fired when the form is submitted</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="param-name">currentTask</span>
+                                    <span class="param-type">
+                                        <code>null</code>
+                                    </span>
+                                    |
+                                    <span class="param-type">
+                                        <code><a href="typedefs.html#.CurrentTask">typedefs.CurrentTask</a></code>
+                                    </span>
+                                    <div class="param-description">
+                                        <p>The current running Task state that represents the current task in the Timer.
+                                            (The state initializes as null but it should change to CurrentTask after
+                                            it's
+                                            mounted)</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="param-name">setCurrentTask</span>
+                                    <span class="param-type">
+                                        <code>function</code>
+                                    </span>
+                                    <div class="param-description">
+                                        <p>Callback function that will set the state for the new current running task.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="param-name">projectsList</span>
+                                    <span class="param-type">
+                                        <code>Array.&lt;<a href="typedefs.html#.Project">typedefs.Project</a>></code>
+                                    </span>
+                                    <div class="param-description">
+                                        <p>The list of existing projects. This is used in the Dropdown component that is
+                                            used to select a project to assign the task to.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="param-name">createProject</span>
+                                    <span class="param-type">
+                                        <code>function</code>
+                                    </span>
+                                    <div class="param-description">
+                                        <p>Callback function that will be fired when any of the input panels submits a
+                                            new
+                                            project (this is used inside of the Dropdown components)</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_InputPanel_PanelInputTimer.jsx.html">components/InputPanel/PanelInputTimer.jsx</a><a
+                                    href="components_InputPanel_PanelInputTimer.jsx.html#source.23">, line 23</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="PanelInputs">PanelInputs<span class="signature">(props)</span><span
+                                class="return-type-signature"></span>
+                        </h4>
+                        <div class="method-description">
+                            <p>This component handles the conditional rendering of which of the input methods is
+                                presented to the user.
+                                For the time being the only two methods are: A timer that starts and ends and it's
+                                controlled by the user, which means the task will be set for the duration the timer was
+                                active, and a custom interval form that the user can use to input any arbitrary interval
+                                of time.</p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                                <p class="param-properties">Properties</p>
+                                <ul class="method-params">
+                                    <li>
+                                        <span class="param-name">createNewTask</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when any of the input panels submits
+                                                a new task</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">currentTask</span>
+                                        <span class="param-type">
+                                            <code>null</code>
+                                        </span>
+                                        |
+                                        <span class="param-type">
+                                            <code><a href="typedefs.html#.CurrentTask">typedefs.CurrentTask</a></code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The current running Task state that represents the current task in the
+                                                Timer. (The state initializes as null but it should change to
+                                                CurrentTask after it's mounted)</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">setCurrentTask</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will set the state for the new current running
+                                                task, set in the Timer.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">projectsList</span>
+                                        <span class="param-type">
+                                            <code>Array</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The list of existing projects. This is used in the Dropdown component
+                                                that is used to select a project to assign the task to.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">createProject</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when any of the input panels submits
+                                                a new project (this is used inside of the Dropdown components)</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_InputPanel_PanelInputs.jsx.html">components/InputPanel/PanelInputs.jsx</a><a
+                                    href="components_InputPanel_PanelInputs.jsx.html#source.17">, line 17</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="PanelProjects">PanelProjects<span
+                                class="signature">(props)</span><span class="return-type-signature"></span>
+                        </h4>
+                        <div class="method-description">
+                            <p>This component is used for the time being to show a list of the current existing
+                                projects, as well as the controls to do CRUD operations on them.</p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                                <p class="param-properties">Properties</p>
+                                <ul class="method-params">
+                                    <li>
+                                        <span class="param-name">projectsList</span>
+                                        <span class="param-type">
+                                            <code>Array</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The list of existing projects. This is used in the Dropdown component
+                                                that is used to select a project to assign the task to.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">createProject</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when the form is used to create a
+                                                new Project.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">editProject</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when the form is used to edit an
+                                                existing Project.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">deleteProject</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when any Project is deleted.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_ProjectsPanel_PanelProjects.jsx.html">components/ProjectsPanel/PanelProjects.jsx</a><a
+                                    href="components_ProjectsPanel_PanelProjects.jsx.html#source.14">, line 14</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="PanelTasks">PanelTasks<span class="signature">(props)</span><span
+                                class="return-type-signature"></span>
+                        </h4>
+                        <div class="method-description">
+                            <p>This component is used to organize and display the list of Tasks and their corresponding
+                                information and controls.</p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                                <p class="param-properties">Properties</p>
+                                <ul class="method-params">
+                                    <li>
+                                        <span class="param-name">tasksList</span>
+                                        <span class="param-type">
+                                            <code>Array.&lt;<a href="typedefs.html#.Task">typedefs.Task</a>></code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The list of all the Tasks in state</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">editTask</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when any of the fields of a Task is
+                                                edited.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">deleteTask</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when any of the delete controls for
+                                                a Task is triggered.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">currentTask</span>
+                                        <span class="param-type">
+                                            <code>null</code>
+                                        </span>
+                                        |
+                                        <span class="param-type">
+                                            <code><a href="typedefs.html#.CurrentTask">typedefs.CurrentTask</a></code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The current running Task state that represents the current task in the
+                                                Timer. (The state initializes as null but it should change to
+                                                CurrentTask after it's mounted)</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">setCurrentTask</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will set the state for the new current running
+                                                task, set in the Timer.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">projectsList</span>
+                                        <span class="param-type">
+                                            <code>Array.&lt;<a href="typedefs.html#.Project">typedefs.Project</a>></code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The list of existing projects. This is used in the Dropdown component
+                                                that is used to select a project to assign the task to.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">createProject</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when the form is used to create a
+                                                new Project.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_DisplayPanel_PanelTasks.jsx.html">components/DisplayPanel/PanelTasks.jsx</a><a
+                                    href="components_DisplayPanel_PanelTasks.jsx.html#source.17">, line 17</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="TaskRow">TaskRow<span class="signature">(props)</span><span
+                                class="return-type-signature"></span>
+                        </h4>
+                        <div class="method-description">
+                            <p>This component contains all the data of the Tasks that will be displayed and also the
+                                controls to edit the different fields, as well as the controls to delete the Task or
+                                create a new Task in the timer with the same data (restart the Task).</p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">props</span>
+                                <span class="param-type">
+                                    <code>Object</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>Component props object</p>
+                                </div>
+                                <p class="param-properties">Properties</p>
+                                <ul class="method-params">
+                                    <li>
+                                        <span class="param-name">task</span>
+                                        <span class="param-type">
+                                            <code><a href="typedefs.html#.Task">typedefs.Task</a></code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The Task object contained in this row.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">editTask</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when any of the fields of a Task is
+                                                edited.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">deleteTask</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when the delete controls of the Task
+                                                are triggered.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">currentTask</span>
+                                        <span class="param-type">
+                                            <code>null</code>
+                                        </span>
+                                        |
+                                        <span class="param-type">
+                                            <code><a href="typedefs.html#.CurrentTask">typedefs.CurrentTask</a></code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The current running Task state that represents the current task in the
+                                                Timer. (The state initializes as null but it should change to
+                                                CurrentTask after it's mounted). This is used to check if there's a
+                                                Current Task running at the moment.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">setCurrentTask</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will set the state for the new current running
+                                                task when the restart control is triggered.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">projectsList</span>
+                                        <span class="param-type">
+                                            <code>Array.&lt;<a href="typedefs.html#.Project">typedefs.Project</a>></code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>The list of existing projects. This is used in the Dropdown component
+                                                that is used to select a project to assign the task to.</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <span class="param-name">createProject</span>
+                                        <span class="param-type">
+                                            <code>function</code>
+                                        </span>
+                                        <div class="param-description">
+                                            <p>Callback function that will be fired when the form is used to create a
+                                                new Project.</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_DisplayPanel_TaskRow.jsx.html">components/DisplayPanel/TaskRow.jsx</a><a
+                                    href="components_DisplayPanel_TaskRow.jsx.html#source.21">, line 21</a>
+                            </li>
+                        </ul>
+                    </article>
+                    <article class="method">
+                        <div class="method-type">
+                        </div>
+                        <h4 class="method-name" id="replaceCharacter">replaceCharacter<span class="signature">(string,
+                                position, character)</span><span class="return-type-signature"> &rarr; {String}</span>
+                        </h4>
+                        <div class="method-description">
+                            <p>TODO: Move the function to another file and write its respective tests
+                                This function will receive a String and change a character located in a given position
+                            </p>
+                        </div>
+                        <h4 class="method-heading">Parameters</h4>
+                        <ul class="method-params">
+                            <li>
+                                <span class="param-name">string</span>
+                                <span class="param-type">
+                                    <code>String</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>The string to make the changes on</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="param-name">position</span>
+                                <span class="param-type">
+                                    <code>Number</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>The index of the character to replace</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="param-name">character</span>
+                                <span class="param-type">
+                                    <code>String</code>
+                                </span>
+                                <div class="param-description">
+                                    <p>The character to replace</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="details">
+                        </div>
+                        <h4 class="method-heading">Returns</h4>
+                        <ul>
+                            <li class="method-returns">
+                                <code>String</code>
+                                <p>The String with the character selected replaced.</p>
+                            </li>
+                        </ul>
+                        <h4 class="method-heading">Example</h4>
+                        <pre><code class="language-js">replaceCharacter("abcde", 2, "x")
+"abxde"</code></pre>
+                        <h4 class="method-heading">Source</h4>
+                        <ul>
+                            <li class="method-source">
+                                <a
+                                    href="components_DisplayPanel_InputDuration.jsx.html">components/DisplayPanel/InputDuration.jsx</a><a
+                                    href="components_DisplayPanel_InputDuration.jsx.html#source.14">, line 14</a>
+                            </li>
+                        </ul>
+                    </article>
+                </article>
+            </section>
+        </div>
+    </main>
+    <footer class="layout-footer">
+        <div class="container">
+            Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Sun Feb 19 2023
+            12:17:38 GMT-0500 (hora estándar de Colombia)
+        </div>
+    </footer>
+    <script src="scripts/prism.dev.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>React Time Tracker Documentation: components/InputPanel/PanelInputInterval.jsx</title>
+    
+      <link type="text/css" rel="stylesheet" href="styles/vendor/prism-custom.css">
+    
+    <link type="text/css" rel="stylesheet" href="styles/styles.css">
+    
+</head>
+<body>
+
+<header class="layout-header">
+  
+  <h1>
+    <a href="./index.html">
+      React Time Tracker Documentation
+    </a>
+  </h1>
+  <nav class="layout-nav">
+    <ul><li class="nav-heading">Modules</li><li class="nav-heading"><span class="nav-item-type type-module" title="module">M</span><span class="nav-item-name is-module"><a href="module-TimeFunctions.html">TimeFunctions</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.HMSToTimestamp">HMSToTimestamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.dateSnakeToTimestamp">dateSnakeToTimestamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.formattedHMSToSeconds">formattedHMSToSeconds</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.secondsToFormattedHMS">secondsToFormattedHMS</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToDateSnake">timestampToDateSnake</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToDateToDisplay">timestampToDateToDisplay</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToHMS">timestampToHMS</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="module-TimeFunctions.html#.timestampToTimeToDisplay">timestampToTimeToDisplay</a></span></li></ul><ul><li class="nav-heading">Namespaces</li><li class="nav-heading"><span class="nav-item-type type-namespace" title="namespace">N</span><span class="nav-item-name is-namespace"><a href="Component_InputTimer.html">Component_InputTimer</a></span></li><li class="nav-item"><span class="nav-item-type type-member" title="member">M</span><span class="nav-item-name is-member"><a href="Component_InputTimer.html#.TIMER_INTERVAL_MS">TIMER_INTERVAL_MS</a></span></li><li class="nav-heading"><span class="nav-item-type type-namespace" title="namespace">N</span><span class="nav-item-name is-namespace"><a href="typedefs.html">typedefs</a></span></li></ul><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#DropdownSearch">DropdownSearch</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableDate">EditableDate</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableDuration">EditableDuration</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableName">EditableName</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#EditableTime">EditableTime</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#InputCustomInterval">InputCustomInterval</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#InputDuration">InputDuration</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#InputTimer">InputTimer</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#PanelInputs">PanelInputs</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#PanelProjects">PanelProjects</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#PanelTasks">PanelTasks</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#TaskRow">TaskRow</a></span></li><li class="nav-item"><span class="nav-item-type type-function" title="function">F</span><span class="nav-item-name is-function"><a href="global.html#replaceCharacter">replaceCharacter</a></span></li>
+  </nav>
+</header>
+
+
+<main class="layout-main  layout-content--source">
+  <div class="container">
+    <p class="page-kind">source</p>
+    <h1 class="page-title">components/InputPanel/PanelInputInterval.jsx</h1>
+    
+
+
+
+    
+
+<section>
+    <article>
+        <pre id="source" class="source-page line-numbers"><code class="language-js">import React, { useState } from "react"
+import DropdownSearch from "../Shared Components/DropdownSearch"
+// eslint-disable-next-line no-unused-vars
+const typedefs = require("./../types"); // JSDoc Type Definitions
+
+/**
+ * @param {Object} props - Component props object
+ * @param {function(String,typedefs.Interval,Number|undefined):void} props.handleSubmit - Callback function that will be fired when the form is submitted
+ * @param {Array&lt;typedefs.Project>} props.projectsList - The list of existing projects. This is used in the dropdown component that is used to select a project to assign the task to.
+ * @param {function(String):Number} props.createProject - Callback function that will be fired when any of the input panels submits a new project (this is used inside of the Dropdown components)
+ */
+const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, createProject }) => {
+
+    /** The name the new task will have. The corresponding input is controlled by this state. */
+    const [taskName, setTaskName] = useState("");
+    /** A string that has the shape of 'YYYY-MM-DD' used in the controlled input for the start date. */
+    const [startDate, setStartDate] = useState("");
+    /** A string that has the shape of 'YYYY-MM-DD' used in the controlled input for the end date. */
+    const [endDate, setEndDate] = useState("");
+    /** A string that has the shape of 'H:MM:SS' used in the controlled input for the start time. */
+    const [startTime, setStartTime] = useState("");
+    /** A string that has the shape of 'H:MM:SS' used in the controlled input for the end time. */
+    const [endTime, setEndTime] = useState("");
+    /** Keeps track of the project selected through the Dropdown component. */
+    const [taskProject, setTaskProject] = useState(/**@type {null | Number}*/(null));
+    /** This variable is used to change the props given to the Dropdown component which triggers a hook to reset it's selection to none. */
+    const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0);
+
+    /** When the form is submitted validate the data for the new task and then elevate this with the callback to submit the new task. */
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+        //      Validation
+        //      Validate empty fields
+        //      TODO: Validate task name
+        if (!(startDate &amp;&amp; startTime &amp;&amp; endDate &amp;&amp; endTime)) {
+            alert("Please fill in all of the fields");
+            return;
+        }
+        //      Validate start datetime is before end datetime
+        let startTimestamp = new Date(startDate + " " + startTime).getTime();
+        let endTimestamp = new Date(endDate + " " + endTime).getTime();
+        if (startTimestamp >= endTimestamp) {
+            alert("The times selected are not valid"); // TODO: A better notifications system (maybe modals or tooltips)
+            return;
+        }
+        //      Callback to submit task
+        console.log(`Submitting new task with the name "${taskName}", starterTimestamp: ${startTimestamp}, endTimestamp:${endTimestamp}, taskProject:${taskProject}`);
+        handleEntrySubmit(taskName, { start: startTimestamp, end: endTimestamp }, taskProject || undefined);
+        //      Reset the form
+        setTaskName("");
+        setStartDate("");
+        setEndDate("");
+        setStartTime("");
+        setEndTime("");
+        setTaskProject(null); // The state in the panel for which project is selected
+        setDropdownResetTrigger(dropdownResetTrigger + 1); // Trigger a useEffect hook in the child component to change the selected state to none
+    }
+
+    /**
+     * This function is used when a project is created in the Dropdown component.
+     * @param {String} newProjectName - The name for the new project.
+     * @returns {Number} - The id of the newly created project
+     */
+    const handleProjectCreation = newProjectName =>
+        createProject(newProjectName);
+
+    return (
+        &lt;div>
+            &lt;p>Input the custom dates and times for the new task:&lt;/p>
+            &lt;form onSubmit={handleFormSubmit}>
+                &lt;label htmlFor="taskName">Name of the task: &lt;/label>
+                &lt;input id="taskName"
+                    name="taskName"
+                    type="text"
+                    value={taskName}
+                    onChange={event => setTaskName(event.target.value)}
+                    placeholder="Input what you're working on" />
+
+                &lt;label htmlFor="startDate">Start: &lt;/label>
+                &lt;input id="startDate"
+                    name="startDate"
+                    type="date"
+                    value={startDate}
+                    max={endDate ? endDate : undefined}
+                    onChange={event => setStartDate(event.target.value)} />
+                &lt;input id="startTime"
+                    name="startTime"
+                    type="time"
+                    value={startTime}
+                    onChange={event => setStartTime(event.target.value)} />
+
+                &lt;label htmlFor="endDate">End: &lt;/label>
+                &lt;input id="endDate"
+                    name="endDate"
+                    type="date"
+                    value={endDate}
+                    min={startDate ? startDate : undefined}
+                    onChange={event => setEndDate(event.target.value)} />
+                &lt;input id="endTime"
+                    name="endTime"
+                    type="time"
+                    value={endTime}
+                    onChange={event => setEndTime(event.target.value)} />
+
+
+                {/* Task project */}
+                &lt;div>
+                    &lt;DropdownSearch
+                        defaultText={"Add a project"}
+                        searchPlaceholder={"Search a project or create a new one"}
+                        optionsList={
+                            projectsList.map(project => {
+                                return { id: project.id, value: project.name }
+                            })}
+                        initialSelection={null}
+                        onCreateCallback={handleProjectCreation}
+                        onSelectCallback={setTaskProject}
+                        resetTrigger={dropdownResetTrigger}
+                    />
+                &lt;/div>
+
+                &lt;input type="submit"
+                    value="Submit"
+                    // Disable the submit button if the text field doesn't have any text
+                    disabled={taskName.trim() === ""} />
+            &lt;/form>
+        &lt;/div>
+    )
+}
+
+export default InputCustomInterval</code></pre>
+    </article>
+</section>
+
+
+
+
+  </div>
+</main>
+
+<footer class="layout-footer">
+  <div class="container">
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.0</a> on Sun Feb 19 2023 12:17:38 GMT-0500 (hora estándar de Colombia)
+  </div>
+</footer>
+
+
+
+<script src="scripts/prism.dev.js"></script>
+</body>
+</html>
