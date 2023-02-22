@@ -36,6 +36,21 @@ const DropdownSearch = ({
     const [optionsList, setOptionsList] = useState(
         /** @type {Array<{id:Number,value:string}>} */([]));
 
+    /** With this ref we'll be able to add a Listener to the document to know when the user clicks outside of the dropdown and close it */
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (isOpen)
+                // @ts-ignore the DOM element.contains gives a linter error
+                if (dropdownRef.current && !dropdownRef.current.contains(event.target))
+                    setIsOpen(false)
+        }
+        document.addEventListener('click', handleClickOutside);
+
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, [isOpen]);
+
     /** 
      * On the first render assign the initial selection. 
      * Whenever the initial Selection changes update this components selection. There was a particular bug where when deleting rows of tasks, the dropdowns wouldn't update. 
@@ -109,7 +124,7 @@ const DropdownSearch = ({
     }
 
     return (
-        <div>
+        <div ref={dropdownRef}>
             {/* The Dropdown trigger */}
             <button
                 type="button"
