@@ -1,7 +1,4 @@
-$primary-color: #1f70c0;
-$green-color: #679667;
-$red-color: #ca3e3e;
-$yellow-color: #ffd519;
+@use 'abstracts/colors' as*;
 
 * {
     margin: 0;
