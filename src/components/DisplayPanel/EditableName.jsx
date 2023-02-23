@@ -45,6 +45,7 @@ const EditableName = ({ id, name, handleNameUpdate }) => {
                         <input
                             id={`${id}-editTaskName`}
                             name="editTaskName"
+                            className="editable"
                             type="text"
                             value={tempName}
                             onChange={event => setTempName(event.target.value)}
@@ -53,7 +54,10 @@ const EditableName = ({ id, name, handleNameUpdate }) => {
                         />
                     </form>
                     :
-                    <button onClick={() => setIsEditingName(true)}>
+                    <button
+                        className="editable editable-display"
+                        onClick={() => setIsEditingName(true)}
+                    >
                         <span>
                             {name}
                         </span>

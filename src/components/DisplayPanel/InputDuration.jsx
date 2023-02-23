@@ -133,12 +133,13 @@ const InputDuration = ({ id, durationSeconds, handleSubmit }) => {
     }
 
     const handleCloseInput = event => handleSubmit(event)
-    
+
     return (
         <>
             <input
                 id={`${id}-editTaskDuration`}
                 name="editTaskDuration"
+                className="editable"
                 type="text"
                 // inputmode="numeric"
                 value={durationString ? durationString : ""}
@@ -150,11 +151,11 @@ const InputDuration = ({ id, durationSeconds, handleSubmit }) => {
                 onInput={handlePositionUpdate}
                 onSelect={handlePositionUpdate}
                 onTouchStart={handlePositionUpdate}
-                
+
 
                 onPaste={e => e.preventDefault}
                 onCut={e => e.preventDefault}
-                
+
                 autoFocus
                 /** Since we are controlling the input there's no reason it shouldn't be valid when the input loses focus */
                 onBlur={handleCloseInput}
