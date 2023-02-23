@@ -166,6 +166,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                     {timerStatus === "running" &&
                         <input id="submitNewTask"
                             name="submitNewTask"
+                            className="button"
                             type="submit"
                             value="Stop"
                             // Only allow submissions when there is text in the input field

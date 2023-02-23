@@ -119,7 +119,9 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                     />
                 </div>
 
-                <input type="submit"
+                <input
+                    className="button"
+                    type="submit"
                     value="Submit"
                     // Disable the submit button if the text field doesn't have any text
                     disabled={taskName.trim() === ""} />

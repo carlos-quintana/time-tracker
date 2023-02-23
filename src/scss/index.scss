@@ -1,28 +1,33 @@
 @use 'abstracts/colors' as*;
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
 body {
-    display:flex;
-    justify-content: center;
-
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    justify-content: center;
 }
 
 #root {
     background-color: #eeea;
-    width: 80%;
-    display:flex;
+    width: 90%;
+    display: flex;
     flex-direction: column;
     align-items: stretch;
-    ;
+
+    @media (min-width:1500px) {
+        width: 80rem;
+    }
+
+    @media (max-width:550px) {
+        width: 97.5%;
+    }
 }
 
 header {
@@ -32,11 +37,84 @@ header {
     border-radius: 0 0 15px 15px;
 }
 
-.input-panel {
-    background-color: #eee;
-    padding: 1rem;
+// A nice minimalistic style for a standard look on elements like inputs and some buttons
+.round-box {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    padding: 0 0.45rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    background-color: white;
+    color: #111;
 }
 
+button {
+    @extend .round-box;
+}
+
+input {
+    @extend .round-box;
+
+    &:focus {
+        border: #4b9aee 1px solid;
+        outline: 0;
+    }
+}
+
+.button {
+    // flex-shrink: 0;
+    margin-inline: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+
+    // border-radius: 5px;
+    box-shadow: 0 1px 2px 0 #aaa;
+    transition: 0.3s;
+    border: 0;
+
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0 3px 5px 0 #aaa;
+    }
+
+    &-primary {
+        background-color: $primary-color;
+        color: white;
+
+        &:hover {
+            background-color: $primary-color--light;
+        }
+    }
+
+    &-success {
+        background-color: $success-color;
+        color: white;
+
+        &:hover {
+            background-color: $success-color--light;
+        }
+    }
+
+    &-warning {
+        background-color: $warning-color;
+        color: black;
+
+        &:hover {
+            background-color: $warning-color--light;
+        }
+    }
+
+    &-danger {
+        background-color: $danger-color;
+        color: white;
+
+        &:hover {
+            background-color: $danger-color--light;
+        }
+    }
+}
 .input-area {
     display: flex;
     align-items: center;
@@ -128,14 +206,8 @@ header {
     background-color: $primary-color;
     color: white;
 }
-.btn-green {
-    background-color: $green-color;
-    color: white;
-}
-.btn-red {
-    background-color: $red-color;
-    color: white;
-}
-.btn-yellow {
-    background-color: $yellow-color;
+
+.compact {
+    font-size: 0.85rem !important;
+    padding-inline: 0.15rem;
 }

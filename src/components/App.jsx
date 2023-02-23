@@ -213,7 +213,9 @@ export default function App() {
 
   return (
     <div>
-      <h2>Time Tracker application</h2>
+      <header>
+        <h2>Time Tracker application</h2>
+      </header>
       <PanelInputs
         createNewTask={createNewTask}
         currentTask={currentTask}
@@ -221,6 +223,7 @@ export default function App() {
         projectsList={projectsList}
         createProject={createProject}
       />
+      <hr />
       <PanelTasks
         tasksList={tasksList}
         editTask={editTask}
@@ -237,7 +240,12 @@ export default function App() {
         editProject={editProject}
         deleteProject={deleteProject}
       />
-      <button onClick={resetData}> Reset the LocalStorage </button>
+      <button
+        className="button button-warning"
+        onClick={resetData}
+      >
+        Reset the LocalStorage
+      </button>
     </div>
   )
 }

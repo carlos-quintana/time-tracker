@@ -31,7 +31,7 @@ const PanelInputs = ({ createNewTask, currentTask, setCurrentTask, projectsList,
     }
 
     return (
-        <div>
+        <section>
             <h4>Select an input method:</h4>
             {/* @ts-ignore. The linter gives error for the event.target.value */}
             <form name="inputTypeSelector" onChange={event => setInputMethod(event.target.value)}>
@@ -65,7 +65,7 @@ const PanelInputs = ({ createNewTask, currentTask, setCurrentTask, projectsList,
                         createProject={createProject}
                     />
             }
-        </div>
+        </section>
     )
 }
 export default PanelInputs
