@@ -28,7 +28,7 @@ export default function App() {
   const [currentTask, setCurrentTask] = useState(INITIAL_CURRENT_TASK_STATE);
 
   /** Since we have two useEffect hooks touching the Local Storage we want to avoid overwriting empty data on it when the application renders for the first time, so we use a flag to check if the application is being run for the first time, skip it and disable the flag (This two times, one for the tasks and one for the projects) */
-  const firstRenderFlag = useRef([true, true]);
+  const firstRenderFlag = useRef([true, true, true]);
 
   /**
    * This useEffect hook is expected to run just once when the application loads. Here we will perform a check on the Local Storage:
@@ -119,7 +119,10 @@ export default function App() {
     // console.log({ currentTask: localStorage.getItem("currentTask") })
     // console.log({ currentTask: currentTask })
     // The first time the component is mounted we will ignore this hook and not set any data in Local Storage. Otherwise it would overwrite it with empty data (As the first useState hook wouldn't be executed yet)
-    if (currentTask !== INITIAL_CURRENT_TASK_STATE) {
+    if (firstRenderFlag.current[2]) {
+      // console.log("> firstRenderFlag is active, we skip")
+      firstRenderFlag.current[2] = false
+    } else {
       localStorage.setItem('currentTask', JSON.stringify(currentTask));
       // console.log({ currentTask: localStorage.getItem("currentTask") })
     }
