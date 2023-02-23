@@ -41,46 +41,73 @@ const PanelProjects = ({ projectsList, createProject, editProject, deleteProject
     }
 
     return (
-        <div>
-            <h3>Projects list:</h3>
+        <div className="projects-container">
+            <h2>Projects list:</h2>
             {isEditing ?
                 <>
-                    <h5>Editing the project</h5>
+                    <h4>Editing the project</h4>
                     <form onSubmit={handleSubmitEditProject}>
-                        <input type="text"
-                            placeholder="Input a new name"
-                            value={newProjectName}
-                            onChange={e => setNewProjectName(e.target.value)} />
-                        <input type="submit" value="Submit" />
+                        <div className="projects-input-container">
+                            <input
+                                type="text"
+                                placeholder="Input a new name"
+                                className="projects-input-text"
+                                value={newProjectName}
+                                onChange={e => setNewProjectName(e.target.value)} />
+                            <div>
+                                <input
+                                    type="submit"
+                                    value="Submit"
+                                    className="button button-primary"
+                                />
+                                <button
+                                    className="button button-warning"
+                                    onClick={e => { e.preventDefault(); setIsEditing(false); setEditingId(null); }}
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
                     </form>
-                    <button onClick={() => { setIsEditing(false); setEditingId(null); }}>
-                        Cancel
-                    </button>
                 </>
                 :
                 <>
-                    <h5>Create a new project</h5>
+                    <h4>Create a new project</h4>
                     <form onSubmit={handleSubmitNewProject}>
-                        <input type="text"
-                            placeholder="Input the name of the new project"
-                            value={newProjectName}
-                            onChange={e => setNewProjectName(e.target.value)} />
-                        <input type="submit" value="Submit" />
+                        <div className="projects-input-container">
+                            <input
+                                type="text"
+                                placeholder="Input the name of the new project"
+                                className="projects-input-text"
+                                value={newProjectName}
+                                onChange={e => setNewProjectName(e.target.value)} />
+                            <input
+                                type="submit"
+                                value="Submit"
+                                className="button button-primary"
+                            />
+                        </div>
                     </form>
                 </>}
-            <ul>
+            <ul className="projects-list">
                 {projectsList?.map((project) =>
                     <li key={project.id}>
-                        <span>{project.id} | {project.name} | </span>
-                        <button onClick={() => deleteProject(project.id)}>
-                            Delete
-                        </button>
-                        <button onClick={() => {
-                            setIsEditing(true);
-                            setEditingId(project.id);
-                            setNewProjectName(project.name);
-                        }} >
+                        <span className="project-id">{project.id}</span>
+                        <span className="project-name">{project.name}</span>
+                        <button
+                            className="button button-primary"
+                            onClick={() => {
+                                setIsEditing(true);
+                                setEditingId(project.id);
+                                setNewProjectName(project.name);
+                            }} >
                             Edit
+                        </button>
+                        <button
+                            className="button button-danger"
+                            onClick={() => deleteProject(project.id)}
+                        >
+                            Delete
                         </button>
                     </li>
                 )}
