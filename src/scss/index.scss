@@ -19,7 +19,7 @@ body {
     width: 90%;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
 
     @media (min-width:1500px) {
         width: 80rem;
@@ -28,13 +28,20 @@ body {
     @media (max-width:550px) {
         width: 97.5%;
     }
+
+    &>header,
+    >div,
+    >section,
+    >footer {
+        width: 100%;
+    }
 }
 
 header {
     background-color: $primary-color;
     color: white;
     padding: 1rem 1rem;
-    border-radius: 0 0 15px 15px;
+    border-radius: 0.5rem 0.5rem 0 0;
 }
 
 // A nice minimalistic style for a standard look on elements like inputs and some buttons
@@ -114,9 +121,133 @@ input {
             background-color: $danger-color--light;
         }
     }
+
+    &-disabled {
+        background-color: #ccc;
+        color: #666;
+    }
 }
-.input-area {
+
+/*
+ *  TASK INPUTS PANELS
+ */
+/* The controls to change the task's input method */
+.panel-input {
+    max-width: 35rem;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &>div {
+        width: 100%;
+    }
+}
+
+.input-control-bar {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+    user-select: none;
+}
+
+.input-selector {
+    &-radio {
+        display: none;
+    }
+
+    &-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        padding: 0.2rem; 
+
+        width: 6rem;
+        background-color: $primary-color;
+        color: white;
+        border-radius: 0 0 1rem 1rem;
+
+        cursor: pointer;
+
+        span {
+            text-align: center;
+            width: min-content;
+            font-size: 0.8rem;
+        }
+
+        transition: 0.3s;
+
+        &:hover {
+            background-color: $primary-color--light;
+
+        }
+
+        &[selected-method="1"] {
+            background-color: $primary-color--light;
+        }
+    }
+}
+
+.input-task-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.2rem;
+
+    &>input {
+        flex-grow: 5;
+        font-size: 0.9rem;
+    }
+
+    .dropdown {
+        flex-grow: 1;
+        max-width: 15rem;
+    }
+
+    @media (max-width:550px) {
+
+        flex-wrap: wrap;
+
+        &>input,
+        .dropdown {
+            flex-grow: 0;
+            min-width: 100%;
+        }
+    }
+}
+
+.input-timer-counter {
+    font-size: large;
+    text-align: center;
+    margin-block: 0.2rem;
+}
+
+.input-start-interval-container, .input-end-interval-container {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    justify-content: space-around;
+    gap: 5%;
+    max-width: 20rem;
+    margin-block: 0.35rem;
+    &>label {
+        min-width:3rem;
+    }
+}
+
+.button-submit-task {
+    min-width: 10rem;
+    display: inline-flex;
+    justify-content: center;
+}
+
+.button-submit-task-container {
+    display: flex;
+    justify-content: center;
+}
+
     align-items: center;
     padding-inline: 1rem;
 }

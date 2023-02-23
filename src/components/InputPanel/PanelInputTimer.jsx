@@ -129,19 +129,18 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
 
     return (
         <div>
-            {/* Timer Display */}
-            <p>Time elapsed: {secondsToFormattedHMS(secondsToDisplay)}s</p>
             <form onSubmit={handleStopTimer}>
-                {/* Task Name Input */}
-                <input id="newTaskInput"
-                    name="newTaskInput"
-                    type="text"
-                    value={taskName}
-                    onChange={handleNameChange}
-                    placeholder="Input what you're working on"
-                />
-                {/* Task project Dropdown */}
-                <div>
+                <div className="input-task-info">
+                    {/* Task Name Input */}
+                    <input id="newTaskInput"
+                        name="newTaskInput"
+                        className="round-box"
+                        type="text"
+                        value={taskName}
+                        onChange={handleNameChange}
+                        placeholder="Input what you're working on"
+                    />
+                    {/* Task project Dropdown */}
                     <DropdownSearch
                         defaultText={"Add a project"}
                         searchPlaceholder={"Search a project or create a new one"}
@@ -155,10 +154,16 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                         resetTrigger={dropdownResetTrigger}
                     />
                 </div>
+                {/* Timer Display */}
+                <p className="input-timer-counter">
+                    Time elapsed: {secondsToFormattedHMS(secondsToDisplay)}s
+                </p>
                 {/* The Start/Stop button of the timer */}
-                <div>
+                <div className="button-submit-task-container">
                     {timerStatus === "stopped" &&
-                        <button onClick={handleStartTimer}
+                        <button
+                            className={`button button-submit-task ${taskName.trim() === "" ? "button button-disabled" : "button button-success"}`}
+                            onClick={handleStartTimer}
                             // Only allow the timer to start when there is text in the input field
                             disabled={taskName.trim() === ""}>
                             Start
@@ -166,7 +171,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                     {timerStatus === "running" &&
                         <input id="submitNewTask"
                             name="submitNewTask"
-                            className="button"
+                            className={`button button-submit-task ${taskName.trim() === "" ? "button button-disabled" : "button button-danger"}`}
                             type="submit"
                             value="Stop"
                             // Only allow submissions when there is text in the input field

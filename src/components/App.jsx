@@ -212,7 +212,7 @@ export default function App() {
   }
 
   return (
-    <div>
+    <>
       <header>
         <h2>Time Tracker application</h2>
       </header>
@@ -223,7 +223,6 @@ export default function App() {
         projectsList={projectsList}
         createProject={createProject}
       />
-      <hr />
       <PanelTasks
         tasksList={tasksList}
         editTask={editTask}
@@ -233,7 +232,6 @@ export default function App() {
         projectsList={projectsList}
         createProject={createProject}
       />
-      <hr />
       <PanelProjects
         projectsList={projectsList}
         createProject={createProject}
@@ -246,6 +244,6 @@ export default function App() {
       >
         Reset the LocalStorage
       </button>
-    </div>
+    </>
   )
 }

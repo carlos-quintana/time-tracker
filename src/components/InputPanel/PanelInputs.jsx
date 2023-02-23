@@ -31,23 +31,44 @@ const PanelInputs = ({ createNewTask, currentTask, setCurrentTask, projectsList,
     }
 
     return (
-        <section>
-            <h4>Select an input method:</h4>
-            {/* @ts-ignore. The linter gives error for the event.target.value */}
-            <form name="inputTypeSelector" onChange={event => setInputMethod(event.target.value)}>
-                <input type="radio"
-                    name="inputSelector"
+        <section className="panel-input">
+            <form
+                name="inputTypeSelector"
+                className="input-control-bar"
+                /* @ts-ignore. The linter gives error for the event.target.value */
+                onChange={event => setInputMethod(event.target.value)}
+            >
+                <input
+                    type="radio"
                     id="inputSelectorTimer"
+                    name="inputSelector"
+                    className="input-selector-radio"
                     value="timer"
                     defaultChecked
                 />
-                <label htmlFor="inputSelectorTimer">Timer</label>
-                <input type="radio"
-                    name="inputSelector"
+                <label
+                    htmlFor="inputSelectorTimer"
+                    className="button input-selector-label"
+                    selected-method={inputMethod==="timer"?1:0}
+                >
+                    <span>T</span>
+                    <span>Timer</span>
+                </label>
+                <input
+                    type="radio"
                     id="inputSelectorInterval"
+                    name="inputSelector"
+                    className="input-selector-radio"
                     value="interval"
                 />
-                <label htmlFor="inputSelectorInterval">Custom dates and time</label>
+                <label
+                    htmlFor="inputSelectorInterval"
+                    className="button input-selector-label"
+                    selected-method={inputMethod==="interval"?1:0}
+                >
+                    <span>W</span>
+                    <span>Custom interval</span>
+                </label>
             </form>
             {
                 inputMethod === "timer" ?

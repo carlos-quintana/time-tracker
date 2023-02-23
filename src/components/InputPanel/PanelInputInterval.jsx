@@ -66,47 +66,20 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
 
     return (
         <div>
-            <p>Input the custom dates and times for the new task:</p>
             <form onSubmit={handleFormSubmit}>
-                <label htmlFor="taskName">Name of the task: </label>
-                <input id="taskName"
-                    name="taskName"
-                    type="text"
-                    value={taskName}
-                    onChange={event => setTaskName(event.target.value)}
-                    placeholder="Input what you're working on" />
 
-                <label htmlFor="startDate">Start: </label>
-                <input id="startDate"
-                    name="startDate"
-                    type="date"
-                    value={startDate}
-                    max={endDate ? endDate : undefined}
-                    onChange={event => setStartDate(event.target.value)} />
-                <input id="startTime"
-                    name="startTime"
-                    type="time"
-                    value={startTime}
-                    onChange={event => setStartTime(event.target.value)} />
-
-                <label htmlFor="endDate">End: </label>
-                <input id="endDate"
-                    name="endDate"
-                    type="date"
-                    value={endDate}
-                    min={startDate ? startDate : undefined}
-                    onChange={event => setEndDate(event.target.value)} />
-                <input id="endTime"
-                    name="endTime"
-                    type="time"
-                    value={endTime}
-                    onChange={event => setEndTime(event.target.value)} />
-
-
-                {/* Task project */}
-                <div>
+                <div className="input-task-info">
+                    <input id="taskName"
+                        name="taskName"
+                        type="text"
+                        value={taskName}
+                        onChange={event => setTaskName(event.target.value)}
+                        placeholder="Input what you're working on"
+                        required
+                    />
+                    {/* Task project */}
                     <DropdownSearch
-                        defaultText={"Add a project"}
+                        defaultText={"Assign a project"}
                         searchPlaceholder={"Search a project or create a new one"}
                         optionsList={
                             projectsList.map(project => {
@@ -118,13 +91,52 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                         resetTrigger={dropdownResetTrigger}
                     />
                 </div>
+                <div className="input-start-interval-container">
+                    <label htmlFor="startDate">Start: </label>
+                    <input id="startDate"
+                        name="startDate"
+                        type="date"
+                        value={startDate}
+                        max={endDate ? endDate : undefined}
+                        onChange={event => setStartDate(event.target.value)}
+                        required
+                    />
+                    <input id="startTime"
+                        name="startTime"
+                        type="time"
+                        value={startTime}
+                        onChange={event => setStartTime(event.target.value)}
+                        required
+                    />
+                </div>
+                <div className="input-end-interval-container">
+                    <label htmlFor="endDate">End: </label>
+                    <input id="endDate"
+                        name="endDate"
+                        type="date"
+                        value={endDate}
+                        min={startDate ? startDate : undefined}
+                        onChange={event => setEndDate(event.target.value)}
+                        required
+                    />
+                    <input id="endTime"
+                        name="endTime"
+                        type="time"
+                        value={endTime}
+                        onChange={event => setEndTime(event.target.value)}
+                        required
+                    />
+                </div>
 
-                <input
-                    className="button"
-                    type="submit"
-                    value="Submit"
-                    // Disable the submit button if the text field doesn't have any text
-                    disabled={taskName.trim() === ""} />
+                <div className="button-submit-task-container">
+                    <input
+                        className={`button button-submit-task ${taskName.trim() === "" ? "button button-disabled" : "button button-success"}`}
+                        type="submit"
+                        value="Submit"
+                        // Disable the submit button if the text field doesn't have any text
+                        disabled={taskName.trim() === ""} />
+
+                </div>
             </form>
         </div>
     )
