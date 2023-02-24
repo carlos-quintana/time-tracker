@@ -6,6 +6,10 @@ import PanelProjects from "./ProjectsPanel/PanelProjects"
 // JSON files that contain example dummy data to populate the application
 import exampleTasksFromJSON from "../exampleTasks.json"
 import exampleProjectsFromJSON from "../exampleProjects.json"
+// Material Icons
+import GitHubIcon from '@mui/icons-material/GitHub';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("./types"); // JSDoc Type Definitions
 
@@ -238,12 +242,27 @@ export default function App() {
         editProject={editProject}
         deleteProject={deleteProject}
       />
-      <button
-        className="button button-warning"
-        onClick={resetData}
-      >
-        Reset the LocalStorage
-      </button>
+      <section className="data-reset">
+        <button
+          className="button button-warning"
+          onClick={resetData}
+        >
+          Reset the LocalStorage
+        </button>
+        <span> This will reset all Tasks and Projects to the example data.</span>
+      </section>
+      <footer>
+        <h4>This demo was created by Carlos Quintana</h4>
+        <a href="https://carlos-quintana.github.io/" target="_blank">
+          <WorkOutlineIcon /> See my Web Portfolio and other Projects
+        </a>
+        <a href="https://github.com/carlos-quintana/" target="_blank">
+          <GitHubIcon /> See my GitHub Page
+        </a>
+        <a href="https://www.linkedin.com/in/carlos-quintana-dev/" target="_blank">
+          <LinkedInIcon /> Let's get in touch through LinkedIn
+        </a>
+      </footer>
     </>
   )
 }
