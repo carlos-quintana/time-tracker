@@ -4,6 +4,11 @@ import EditableName from "./EditableName"
 import EditableDate from "./EditableDate"
 import EditableTime from "./EditableTime"
 import EditableDuration from "./EditableDuration"
+// Material Icons
+import TodayIcon from '@mui/icons-material/Today';
+import EventIcon from '@mui/icons-material/Event';
+import RemoveIcon from '@mui/icons-material/Remove';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("../types"); // JSDoc Type Definitions
 
@@ -90,6 +95,7 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
             <div className="task-interval-container">
                 <div className="start-interval-container">
                     <span className="start-interval-label">Start:</span>
+                    <span className="mui-icon" title="Start date"><TodayIcon /></span>
                     <div className="task-date-container">
                         <EditableDate
                             id={task.id}
@@ -107,11 +113,10 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                         />
                     </div>
                 </div>
-                <span className="row-task-hyphen">
-                    -
-                </span>
+                <span className="mui-icon row-task-hyphen" title="End date"><RemoveIcon /></span>
                 <div className="end-interval-container">
                     <span className="end-interval-label">End:</span>
+                    <span className="mui-icon" title="End date"><EventIcon /></span>
                     <div className="task-date-container">
                         <EditableDate
                             id={task.id}
@@ -132,6 +137,7 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
             </div>
             {/* Task duration */}
             <div className="task-duration-container">
+                <span className="mui-icon" title="Duration"><TimerOutlinedIcon /></span>
                 <EditableDuration
                     id={task.id}
                     interval={task.interval}

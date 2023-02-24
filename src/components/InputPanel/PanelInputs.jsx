@@ -1,6 +1,9 @@
 import React, { useState } from "react"
 import PanelInputTimer from "./PanelInputTimer"
 import PanelInputInterval from "./PanelInputInterval"
+// Material Icons
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import ViewDayOutlinedIcon from '@mui/icons-material/ViewDayOutlined';
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("./../types"); // JSDoc Type Definitions
 
@@ -49,9 +52,9 @@ const PanelInputs = ({ createNewTask, currentTask, setCurrentTask, projectsList,
                 <label
                     htmlFor="inputSelectorTimer"
                     className="button input-selector-label"
-                    selected-method={inputMethod==="timer"?1:0}
+                    selected-method={inputMethod === "timer" ? 1 : 0}
                 >
-                    <span>T</span>
+                    <span className="mui-icon"><TimerOutlinedIcon /></span>
                     <span>Timer</span>
                 </label>
                 <input
@@ -64,9 +67,9 @@ const PanelInputs = ({ createNewTask, currentTask, setCurrentTask, projectsList,
                 <label
                     htmlFor="inputSelectorInterval"
                     className="button input-selector-label"
-                    selected-method={inputMethod==="interval"?1:0}
+                    selected-method={inputMethod === "interval" ? 1 : 0}
                 >
-                    <span>W</span>
+                    <span className="mui-icon"><ViewDayOutlinedIcon /></span>
                     <span>Custom interval</span>
                 </label>
             </form>

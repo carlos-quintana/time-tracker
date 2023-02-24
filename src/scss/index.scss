@@ -128,6 +128,11 @@ input {
     }
 }
 
+.mui-icon {
+    display: flex;
+    align-items: center;
+}
+
 /*
  *  TASK INPUTS PANELS
  */
@@ -387,6 +392,14 @@ input {
         flex-grow: 1;
     }
 
+    .mui-icon {
+        color: #333;
+
+        &:hover {
+            color: #666
+        }
+    }
+
     @media (max-width:1360px) {
 
         .task-name-container {
@@ -478,6 +491,7 @@ input {
             align-items: center;
             justify-content: center;
             // background-color: darkolivegreen;
+            pointer-events: none
         }
 
         &:hover {
@@ -488,14 +502,22 @@ input {
     }
 
     &-reset {
-        flex-grow: 20;
-        max-width: 1.25rem;
-        min-width: 1.25rem;
-        height: 1.25rem;
-        background-color: #eee;
-        margin-left: 0.5rem;
-        border-radius: 50%;
+        background-color: unset;
         border: none;
+        margin-left: 0.5rem;
+
+        padding: 0;
+        min-height: unset;
+        cursor: pointer;
+
+        .mui-icon {
+            color: #666;
+            border-radius: 50%;
+            transition: 0.3s;
+            &:hover {
+                box-shadow: 0 1px 2px 0 #666;
+            }
+        }
     }
 
     &-body {

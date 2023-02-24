@@ -1,4 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
+// Material Icons
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import SearchIcon from '@mui/icons-material/Search';
 
 /**
  * This component will act as a select dropdown input field, where the user can click on it to expand a menu listing all of the different options, and when clicking on any of these options it will change the state of the component to the selected option. 
@@ -131,7 +136,10 @@ const DropdownSearch = ({
                 className="round-box dropdown-display"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <span className="dropdown-display-text">
+                <span 
+                className="dropdown-display-text"
+                title={options.find(option => option.id === selection)?.value || ""}
+                >
                     {
                         options.find(option => option.id === selection)?.value
                         ||
@@ -150,11 +158,13 @@ const DropdownSearch = ({
                             handleSelectOption(null)
                         }}
                     >
-                        X
+                        <span className="mui-icon ">
+                            <CancelOutlinedIcon fontSize="small" />
+                            </span>
                     </button>
                 }
                 <span className="dropdown-display-arrow">
-                    {isOpen ? "/\\" : "V"}
+                    {isOpen ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
                 </span>
             </div>
             {/* The dropdown */}
