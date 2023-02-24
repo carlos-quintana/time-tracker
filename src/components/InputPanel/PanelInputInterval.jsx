@@ -93,8 +93,10 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                 </div>
                 <div className="input-start-interval-container">
                     <label htmlFor="startDate">Start: </label>
-                    <input id="startDate"
+                    <input
+                        id="startDate"
                         name="startDate"
+                        className="editable"
                         type="date"
                         value={startDate}
                         max={endDate ? endDate : undefined}

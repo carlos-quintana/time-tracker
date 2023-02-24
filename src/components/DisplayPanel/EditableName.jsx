@@ -56,6 +56,7 @@ const EditableName = ({ id, name, handleNameUpdate }) => {
                     :
                     <button
                         className="editable editable-display"
+                        title={name}
                         onClick={() => setIsEditingName(true)}
                     >
                         <span>

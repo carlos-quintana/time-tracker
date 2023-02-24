@@ -142,7 +142,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                     />
                     {/* Task project Dropdown */}
                     <DropdownSearch
-                        defaultText={"Add a project"}
+                        defaultText={"Assign a project"}
                         searchPlaceholder={"Search a project or create a new one"}
                         optionsList={
                             projectsList.map(project => {
