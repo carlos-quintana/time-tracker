@@ -4,6 +4,11 @@ import EditableName from "./EditableName"
 import EditableDate from "./EditableDate"
 import EditableTime from "./EditableTime"
 import EditableDuration from "./EditableDuration"
+// Material Icons
+import TodayIcon from '@mui/icons-material/Today';
+import EventIcon from '@mui/icons-material/Event';
+import RemoveIcon from '@mui/icons-material/Remove';
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("../types"); // JSDoc Type Definitions
 
@@ -60,11 +65,11 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
     }
 
     return (
-        <div className="task-row">
+        <div className="row-task">
             {/* Task id */}
-            {task.id}
+            <span className="task-id">{task.id}</span>
             {/* Task name */}
-            <div>
+            <div className="task-name-container">
                 <EditableName
                     id={task.id}
                     name={task.name}
@@ -72,9 +77,9 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                 />
             </div>
             {/* Task project */}
-            <div>
+            <div className="task-project-container">
                 <DropdownSearch
-                    defaultText={"Add a project"}
+                    defaultText={"Assign a project"}
                     searchPlaceholder={"Search a project or create a new one"}
                     optionsList={
                         projectsList.map(project => {
@@ -85,55 +90,76 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                     onSelectCallback={handleProjectUpdate}
                 />
             </div>
+            <div className="separator"></div>
             {/* Task start and end datetimes */}
-            <div>
-                <EditableDate
-                    id={task.id}
-                    interval={task.interval}
-                    handleIntervalUpdate={handleIntervalUpdate}
-                    intervalPosition="start"
-                />
-            </div>
-            <div>
-                <EditableTime
-                    id={task.id}
-                    interval={task.interval}
-                    handleIntervalUpdate={handleIntervalUpdate}
-                    intervalPosition="start"
-                />
-            </div>
-            <div>
-                <EditableDate
-                    id={task.id}
-                    interval={task.interval}
-                    handleIntervalUpdate={handleIntervalUpdate}
-                    intervalPosition="end"
-                />
-            </div>
-            <div>
-                <EditableTime
-                    id={task.id}
-                    interval={task.interval}
-                    handleIntervalUpdate={handleIntervalUpdate}
-                    intervalPosition="end"
-                />
+            <div className="task-interval-container">
+                <div className="start-interval-container">
+                    <span className="start-interval-label">Start:</span>
+                    <span className="mui-icon" title="Start date"><TodayIcon /></span>
+                    <div className="task-date-container">
+                        <EditableDate
+                            id={task.id}
+                            interval={task.interval}
+                            handleIntervalUpdate={handleIntervalUpdate}
+                            intervalPosition="start"
+                        />
+                    </div>
+                    <div className="task-time-container">
+                        <EditableTime
+                            id={task.id}
+                            interval={task.interval}
+                            handleIntervalUpdate={handleIntervalUpdate}
+                            intervalPosition="start"
+                        />
+                    </div>
+                </div>
+                <span className="mui-icon row-task-hyphen" title="End date"><RemoveIcon /></span>
+                <div className="end-interval-container">
+                    <span className="end-interval-label">End:</span>
+                    <span className="mui-icon" title="End date"><EventIcon /></span>
+                    <div className="task-date-container">
+                        <EditableDate
+                            id={task.id}
+                            interval={task.interval}
+                            handleIntervalUpdate={handleIntervalUpdate}
+                            intervalPosition="end"
+                        />
+                    </div>
+                    <div className="task-time-container">
+                        <EditableTime
+                            id={task.id}
+                            interval={task.interval}
+                            handleIntervalUpdate={handleIntervalUpdate}
+                            intervalPosition="end"
+                        />
+                    </div>
+                </div>
             </div>
             {/* Task duration */}
-            <div>
+            <div className="task-duration-container">
+                <span className="mui-icon" title="Duration"><TimerOutlinedIcon /></span>
                 <EditableDuration
                     id={task.id}
                     interval={task.interval}
                     handleIntervalUpdate={handleIntervalUpdate}
                 />
             </div>
-            {/* Task delete button */}
-            <button onClick={() => handleDeleteTask()}>
-                Delete
-            </button>
-            {/* Restart this task button */}
-            <button onClick={handleRestartTask}>
-                Restart this task
-            </button>
+            <div className="task-controls">
+                {/* Restart this task button */}
+                <button
+                    className="button button-primary"
+                    onClick={handleRestartTask}
+                >
+                    Restart
+                </button>
+                {/* Task delete button */}
+                <button
+                    className="button button-danger"
+                    onClick={() => handleDeleteTask()}
+                >
+                    Delete
+                </button>
+            </div>
         </div>
     );
 }

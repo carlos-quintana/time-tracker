@@ -1,4 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+// Material Icons
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import SearchIcon from '@mui/icons-material/Search';
 
 /**
  * This component will act as a select dropdown input field, where the user can click on it to expand a menu listing all of the different options, and when clicking on any of these options it will change the state of the component to the selected option. 
@@ -35,6 +40,21 @@ const DropdownSearch = ({
     /** This variable contains the list of options to display in the dropdown component. */
     const [optionsList, setOptionsList] = useState(
         /** @type {Array<{id:Number,value:string}>} */([]));
+
+    /** With this ref we'll be able to add a Listener to the document to know when the user clicks outside of the dropdown and close it */
+    const dropdownRef = useRef(null);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (isOpen)
+                // @ts-ignore the DOM element.contains gives a linter error
+                if (dropdownRef.current && !dropdownRef.current.contains(event.target))
+                    setIsOpen(false)
+        }
+        document.addEventListener('click', handleClickOutside);
+
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, [isOpen]);
 
     /** 
      * On the first render assign the initial selection. 
@@ -109,19 +129,48 @@ const DropdownSearch = ({
     }
 
     return (
-        <div>
+        <div className="dropdown" ref={dropdownRef}>
             {/* The Dropdown trigger */}
-            <button
-                type="button"
+            <div
+                // type="button"
+                className="round-box dropdown-display"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                {options.find(option => option.id === selection)?.value || defaultText}
-            </button>
+                <span 
+                className="dropdown-display-text"
+                title={options.find(option => option.id === selection)?.value || ""}
+                >
+                    {
+                        options.find(option => option.id === selection)?.value
+                        ||
+                        <span className="dropdown-display-text-default">
+                            {defaultText}
+                        </span>
+                    }
+                </span>
+
+                {/* A small button to the side of the dropdown to reset its selection */}
+                {selection !== null &&
+                    <button
+                        className="dropdown-reset"
+                        onClick={e => {
+                            e.stopPropagation();
+                            handleSelectOption(null)
+                        }}
+                    >
+                        <span className="mui-icon ">
+                            <CancelOutlinedIcon fontSize="small" />
+                            </span>
+                    </button>
+                }
+                <span className="dropdown-display-arrow">
+                    {isOpen ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
+                </span>
+            </div>
             {/* The dropdown */}
             {isOpen &&
                 <div
                     className="dropdown-body"
-                    style={{ backgroundColor: "lightblue", position: "absolute", height: "10rem", overflowY: "scroll", width: "15rem", whiteSpace: "nowrap" }}
                 >
                     {/* The search input */}
                     <input
@@ -131,31 +180,34 @@ const DropdownSearch = ({
                         value={searchText}
                     />
                     {/* The options */}
-                    {optionsList.length > 0 ?
-                        optionsList.map(
-                            option =>
-                                <li
-                                    key={option.id}
-                                    onClick={() => handleSelectOption(option.id)}
-                                    style={{ width: "100%", overflow: "hidden", textOverflow: "ellipsis", listStyle: "none" }}
-                                >
-                                    {option.value}
-                                </li>
-                        )
-                        :
-                        <li>No results</li>
-                    }
+                    <ul>
+                        {optionsList.length > 0 ?
+                            optionsList.map(
+                                option =>
+                                    <li
+                                        key={option.id}
+                                        className="dropdown-result"
+                                        onClick={() => handleSelectOption(option.id)}
+                                        style={{ width: "100%", overflow: "hidden", textOverflow: "ellipsis", listStyle: "none" }}
+                                    >
+                                        {option.value}
+                                    </li>
+                            )
+                            :
+                            <li>No results</li>
+                        }
+                    </ul>
                     {/* If there is no option named exactly as the search text then give the user the option to create it right there */}
-                    {searchText.trim() !== "" && !optionsList.find(option => option.value === searchText.trim()) &&
-                        <button onClick={handleNewOption}>Create "{searchText}"</button>
+                    {
+                        searchText.trim() !== "" && !optionsList.find(option => option.value === searchText.trim()) &&
+                        <button
+                            className="button dropdown-create"
+                            onClick={handleNewOption}
+                        >
+                            Create <i>"{searchText}"</i>
+                        </button>
                     }
                 </div>
-            }
-            {/* A small button to the side of the dropdown to reset its selection */}
-            {selection !== null &&
-                <button onClick={() => handleSelectOption(null)}>
-                    X
-                </button>
             }
         </div>
     )

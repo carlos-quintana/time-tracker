@@ -17,7 +17,7 @@ const typedefs = require("../types"); // JSDoc Type Definitions
 const PanelTasks = ({ tasksList, editTask, deleteTask, currentTask, setCurrentTask, projectsList, createProject }) => {
 
     return (
-        <div>
+        <section>
             {tasksList.map(task =>
                     <TaskRow
                         key={task.id}
@@ -30,7 +30,7 @@ const PanelTasks = ({ tasksList, editTask, deleteTask, currentTask, setCurrentTa
                         createProject={createProject}
                     />
                 )}
-        </div>
+        </section>
     );
 }
 

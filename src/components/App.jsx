@@ -6,6 +6,10 @@ import PanelProjects from "./ProjectsPanel/PanelProjects"
 // JSON files that contain example dummy data to populate the application
 import exampleTasksFromJSON from "../exampleTasks.json"
 import exampleProjectsFromJSON from "../exampleProjects.json"
+// Material Icons
+import GitHubIcon from '@mui/icons-material/GitHub';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("./types"); // JSDoc Type Definitions
 
@@ -28,7 +32,7 @@ export default function App() {
   const [currentTask, setCurrentTask] = useState(INITIAL_CURRENT_TASK_STATE);
 
   /** Since we have two useEffect hooks touching the Local Storage we want to avoid overwriting empty data on it when the application renders for the first time, so we use a flag to check if the application is being run for the first time, skip it and disable the flag (This two times, one for the tasks and one for the projects) */
-  const firstRenderFlag = useRef([true, true]);
+  const firstRenderFlag = useRef([true, true, true]);
 
   /**
    * This useEffect hook is expected to run just once when the application loads. Here we will perform a check on the Local Storage:
@@ -119,7 +123,10 @@ export default function App() {
     // console.log({ currentTask: localStorage.getItem("currentTask") })
     // console.log({ currentTask: currentTask })
     // The first time the component is mounted we will ignore this hook and not set any data in Local Storage. Otherwise it would overwrite it with empty data (As the first useState hook wouldn't be executed yet)
-    if (currentTask !== INITIAL_CURRENT_TASK_STATE) {
+    if (firstRenderFlag.current[2]) {
+      // console.log("> firstRenderFlag is active, we skip")
+      firstRenderFlag.current[2] = false
+    } else {
       localStorage.setItem('currentTask', JSON.stringify(currentTask));
       // console.log({ currentTask: localStorage.getItem("currentTask") })
     }
@@ -209,8 +216,10 @@ export default function App() {
   }
 
   return (
-    <div>
-      <h2>Time Tracker application</h2>
+    <>
+      <header>
+        <h2>Time Tracker application</h2>
+      </header>
       <PanelInputs
         createNewTask={createNewTask}
         currentTask={currentTask}
@@ -227,14 +236,33 @@ export default function App() {
         projectsList={projectsList}
         createProject={createProject}
       />
-      <hr />
       <PanelProjects
         projectsList={projectsList}
         createProject={createProject}
         editProject={editProject}
         deleteProject={deleteProject}
       />
-      <button onClick={resetData}> Reset the LocalStorage </button>
-    </div>
+      <section className="data-reset">
+        <button
+          className="button button-warning"
+          onClick={resetData}
+        >
+          Reset the LocalStorage
+        </button>
+        <span> This will reset all Tasks and Projects to the example data.</span>
+      </section>
+      <footer>
+        <h4>This demo was created by Carlos Quintana</h4>
+        <a href="https://carlos-quintana.github.io/" target="_blank">
+          <WorkOutlineIcon /> See my Web Portfolio and other Projects
+        </a>
+        <a href="https://github.com/carlos-quintana/" target="_blank">
+          <GitHubIcon /> See my GitHub Page
+        </a>
+        <a href="https://www.linkedin.com/in/carlos-quintana-dev/" target="_blank">
+          <LinkedInIcon /> Let's get in touch through LinkedIn
+        </a>
+      </footer>
+    </>
   )
 }

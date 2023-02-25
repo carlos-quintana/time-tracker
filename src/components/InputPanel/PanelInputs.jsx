@@ -1,6 +1,9 @@
 import React, { useState } from "react"
 import PanelInputTimer from "./PanelInputTimer"
 import PanelInputInterval from "./PanelInputInterval"
+// Material Icons
+import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+import ViewDayOutlinedIcon from '@mui/icons-material/ViewDayOutlined';
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("./../types"); // JSDoc Type Definitions
 
@@ -31,23 +34,44 @@ const PanelInputs = ({ createNewTask, currentTask, setCurrentTask, projectsList,
     }
 
     return (
-        <div>
-            <h4>Select an input method:</h4>
-            {/* @ts-ignore. The linter gives error for the event.target.value */}
-            <form name="inputTypeSelector" onChange={event => setInputMethod(event.target.value)}>
-                <input type="radio"
-                    name="inputSelector"
+        <section className="panel-input">
+            <form
+                name="inputTypeSelector"
+                className="input-control-bar"
+                /* @ts-ignore. The linter gives error for the event.target.value */
+                onChange={event => setInputMethod(event.target.value)}
+            >
+                <input
+                    type="radio"
                     id="inputSelectorTimer"
+                    name="inputSelector"
+                    className="input-selector-radio"
                     value="timer"
                     defaultChecked
                 />
-                <label htmlFor="inputSelectorTimer">Timer</label>
-                <input type="radio"
-                    name="inputSelector"
+                <label
+                    htmlFor="inputSelectorTimer"
+                    className="button input-selector-label"
+                    selected-method={inputMethod === "timer" ? 1 : 0}
+                >
+                    <span className="mui-icon"><TimerOutlinedIcon /></span>
+                    <span>Timer</span>
+                </label>
+                <input
+                    type="radio"
                     id="inputSelectorInterval"
+                    name="inputSelector"
+                    className="input-selector-radio"
                     value="interval"
                 />
-                <label htmlFor="inputSelectorInterval">Custom dates and time</label>
+                <label
+                    htmlFor="inputSelectorInterval"
+                    className="button input-selector-label"
+                    selected-method={inputMethod === "interval" ? 1 : 0}
+                >
+                    <span className="mui-icon"><ViewDayOutlinedIcon /></span>
+                    <span>Custom interval</span>
+                </label>
             </form>
             {
                 inputMethod === "timer" ?
@@ -65,7 +89,7 @@ const PanelInputs = ({ createNewTask, currentTask, setCurrentTask, projectsList,
                         createProject={createProject}
                     />
             }
-        </div>
+        </section>
     )
 }
 export default PanelInputs

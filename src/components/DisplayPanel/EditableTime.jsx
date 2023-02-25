@@ -60,6 +60,7 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
                         <input
                             id={`${id}-editTask${intervalPosition === "start" ? "Start" : "End"}Time`}
                             name={`editTask${intervalPosition === "start" ? "Start" : "End"}Time`}
+                            className="editable compact"
                             type="time"
                             value={timestampToHMS(tempTimestamp)}
                             onChange={handleInputChange}
@@ -69,7 +70,10 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
                         />
                     </form>
                     :
-                    <button onClick={() => setIsEditingTime(true)}>
+                    <button
+                        className="editable editable-display compact"
+                        onClick={() => setIsEditingTime(true)}
+                    >
                         <span>
                             {timestampToTimeToDisplay(tempTimestamp)}
                         </span>

@@ -66,6 +66,7 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
                         <input
                             id={`${id}-editTask${intervalPosition === "start" ? "Start" : "End"}Date`}
                             name={`editTask${intervalPosition === "start" ? "Start" : "End"}Date`}
+                            className="editable compact"
                             type="date"
                             value={timestampToDateSnake(tempTimestamp)}
                             onChange={handleInputChange}
@@ -76,7 +77,10 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
                         />
                     </form>
                     :
-                    <button onClick={() => setIsEditingDate(true)}>
+                    <button
+                        className="editable editable-display compact"
+                        onClick={() => setIsEditingDate(true)}
+                    >
                         <span>
                             {timestampToDateToDisplay(tempTimestamp)}
                         </span>

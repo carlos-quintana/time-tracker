@@ -56,6 +56,7 @@ const EditableDuration = ({ id, interval: { start, end }, handleIntervalUpdate }
                     </form>
                     :
                     <button
+                        className="editable editable-display"
                         onClick={() => setIsEditingDuration(true)}
                     >
                         <span>
