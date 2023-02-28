@@ -1,219 +1,170 @@
 [
     {
-        "id": 1,
-        "name": "Assist weekly meeting",
-        "interval": {
-            "start": 1672650000001,
-            "end": 1672656100001
-        }
+        "offset": 0,
+        "task": "Respond emails",
+        "start": "8:25",
+        "end": "8:50",
+        "project": "0"
     },
     {
-        "id": 2,
-        "name": "Design the data flow",
-        "interval": {
-            "start": 1672656106002,
-            "end": 1672663284002
-        },
-        "project": 200
+        "offset": -1,
+        "task": "Fix performance issues",
+        "start": "8:25",
+        "end": "10:50",
+        "project": "2000"
     },
     {
-        "id": 3,
-        "name": "Write documentation",
-        "interval": {
-            "start": 1672663404003,
-            "end": 1672670004003
-        },
-        "project": 300
+        "offset": -1,
+        "task": "Implement feature: Google Auth",
+        "start": "13:55",
+        "end": "16:00",
+        "project": "1000"
     },
     {
-        "id": 4,
-        "name": "Design the UI",
-        "interval": {
-            "start": 1672670057004,
-            "end": 1672675869004
-        },
-        "project": 200
+        "offset": -1,
+        "task": "Meeting with the team",
+        "start": "16:00",
+        "end": "17:30",
+        "project": "2000"
     },
     {
-        "id": 5,
-        "name": "Design the UI",
-        "interval": {
-            "start": 1672675941005,
-            "end": 1672683222005
-        },
-        "project": 300
+        "offset": -2,
+        "task": "Meeting with manager",
+        "start": "8:45",
+        "end": "9:30",
+        "project": "2000"
     },
     {
-        "id": 6,
-        "name": "Write functionalities",
-        "interval": {
-            "start": 1672736400006,
-            "end": 1672738431006
-        },
-        "project": 100
+        "offset": -2,
+        "task": "Analyze Deployment Statistics",
+        "start": "9:30",
+        "end": "12:00",
+        "project": "2000"
     },
     {
-        "id": 7,
-        "name": "Write functionalities",
-        "interval": {
-            "start": 1672738604007,
-            "end": 1672740779007
-        },
-        "project": 200
+        "offset": -2,
+        "task": "Meeting with the team",
+        "start": "14:00",
+        "end": "14:58",
+        "project": "2000"
     },
     {
-        "id": 8,
-        "name": "Design the UI",
-        "interval": {
-            "start": 1672740960008,
-            "end": 1672745844008
-        },
-        "project": 300
+        "offset": -2,
+        "task": "Fix performance issues",
+        "start": "15:20",
+        "end": "17:59",
+        "project": "2000"
     },
     {
-        "id": 9,
-        "name": "Design the UI",
-        "interval": {
-            "start": 1672745847009,
-            "end": 1672749917009
-        },
-        "project": 200
+        "offset": -5,
+        "task": "Implement integration tests",
+        "start": "8:40",
+        "end": "12:00",
+        "project": "2000"
     },
     {
-        "id": 10,
-        "name": "Design the UI",
-        "interval": {
-            "start": 1672750216010,
-            "end": 1672754801010
-        },
-        "project": 300
+        "offset": -5,
+        "task": "PlayStore Deployment",
+        "start": "14:05",
+        "end": "17:00",
+        "project": "2000"
     },
     {
-        "id": 11,
-        "name": "Write documentation",
-        "interval": {
-            "start": 1672754869011,
-            "end": 1672758324011
-        }
+        "offset": -5,
+        "task": "Meeting with the team",
+        "start": "17:05",
+        "end": "18:59",
+        "project": "2000"
     },
     {
-        "id": 12,
-        "name": "Design the UI",
-        "interval": {
-            "start": 1672758325012,
-            "end": 1672764399012
-        }
+        "offset": -6,
+        "task": "Meeting with the team",
+        "start": "8:40",
+        "end": "9:30",
+        "project": "2000"
     },
     {
-        "id": 13,
-        "name": "Write documentation",
-        "interval": {
-            "start": 1672764463013,
-            "end": 1672766876013
-        },
-        "project": 300
+        "offset": -6,
+        "task": "Design integration tests",
+        "start": "9:30",
+        "end": "12:10",
+        "project": "2000"
     },
     {
-        "id": 14,
-        "name": "Design the data flow",
-        "interval": {
-            "start": 1672767024014,
-            "end": 1672771484014
-        },
-        "project": 200
+        "offset": -6,
+        "task": "Design integration tests",
+        "start": "14:00",
+        "end": "14:58",
+        "project": "2000"
     },
     {
-        "id": 15,
-        "name": "Design the UI",
-        "interval": {
-            "start": 1672822800015,
-            "end": 1672825027015
-        },
-        "project": 200
+        "offset": -6,
+        "task": "Research: Google Auth",
+        "start": "16:00",
+        "end": "18:50",
+        "project": "1000"
     },
     {
-        "id": 16,
-        "name": "Fixed bugs",
-        "interval": {
-            "start": 1672825226016,
-            "end": 1672832348016
-        },
-        "project": 300
+        "offset": -7,
+        "task": "Respond emails",
+        "start": "8:45",
+        "end": "9:30",
+        "project": "0"
     },
     {
-        "id": 17,
-        "name": "Meeting",
-        "interval": {
-            "start": 1672832551017,
-            "end": 1672838519017
-        }
+        "offset": -7,
+        "task": "Meeting with manager",
+        "start": "14:00",
+        "end": "14:58",
+        "project": "2000"
     },
     {
-        "id": 18,
-        "name": "Write functionalities",
-        "interval": {
-            "start": 1672838542018,
-            "end": 1672840670018
-        },
-        "project": 200
+        "offset": -7,
+        "task": "Respond emails",
+        "start": "14:58",
+        "end": "15:20",
+        "project": "0"
     },
     {
-        "id": 19,
-        "name": "Fixed bugs",
-        "interval": {
-            "start": 1672840716019,
-            "end": 1672845824019
-        },
-        "project": 300
+        "offset": -8,
+        "task": "Respond emails",
+        "start": "8:45",
+        "end": "9:30",
+        "project": "0"
     },
     {
-        "id": 20,
-        "name": "Write documentation",
-        "interval": {
-            "start": 1672846050020,
-            "end": 1672850720020
-        }
+        "offset": -8,
+        "task": "Design unit tests",
+        "start": "10:00",
+        "end": "12:10",
+        "project": "2000"
     },
     {
-        "id": 21,
-        "name": "Write functionalities",
-        "interval": {
-            "start": 1672850730021,
-            "end": 1672857268021
-        }
+        "offset": -8,
+        "task": "Meeting with design",
+        "start": "14:00",
+        "end": "15:35",
+        "project": "3000"
     },
     {
-        "id": 22,
-        "name": "Fixed bugs",
-        "interval": {
-            "start": 1672909200022,
-            "end": 1672911272022
-        },
-        "project": 300
+        "offset": -8,
+        "task": "Fix bug #1565154 (contact page not responsive)",
+        "start": "15:50",
+        "end": "17:50",
+        "project": "3000"
     },
     {
-        "id": 23,
-        "name": "Write functionalities",
-        "interval": {
-            "start": 1672911461023,
-            "end": 1672918280023
-        }
+        "offset": -9,
+        "task": "Respond emails",
+        "start": "10:10",
+        "end": "11:45",
+        "project": "0"
     },
     {
-        "id": 24,
-        "name": "Write documentation",
-        "interval": {
-            "start": 1672918336024,
-            "end": 1672922344024
-        }
-    },
-    {
-        "id": 25,
-        "name": "Fixed bugs",
-        "interval": {
-            "start": 1672922642025,
-            "end": 1672927166025
-        },
-        "project": 300
+        "offset": -9,
+        "task": "Client meeting",
+        "start": "14:00",
+        "end": "16:45",
+        "project": "3000"
     }
 ]

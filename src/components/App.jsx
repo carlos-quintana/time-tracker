@@ -6,6 +6,8 @@ import PanelProjects from "./ProjectsPanel/PanelProjects"
 // JSON files that contain example dummy data to populate the application
 import exampleTasksFromJSON from "../exampleTasks.json"
 import exampleProjectsFromJSON from "../exampleProjects.json"
+// Helper function to parse the example Tasks
+import parseExampleTasks from "../helpers/parseExampleTasks"
 // Material Icons
 import GitHubIcon from '@mui/icons-material/GitHub';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
@@ -50,12 +52,13 @@ export default function App() {
     if (localStorageTasks === null) {
       // console.log("+ The stuff in local storage is NULL, will store example tasks:")
       localStorage.clear()
-      let exampleTasks = exampleTasksFromJSON.reverse()
+      let exampleTasks = parseExampleTasks(exampleTasksFromJSON)
       let exampleProjects = exampleProjectsFromJSON
       // console.log("The example tasks to be added are:")
       // console.log({ exampleTasks })
       localStorage.setItem('tasksList', JSON.stringify(exampleTasks));
       setTasksList(exampleTasks)
+      // console.log(parseExampleTasks(exampleTasks))
       // console.log("The example projects to be added are:")
       // console.log({ exampleProjects })
       localStorage.setItem('projectsList', JSON.stringify(exampleProjects));
