@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react"
 
 import PanelInputs from "./InputPanel/PanelInputs"
-import PanelTasks from "./DisplayPanel/PanelTasks"
+import PanelTasks from "./TasksPanel/PanelTasks"
 import PanelProjects from "./ProjectsPanel/PanelProjects"
 // JSON files that contain example dummy data to populate the application
 import exampleTasksFromJSON from "../exampleTasks.json"
