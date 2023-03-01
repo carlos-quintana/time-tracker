@@ -47,6 +47,8 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
             let initialSeconds = Math.floor((Date.now() - currentTask.start) / TIMER_INTERVAL_MS);
             setSecondsToDisplay(initialSeconds);
             // console.log(`Assignned the initial seconds value to ${initialSeconds} `)
+            if (currentTask.project)
+                setTaskProject(currentTask.project)
             setTimerStatus("running");
         }
         // console.log("< (InputTimer) Exiting the currentTask useEffect")
@@ -148,7 +150,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                             projectsList.map(project => {
                                 return { id: project.id, value: project.name }
                             })}
-                        initialSelection={null}
+                        initialSelection={taskProject}
                         onCreateCallback={handleProjectCreation}
                         onSelectCallback={setTaskProject}
                         resetTrigger={dropdownResetTrigger}

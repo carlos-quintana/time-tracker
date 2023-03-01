@@ -61,7 +61,7 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
         if (currentTask)
             alert("There is an active task currently running in the timer. To restart this task please stop the active task")  // TODO: Implement a better alert system, maybe a modal or a tooltip
         else
-            setCurrentTask({ name: task.name, start: Date.now() })
+            setCurrentTask({ name: task.name, start: Date.now(), project: task.project })
     }
 
     return (
