@@ -11,11 +11,12 @@ https://carlos-quintana.github.io/time-tracker/
 
 Here are some current features that I will be progressively implementing in this project:
 
-- To keep track of time even when the application is closed, by logging the time and date of the entries instead of keeping the time in memory.
+- ~To keep track of time even when the application is closed, by logging the time and date of the entries instead of keeping the time in memory.~
 
-- Be able to add, delete and edit projects to organize the tasks.
+- ~Be able to add, delete and edit projects to organize the tasks.~
 
 - To extract useful metrics from the different entries.
+
 
 
 ## How to use
