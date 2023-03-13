@@ -61,9 +61,12 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
      * @param {String} newProjectName - The name for the new project.
      * @returns {Number} - The id of the newly created project
      */
-    const handleProjectCreation = newProjectName =>
-        createProject(newProjectName);
-
+    const handleProjectCreation = newProjectName => {
+        let newProjectID = createProject(newProjectName);
+        setTaskProject(newProjectID);
+        return newProjectID;
+    }
+    
     return (
         <div>
             <form onSubmit={handleFormSubmit}>

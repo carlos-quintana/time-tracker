@@ -126,6 +126,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
      */
     const handleProjectCreation = newProjectName => {
         let newProjectID = createProject(newProjectName);
+        setTaskProject(newProjectID);
         return newProjectID;
     }
 
