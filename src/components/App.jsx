@@ -240,6 +240,7 @@ export default function App() {
         createProject={createProject}
       />
       <PanelProjects
+        tasksList={tasksList}
         projectsList={projectsList}
         createProject={createProject}
         editProject={editProject}

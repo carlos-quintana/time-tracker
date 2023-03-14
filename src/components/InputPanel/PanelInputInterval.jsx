@@ -1,7 +1,15 @@
+/** @namespace Component_InputInterval */
 import React, { useState } from "react"
 import DropdownSearch from "../Shared Components/DropdownSearch"
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("./../types"); // JSDoc Type Definitions
+
+/**
+ * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
+ * @type {Number}
+ * @memberof Component_InputInterval
+ */
+const MAX_NAME_LENGTH = 60;
 
 /**
  * @param {Object} props - Component props object
@@ -26,12 +34,29 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
     /** This variable is used to change the props given to the Dropdown component which triggers a hook to reset it's selection to none. */
     const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0);
 
+    const handleNameChange = event => {
+        // This line will take the input given by the user and remove any trailing white spaces. There is the special condition where the user uses one single space at the end to separate words though.
+        let newName = event.target.value.slice(-1) === " " ?
+            event.target.value.trim() + " " :
+            event.target.value.trim();
+        // Check the length of the name is valid. If the user exceeds this limit stop adding characters to the input and fire the notification
+        if (newName.length > MAX_NAME_LENGTH) {
+            console.log("ERROR: The name you're trying to input is too long") // TODO: Implement a better notification
+            setTaskName(newName.slice(0, MAX_NAME_LENGTH));
+            return;
+        }
+        setTaskName(newName);
+    }
+
     /** When the form is submitted validate the data for the new task and then elevate this with the callback to submit the new task. */
     const handleFormSubmit = (event) => {
         event.preventDefault();
         //      Validation
         //      Validate empty fields
-        //      TODO: Validate task name
+        if (taskName === "") {
+            alert("The name of the task cannot be empty"); // TODO: Implement a better notification
+            return;
+        }
         if (!(startDate && startTime && endDate && endTime)) {
             alert("Please fill in all of the fields");
             return;
@@ -66,7 +91,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
         setTaskProject(newProjectID);
         return newProjectID;
     }
-    
+
     return (
         <div>
             <form onSubmit={handleFormSubmit}>
@@ -76,7 +101,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                         name="taskName"
                         type="text"
                         value={taskName}
-                        onChange={event => setTaskName(event.target.value)}
+                        onChange={handleNameChange}
                         placeholder="Input what you're working on"
                         required
                     />
@@ -140,7 +165,6 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                         value="Submit"
                         // Disable the submit button if the text field doesn't have any text
                         disabled={taskName.trim() === ""} />
-
                 </div>
             </form>
         </div>

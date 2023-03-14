@@ -30,23 +30,18 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
     const handleSubmit = event => {
         event.preventDefault()
         //      Form Validation
-        if (tempTimestamp < 0) {
-            alert("The date is not valid")
-            return
+        // This condition is to prevent the HTML time picker component to be cleared and the form submitted
+        if (!tempTimestamp) {
+            abortSubmit("The date inputted is not valid"); return;
         }
-        // Make sure the start timestamp happens before the end timestamp.
-        // If this condition is violated throw an alert, reset the value of the state and turn off editing mode.
+        // Make sure that if both dates happen in the same day, the start time is before the end time (and for more than 1s).
+        // If this component is for the start date and the selected date is after the end.
         if (intervalPosition === "start" && tempTimestamp > end) {
-            alert("The starting date cannot be after the end date")
-            setTempTimestamp(start)
-            setIsEditingDate(false)
-            return
+            abortSubmit("The starting date cannot be after the end date"); return;
         }
+        // If this component is for the end date and the selected date is before the start.
         if (intervalPosition === "end" && tempTimestamp < start) {
-            alert("The ending date cannot be before the starting date")
-            setTempTimestamp(end)
-            setIsEditingDate(false)
-            return
+            abortSubmit("The ending date cannot be before the end date"); return;
         }
 
         //      Update Task
@@ -55,6 +50,16 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
         else
             handleIntervalUpdate({ start, end: tempTimestamp })
         //      Cleanup
+        setIsEditingDate(false)
+    }
+
+    /**
+     * This component has enough different validations and escape conditions that it warrants having a separate function for handling the errors.
+     * @param {string} message - The message to display in the alert
+     */
+    const abortSubmit = message => {
+        console.log("ERROR " + message); // TODO: Implement a better notification system
+        setTempTimestamp(intervalPosition === "start" ? start : end)
         setIsEditingDate(false)
     }
 

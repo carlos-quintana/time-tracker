@@ -13,6 +13,13 @@ const typedefs = require("./../types"); // JSDoc Type Definitions
 const TIMER_INTERVAL_MS = 50; // TODO: Reset to 1000 ms
 
 /**
+ * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
+ * @type {Number}
+ * @memberof Component_InputTimer
+ */
+const MAX_NAME_LENGTH = 60;
+
+/**
  * @param {Object} props - Component props object
  * @param {function(String,typedefs.Interval,Number|undefined):void} props.handleSubmit - Callback function that will be fired when the form is submitted
  * @param {null | typedefs.CurrentTask} props.currentTask - The current running Task state that represents the current task in the Timer. (The state initializes as null but it should change to CurrentTask after it's mounted)
@@ -71,12 +78,19 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
 
     /** Not only update the controlled input in the form, but whenever the name changes also update the current running task in the global state */
     const handleNameChange = event => {
-        // console.log("> (InputTimer) Entering handleNameChange")
-        // console.log(event.target.value)
-        setTaskName(event.target.value);
+        // This line will take the input given by the user and remove any trailing white spaces. There is the special condition where the user uses one single space at the end to separate words though.
+        let newName = event.target.value.slice(-1) === " " ?
+            event.target.value.trim() + " " :
+            event.target.value.trim();
+        // Check the length of the name is valid. If the user exceeds this limit stop adding characters to the input and fire the notification
+        if (newName.length > MAX_NAME_LENGTH) {
+            console.log("ERROR: The name you're trying to input is too long") // TODO: Implement a better notification
+            setTaskName(newName.slice(0, MAX_NAME_LENGTH));
+            return;
+        }
+        setTaskName(newName);
         if (timerStatus === "running")
-            setCurrentTask({ ...currentTask, name: event.target.value });
-        // console.log("< (InputTimer) Exiting handleNameChange")
+            setCurrentTask({ ...currentTask, name: newName });
     }
 
     /**  When the timer is started take the current Timestamp and whatever text is in the name field and create a CurrentTask that will be assigned to the global state, and start the timer so that it will start counting seconds from this moment. */
@@ -93,30 +107,28 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
 
     /** When the timer is stopped not only it should stop counting seconds, but immediately validate and submit the form for the creation of a new task */
     const handleStopTimer = event => {
-        //      TODO: Validate task fields
-        // console.log("> (InputTimer) Entering handleStopTimer")
         event.preventDefault();
-        //      Stop the timer
-        setTimerStatus("stopped");
-        // console.log("Stopped the timer")
+        //      Validate the inputs
+        if (taskName === "") {
+            alert("The name of the task cannot be empty"); // TODO: Implement a better notification
+            return;
+        }
         // This is the real amount of ms in between the timer being started and stopped
         let duration = Date.now() - starterTimestamp.current;
         // However, given that we can modify the speed of the timer for testing purpouses we will take that into account and adjust the timestamps for this duration. In a normal setting where each tick is 1000ms this adjustment would be 1.0
         let adjustment = (1000 / TIMER_INTERVAL_MS);
         let endTimestamp = starterTimestamp.current + duration * adjustment;
+        //      Stop the timer
+        setTimerStatus("stopped");
         //      Submit the new task
-        // console.log(`The value of starterTimestamp is ${starterTimestamp.current} `)
-        // console.log(`The value of the ending timestamp is ${endTimestamp} `)
-        // console.log(`For a duration value of  ${duration} `)
         handleSubmit(taskName, { start: starterTimestamp.current, end: endTimestamp }, taskProject || undefined);
         //      Reset the form
-        setTaskName(""); // The input for the name of the new task
-        setTaskProject(null); // The state in the panel for which project is selected
+        setTaskName("");
+        setTaskProject(null);
         setDropdownResetTrigger(dropdownResetTrigger + 1); // Trigger a useEffect hook in the child component to change state
         setSecondsToDisplay(0);
         //      Change the state of the variable in the App component too
         setCurrentTask(null);
-        // console.log("< (InputTimer) Exiting handleStopTimer")
     }
 
     /**
