@@ -29,19 +29,27 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
 
     const handleSubmit = event => {
         event.preventDefault();
-        //      Form Validation, make sure that if both dates happen in the same day, the start time is before the end time.
-        // If this condition is violated throw an alert, reset the value of the state and turn off editing mode
-        if (intervalPosition === "start" && tempTimestamp > end) {
-            alert("The starting time cannot be after the end time") // TODO: Better notifications system.
-            setTempTimestamp(start)
-            setIsEditingTime(false)
-            return
+        //      Form Validation
+        // This condition is to prevent the HTML time picker component to be cleared and the form submitted
+        if (!tempTimestamp) {
+            abortSubmit("The time inputted is not valid"); return;
         }
+        // Make sure that if both dates happen in the same day, the start time is before the end time (and for more than 1s).
+        // If this component is for the start time and the selected time is after the end.
+        if (intervalPosition === "start" && tempTimestamp > end) {
+            abortSubmit("The starting time cannot be after the end time on the same day"); return;
+        }
+        // If this component is for the start time and the selected time is within 1 second of the end.
+        if (intervalPosition === "start" && tempTimestamp > end - 1000) {
+            abortSubmit("The difference must be at least one second"); return;
+        }
+        // If this component is for the end time and the selected time is before the start.
         if (intervalPosition === "end" && tempTimestamp < start) {
-            alert("The ending time cannot be before the starting time")
-            setTempTimestamp(end)
-            setIsEditingTime(false)
-            return
+            abortSubmit("The ending time cannot be before the end time on the same day"); return;
+        }
+        // If this component is for the end time and the selected time is within 1 second of the start.
+        if (intervalPosition === "end" && tempTimestamp < start + 1000) {
+            abortSubmit("The difference must be at least one second"); return;
         }
         //      Edit Task
         if (intervalPosition === "start")
@@ -49,6 +57,16 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
         else
             handleIntervalUpdate({ start, end: tempTimestamp })
         //      Cleanup
+        setIsEditingTime(false)
+    }
+
+    /**
+     * This component has enough different validations and escape conditions that it warrants having a separate function for handling the errors.
+     * @param {string} message - The message to display in the alert
+     */
+    const abortSubmit = message => {
+        console.log("ERROR " + message); // TODO: Implement a better notification system
+        setTempTimestamp(intervalPosition === "start" ? start : end)
         setIsEditingTime(false)
     }
 
@@ -67,6 +85,7 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
                             step="1"
                             autoFocus
                             onBlur={event => handleSubmit(event)}
+                            required
                         />
                     </form>
                     :
