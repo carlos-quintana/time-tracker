@@ -46,13 +46,16 @@ Group your tasks into projects, so you can be more organized and gain insight an
 - [X] Tasks are assigned to projects.
 - [X] Projects CRUD.
 - [X] Custom dropdown component for assigning Projects.
-- [X] Tasks are ordered chronologically and separated by milestones (Today, Yesterday, This week, etc)
-- [ ] Implement modals and tooltips
+- [X] Tasks are ordered chronologically and separated by milestones (Today, Yesterday, This week, etc).
+- [ ] Implement modals and tooltips.
 - - - -
-- [ ] Expand on projects features
-  - [ ] Implement React Router
-  - [ ] Separate view for Projects CRUD
-  - [ ] Expand on Projects information
+- [ ] Expand on projects features.
+  - [ ] Implement React Router.
+  - [ ] Separate view for Projects CRUD.
+  - [ ] Expand on Projects information.
+- [ ] Data analysis.
+  - [ ] Separate view for data analysis.
+  - [ ] Implement graphs and charts.
 - [ ] Implement Redux for cleaner state management.
 
 ## Instructions
