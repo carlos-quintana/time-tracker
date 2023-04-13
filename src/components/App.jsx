@@ -210,13 +210,6 @@ export default function App() {
     setProjectsList(projectsList.filter(el => el.id !== idDelete))
   }
 
-  /**
-   * This function reloads the application and restores all of the dummy data in the example files. We do this by clearing the Local Storage, which the application will interpret as a new user entering for the first time.
-   */
-  const resetData = () => {
-    localStorage.clear()
-    window.location.reload()
-  }
 
   return (
     <>
@@ -247,13 +240,7 @@ export default function App() {
         deleteProject={deleteProject}
       />
       <section className="data-reset">
-        <button
-          className="button button-warning"
-          onClick={resetData}
-        >
-          Reset the LocalStorage
-        </button>
-        <span> This will reset all Tasks and Projects to the example data.</span>
+        <ControlsPanel /> 
       </section>
       <footer>
         <h4>This demo was created by Carlos Quintana</h4>
