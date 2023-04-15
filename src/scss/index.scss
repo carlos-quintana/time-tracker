@@ -1,5 +1,6 @@
 @use 'abstracts/colors' as*;
 @use './components/modal';
+@use './components/popover';
 
 * {
     box-sizing: border-box;

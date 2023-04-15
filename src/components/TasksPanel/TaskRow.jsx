@@ -1,4 +1,5 @@
-import React from "react";
+// @ts-nocheck
+import React, { useEffect, useRef, useState } from "react";
 import DropdownSearch from "../Shared Components/DropdownSearch"
 import EditableName from "./EditableName"
 import EditableDate from "./EditableDate"
@@ -9,6 +10,8 @@ import TodayIcon from '@mui/icons-material/Today';
 import EventIcon from '@mui/icons-material/Event';
 import RemoveIcon from '@mui/icons-material/Remove';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+// React Popper for making a popover appear over the button
+import { usePopper } from 'react-popper';
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("../types"); // JSDoc Type Definitions
 
@@ -62,6 +65,42 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
             alert("There is an active task currently running in the timer. To restart this task please stop the active task")  // TODO: Implement a better alert system, maybe a modal or a tooltip
         else
             setCurrentTask({ name: task.name, start: Date.now(), project: task.project })
+    }
+
+    /** This relates to the popover that will appear over the delete button when clicked */
+    const [isOpenDeletePopover, setIsOpenDeletePopover] = useState(false);
+    const [referenceDeleteButton, setReferenceDeleteButton] = useState(null);
+    const [popperElement, setPopperElement] = useState(null);
+    const { styles, attributes } = usePopper(referenceDeleteButton, popperElement, {
+        placement: 'top', modifiers: [{ name: 'flip', enabled: false }]
+    });
+
+    /** With this ref we'll be able to add a Listener to the document to know when the user clicks outside of the popover and close it */
+    const popoverRef = useRef(null);
+    /** Since the button that triggers the popover occupies a different space than the popover, we need to skip that check for the first time, otherwise it will never open */
+    const popoverFirstClick = useRef(false);
+
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (isOpenDeletePopover)
+                if (popoverFirstClick.current) { // If the flag is true
+                    if (popoverRef.current && !popoverRef.current.contains(event.target)) { // If the click is outside of the popover
+                        setIsOpenDeletePopover(false)
+                        popoverFirstClick.current = false;
+                    }
+                } else
+                    popoverFirstClick.current = true;
+        }
+        document.addEventListener('click', handleClickOutside);
+
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, [isOpenDeletePopover]);
+
+    const handleClickDeletePopover = () => {
+        setIsOpenDeletePopover(false);
+        popoverFirstClick.current = false;
+        deleteTask()
+        console.warn("Deleted")
     }
 
     return (
@@ -152,10 +191,32 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                 >
                     Restart
                 </button>
+                {/* Delete warning popover */}
+                {
+                    isOpenDeletePopover &&
+                    <div
+                        // @ts-ignore
+                        ref={setPopperElement}
+                        style={styles.popper}
+                        {...attributes.popper}
+                    >
+                        <div className="popover" ref={popoverRef}>
+                            <h1 className="popover__title">Warning</h1>
+                            <p className="popover__text">Are you sure you want to delete this?</p>
+                            <button
+                                className="button button-danger"
+                                onClick={handleClickDeletePopover}>
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                }
                 {/* Task delete button */}
                 <button
-                    className="button button-danger"
-                    onClick={() => handleDeleteTask()}
+                    className={`button button-danger ${isOpenDeletePopover && "button-danger-focus"}`}
+                    // @ts-ignore
+                    ref={setReferenceDeleteButton}
+                    onClick={() => setIsOpenDeletePopover(true)}
                 >
                     Delete
                 </button>
