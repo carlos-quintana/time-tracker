@@ -4,7 +4,7 @@ import Modal from "../Shared Components/Modal";
 
 const ControlsPanel = () => {
 
-    let [isOpenModal, openModal, closeModal] = useModal(false);
+    const {isOpen: isOpenReset, openModal: openModalReset, closeModal: closeModalReset} = useModal(false);
 
     /** This function reloads the application and restores all of the dummy data in the example files. We do this by clearing the Local Storage, which the application will interpret as a new user entering for the first time. */
     const resetData = () => {
@@ -14,13 +14,13 @@ const ControlsPanel = () => {
 
     return (
         <>
-            <button className="button button-warning" onClick={openModal} >
+            <button className="button button-warning" onClick={openModalReset} >
                 Reset data
             </button>
 
             <Modal
-                isOpen={isOpenModal}
-                closeModal={closeModal}
+                isOpen={isOpenReset}
+                closeModal={closeModalReset}
                 modalTitle="Warning"
                 hasConfirmation={true}
                 onConfirmationCallback={resetData}

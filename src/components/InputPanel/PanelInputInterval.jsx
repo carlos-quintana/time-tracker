@@ -36,7 +36,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
     /** This variable is used to change the props given to the Dropdown component which triggers a hook to reset it's selection to none. */
     const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0);
     /** These are the controls for the modal that will pop up if there are errors with the form validation */
-    const [isOpenModal, openModal, closeModal] = useModal(false);
+    const {isOpen, openModal, closeModal} = useModal(false);
     /** This is the dynamic message that will be shown in the modal. This is so we can use one single modal for all possible errors */
     const [modalText, setModalText] = useState("Error");
 
@@ -185,7 +185,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
 
             <Modal
                 // @ts-ignore
-                isOpen={isOpenModal} closeModal={closeModal}
+                isOpen={isOpen} closeModal={closeModal}
                 modalTitle="Error">
                 <p>{modalText}</p>
             </Modal>

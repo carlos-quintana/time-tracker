@@ -149,7 +149,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         return newProjectID;
     }
 
-    const [isOpenModal, openModal, closeModal] = useModal(false);
+    const {isOpen, openModal, closeModal} = useModal(false);
     /** This is the dynamic message that will be shown in the modal. This is so we can use one single modal for all possible errors */
     const [modalText, setModalText] = useState("Error");
 
@@ -217,7 +217,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
             </form>
             <Modal
                 // @ts-ignore
-                isOpen={isOpenModal} closeModal={closeModal}
+                isOpen={isOpen} closeModal={closeModal}
                 modalTitle="Error">
                 <p>{modalText}</p>
             </Modal>

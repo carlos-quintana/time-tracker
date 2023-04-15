@@ -7,10 +7,10 @@ import CloseIcon from '@mui/icons-material/Close';
  * @param {any} props.children - TODO
  * @param {boolean} props.isOpen - TODO
  * @param {Function} props.closeModal - TODO
- * @param {string} props.modalTitle - TODO
- * @param {boolean} props.hasConfirmation - TODO
- * @param {string} props.confirmationButtonText - TODO
- * @param {null | Function} props.onConfirmationCallback - TODO
+ * @param {string} [props.modalTitle] - TODO
+ * @param {boolean} [props.hasConfirmation] - TODO
+ * @param {string} [props.confirmationButtonText] - TODO
+ * @param {null | Function} [props.onConfirmationCallback] - TODO
  * @returns 
  */
 const Modal = ({
