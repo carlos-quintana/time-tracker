@@ -1,6 +1,8 @@
 /** @namespace Component_InputInterval */
 import React, { useState } from "react"
 import DropdownSearch from "../Shared Components/DropdownSearch"
+import { useModal } from "../../hooks/useModal";
+import Modal from "../Shared Components/Modal";
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("./../types"); // JSDoc Type Definitions
 
@@ -33,6 +35,10 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
     const [taskProject, setTaskProject] = useState(/**@type {null | Number}*/(null));
     /** This variable is used to change the props given to the Dropdown component which triggers a hook to reset it's selection to none. */
     const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0);
+    /** These are the controls for the modal that will pop up if there are errors with the form validation */
+    const [isOpenModal, openModal, closeModal] = useModal(false);
+    /** This is the dynamic message that will be shown in the modal. This is so we can use one single modal for all possible errors */
+    const [modalText, setModalText] = useState("Error");
 
     const handleNameChange = event => {
         // This line will take the input given by the user and remove any trailing white spaces. There is the special condition where the user uses one single space at the end to separate words though.
@@ -53,19 +59,19 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
         event.preventDefault();
         //      Validation
         //      Validate empty fields
-        if (taskName === "") {
-            alert("The name of the task cannot be empty"); // TODO: Implement a better notification
+        if (taskName.trim() === "") {
+            triggerErrorModal("The name of the task cannot be empty");
             return;
         }
         if (!(startDate && startTime && endDate && endTime)) {
-            alert("Please fill in all of the fields");
+            triggerErrorModal("Please fill in all of the fields");
             return;
         }
         //      Validate start datetime is before end datetime
         let startTimestamp = new Date(startDate + " " + startTime).getTime();
         let endTimestamp = new Date(endDate + " " + endTime).getTime();
         if (startTimestamp >= endTimestamp) {
-            alert("The times selected are not valid"); // TODO: A better notifications system (maybe modals or tooltips)
+            triggerErrorModal("The times selected are not valid");
             return;
         }
         //      Callback to submit task
@@ -90,6 +96,15 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
         let newProjectID = createProject(newProjectName);
         setTaskProject(newProjectID);
         return newProjectID;
+    }
+    
+    /**
+     * This function is used to change the modal text so it can be reutilized. For the time being there is no way the user could see this message without modifying the html to disable the browser's validation.
+     * @param {string} message - The string to be put in the modal body
+     */
+    const triggerErrorModal = (message) => {
+        setModalText(message);
+        openModal();
     }
 
     return (
@@ -167,6 +182,13 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                         disabled={taskName.trim() === ""} />
                 </div>
             </form>
+
+            <Modal
+                // @ts-ignore
+                isOpen={isOpenModal} closeModal={closeModal}
+                modalTitle="Error">
+                <p>{modalText}</p>
+            </Modal>
         </div>
     )
 }

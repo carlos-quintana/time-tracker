@@ -2,6 +2,8 @@
 import React, { useState, useEffect, useRef } from "react"
 import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
 import DropdownSearch from "../Shared Components/DropdownSearch"
+import Modal from "../Shared Components/Modal";
+import { useModal } from "../../hooks/useModal";
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("./../types"); // JSDoc Type Definitions
 
@@ -96,6 +98,11 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
     /**  When the timer is started take the current Timestamp and whatever text is in the name field and create a CurrentTask that will be assigned to the global state, and start the timer so that it will start counting seconds from this moment. */
     const handleStartTimer = () => {
         // console.log("> (InputTimer) Entering handleStartTimer")
+        //      Validate the inputs
+        if (taskName === "") {
+            triggerErrorModal("The name of the task cannot be empty"); // TODO: Implement a better notification
+            return;
+        }
         starterTimestamp.current = Date.now();
         /** @type {typedefs.CurrentTask} */
         let newCurrentTask = { name: taskName, start: starterTimestamp.current };
@@ -110,7 +117,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         event.preventDefault();
         //      Validate the inputs
         if (taskName === "") {
-            alert("The name of the task cannot be empty"); // TODO: Implement a better notification
+            triggerErrorModal("The name of the task cannot be empty"); // TODO: Implement a better notification
             return;
         }
         // This is the real amount of ms in between the timer being started and stopped
@@ -140,6 +147,19 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         let newProjectID = createProject(newProjectName);
         setTaskProject(newProjectID);
         return newProjectID;
+    }
+
+    const [isOpenModal, openModal, closeModal] = useModal(false);
+    /** This is the dynamic message that will be shown in the modal. This is so we can use one single modal for all possible errors */
+    const [modalText, setModalText] = useState("Error");
+
+    /**
+     * This function is used to change the modal text so it can be reutilized. For the time being there is no way the user could see this message without modifying the html to disable the browser's validation.
+     * @param {string} message - The string to be put in the modal body
+     */
+    const triggerErrorModal = (message) => {
+        setModalText(message);
+        openModal();
     }
 
     return (
@@ -179,8 +199,9 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                         <button
                             className={`button button-submit-task ${taskName.trim() === "" ? "button button-disabled" : "button button-success"}`}
                             onClick={handleStartTimer}
-                            // Only allow the timer to start when there is text in the input field
-                            disabled={taskName.trim() === ""}>
+                        // Only allow the timer to start when there is text in the input field
+                        // disabled={taskName.trim() === ""}
+                        >
                             Start
                         </button>}
                     {timerStatus === "running" &&
@@ -190,9 +211,16 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                             type="submit"
                             value="Stop"
                             // Only allow submissions when there is text in the input field
-                            disabled={taskName.trim() === ""} />}
+                            // disabled={taskName.trim() === ""}
+                        />}
                 </div>
             </form>
+            <Modal
+                // @ts-ignore
+                isOpen={isOpenModal} closeModal={closeModal}
+                modalTitle="Error">
+                <p>{modalText}</p>
+            </Modal>
         </div>
     )
 }
