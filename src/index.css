@@ -40,6 +40,9 @@
   margin-top: 2px;
 }
 .modal__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-grow: 1;
   overflow-y: auto;
   padding-block: 0.75rem;
