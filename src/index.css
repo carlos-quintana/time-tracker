@@ -54,12 +54,13 @@
 
 .popover {
   background-color: #eee;
-  box-shadow: 0 3px 5px 0 #aaa;
+  box-shadow: 0 3px 5px 0 rgba(34, 34, 34, 0.5333333333);
   border-radius: 0.75rem;
   padding-bottom: 0.2rem;
   margin-bottom: 1rem;
   text-align: center;
   max-width: 10rem;
+  position: relative;
 }
 .popover__title {
   background-color: #ca3e3e;
@@ -72,6 +73,17 @@
   font-size: 0.85rem;
   padding: 0.2rem;
   white-space: break-spaces;
+}
+.popover::after {
+  content: " ";
+  position: absolute;
+  top: 100%;
+  /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #eee transparent transparent transparent;
 }
 
 * {
