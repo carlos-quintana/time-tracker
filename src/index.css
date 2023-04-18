@@ -59,20 +59,29 @@
   padding-bottom: 0.2rem;
   margin-bottom: 1rem;
   text-align: center;
+  min-width: 7rem;
   max-width: 10rem;
   position: relative;
 }
 .popover__title {
-  background-color: #ca3e3e;
-  color: white;
   font-size: 1rem;
   border-radius: 0.75rem 0.75rem 0 0;
   padding: 0.2rem;
+  background-color: #444;
+  color: white;
+}
+.popover__title--primary {
+  background-color: #1f70c0;
+}
+.popover__title--danger {
+  background-color: #ca3e3e;
 }
 .popover__text {
   font-size: 0.85rem;
   padding: 0.2rem;
   white-space: break-spaces;
+  margin-block: 0.25rem;
+  margin-inline: 0.5rem;
 }
 .popover::after {
   content: " ";
