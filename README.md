@@ -48,6 +48,7 @@ Group your tasks into projects, so you can be more organized and gain insight an
 - [X] Custom dropdown component for assigning Projects.
 - [X] Tasks are ordered chronologically and separated by milestones (Today, Yesterday, This week, etc).
 - [ ] Implement modals and tooltips.
+- [ ] Switch from CRA to Vite and JS to TS.
 - - - -
 - [ ] Expand on projects features.
   - [ ] Implement React Router.
@@ -56,7 +57,7 @@ Group your tasks into projects, so you can be more organized and gain insight an
 - [ ] Data analysis.
   - [ ] Separate view for data analysis.
   - [ ] Implement graphs and charts.
-- [ ] Implement Redux for cleaner state management.
+- [ ] Implement a state management library (maybe Redux).
 
 ## Instructions
 
@@ -93,6 +94,7 @@ https://carlos-quintana.github.io/time-tracker/
 - JavaScript
 - SASS
 - JSDoc
+- React Popper
 
 ## Get in touch
 
