@@ -48,8 +48,8 @@ Group your tasks into projects, so you can be more organized and gain insight an
 - [X] Custom dropdown component for assigning Projects.
 - [X] Tasks are ordered chronologically and separated by milestones (Today, Yesterday, This week, etc).
 - [ ] Implement modals and tooltips.
-- [ ] Switch from CRA to Vite and JS to TS.
 - - - -
+- [ ] Switch from CRA to Vite and JS to TS.
 - [ ] Expand on projects features.
   - [ ] Implement React Router.
   - [ ] Separate view for Projects CRUD.
