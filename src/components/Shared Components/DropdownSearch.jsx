@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from "react";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
-import SearchIcon from '@mui/icons-material/Search';
 
 /**
  * This component will act as a select dropdown input field, where the user can click on it to expand a menu listing all of the different options, and when clicking on any of these options it will change the state of the component to the selected option. 
@@ -61,49 +60,32 @@ const DropdownSearch = ({
      * Whenever the initial Selection changes update this components selection. There was a particular bug where when deleting rows of tasks, the dropdowns wouldn't update. 
      */
     useEffect(() => {
-        // console.log("> Inside of initialSelection useEffect inside of dropdown")
-        // console.log({ initialSelection })
         setSelection(initialSelection)
-        // console.log("< Outside of initialSelection useEffect inside of dropdown")
     }, [initialSelection])
 
     useEffect(() => {
-        // console.log("> Inside of searchText useEffect inside of dropdown")
-        // console.log({ options })
-        // console.log({ optionsList })
         if (searchText.trim() === "") {
-            // console.log('Setting options === ""')
             setOptionsList(options)
         } else {
-            // console.log('Setting options filter')
             setOptionsList(
                 options.filter(option =>
                     option.value.toLowerCase()
                         .includes(searchText.trim().toLowerCase())))
         }
-        // console.log("< Outside of searchText useEffect inside of dropdown")
     }, [searchText])
 
     useEffect(() => {
-        // console.log("> Inside of options useEffect inside of dropdown")
-        // console.log("Setting the options")
-        // console.log({ options })
         setOptionsList(options)
         if (selection && !options.find(el => el.id === selection)) {
             // If the options list thats given changes this might mean the option that was selected was deleted. So we check for this and in case it doesn't exist anymore then select the default option
-            // console.log(`Setting selection to ${null}`)
             setSelection(null)
         }
-        // console.log("< Outside of options useEffect inside of dropdown")
     }, [options])
 
     useEffect(() => {
-        // console.log("> Inside of resetTrigger useEffect inside of dropdown")
         if (selection && resetTrigger) {
-            // console.log("Setting selection to null")
             setSelection(null)
         }
-        // console.log("< Outside of resetTrigger useEffect inside of dropdown")
     }, [resetTrigger])
 
     /** @param {null | Number} id - The id of the new option selected. If it's null then it will reset the selection and the display text to the default values.*/
@@ -132,7 +114,6 @@ const DropdownSearch = ({
         <div className="dropdown" ref={dropdownRef}>
             {/* The Dropdown trigger */}
             <div
-                // type="button"
                 className="round-box dropdown-display"
                 onClick={() => setIsOpen(!isOpen)}
             >

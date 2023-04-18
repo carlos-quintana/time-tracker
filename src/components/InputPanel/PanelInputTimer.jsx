@@ -45,28 +45,19 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
 
     /** Whenever the currentTask given changes for a valid CurrentTask we will assign this to the form fields and activate the timer. */
     useEffect(() => {
-        // console.log("> (InputTimer) Entering the currentTask useEffect")
-        // console.log({ currentTask })
         if (currentTask) {
-            // console.log("There is a task currently running so it will be assigned to the values of the form")
             setTaskName(currentTask.name);
-            // console.log(`Assignned the name ${currentTask.name}`)
             starterTimestamp.current = currentTask.start;
-            // console.log(`Assignned the starterTimestamp ${currentTask.start}`)
             let initialSeconds = Math.floor((Date.now() - currentTask.start) / TIMER_INTERVAL_MS);
             setSecondsToDisplay(initialSeconds);
-            // console.log(`Assignned the initial seconds value to ${initialSeconds} `)
             if (currentTask.project)
                 setTaskProject(currentTask.project)
             setTimerStatus("running");
         }
-        // console.log("< (InputTimer) Exiting the currentTask useEffect")
     }, [currentTask]);
 
     /** Whenever the timer status is changed, it either creates an interval when it starts or clears it when it stops. */
     useEffect(() => {
-        // console.log("> (InputTimer) Entering the timerStatus useEffect")
-        // console.log("Timer status: ", timerStatus)
         let timerSetInterval = null; // Might be better off putting this in a useRef hook
         if (timerStatus === "running")
             timerSetInterval = setInterval(() =>
@@ -74,7 +65,6 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                 , TIMER_INTERVAL_MS);
         else if (timerSetInterval)
             clearInterval(timerSetInterval); // Might be redundant code?
-        // console.log("< (InputTimer) exiting the timerStatus useEffect")
         return () => clearInterval(timerSetInterval);
     }, [timerStatus]);
 
@@ -86,7 +76,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
             event.target.value.trim();
         // Check the length of the name is valid. If the user exceeds this limit stop adding characters to the input and fire the notification
         if (newName.length > MAX_NAME_LENGTH) {
-            console.log("ERROR: The name you're trying to input is too long") // TODO: Implement a better notification
+            console.log("ERROR: The name you're trying to input is too long")
             setTaskName(newName.slice(0, MAX_NAME_LENGTH));
             return;
         }
@@ -97,10 +87,9 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
 
     /**  When the timer is started take the current Timestamp and whatever text is in the name field and create a CurrentTask that will be assigned to the global state, and start the timer so that it will start counting seconds from this moment. */
     const handleStartTimer = () => {
-        // console.log("> (InputTimer) Entering handleStartTimer")
         //      Validate the inputs
         if (taskName === "") {
-            triggerErrorModal("The name of the task cannot be empty"); // TODO: Implement a better notification
+            triggerErrorModal("The name of the task cannot be empty");
             return;
         }
         starterTimestamp.current = Date.now();
@@ -108,8 +97,6 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         let newCurrentTask = { name: taskName, start: starterTimestamp.current };
         setCurrentTask(newCurrentTask);
         setTimerStatus("running");
-        // console.log(`The timer is running now, the starterTimestamp will be ${starterTimestamp.current} `)
-        // console.log("< (InputTimer) Exiting handleStartTimer")
     }
 
     /** When the timer is stopped not only it should stop counting seconds, but immediately validate and submit the form for the creation of a new task */
@@ -117,7 +104,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         event.preventDefault();
         //      Validate the inputs
         if (taskName === "") {
-            triggerErrorModal("The name of the task cannot be empty"); // TODO: Implement a better notification
+            triggerErrorModal("The name of the task cannot be empty");
             return;
         }
         // This is the real amount of ms in between the timer being started and stopped
@@ -149,7 +136,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         return newProjectID;
     }
 
-    const {isOpen, openModal, closeModal} = useModal(false);
+    const { isOpen, openModal, closeModal } = useModal(false);
     /** This is the dynamic message that will be shown in the modal. This is so we can use one single modal for all possible errors */
     const [modalText, setModalText] = useState("Error");
 
@@ -210,8 +197,8 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                             className={`button button-submit-task ${taskName.trim() === "" ? "button button-disabled" : "button button-danger"}`}
                             type="submit"
                             value="Stop"
-                            // Only allow submissions when there is text in the input field
-                            // disabled={taskName.trim() === ""}
+                        // Only allow submissions when there is text in the input field
+                        // disabled={taskName.trim() === ""}
                         />}
                 </div>
             </form>

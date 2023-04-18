@@ -52,29 +52,22 @@ const InputDuration = ({ id, durationSeconds, handleSubmit }) => {
             inputRef.current.selectionStart = caretPosition
             inputRef.current.selectionEnd = caretPosition + 1
         }
-        console.log(`durationString.length - selectionPosition ${durationString?.length - caretPosition || -1}`)
     }, [caretPosition, durationString])
 
     const handleOnChange = event => { }
 
     const handleKeyDown = event => {
         if (isComposing) return;
-        console.log(`~ Received a key down event for key ${event.key}`)
-
         event.preventDefault(); // event.stopPropagation();
 
         // Handle movement operations
-        if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
-            console.log(" < < < Pressed Arrow Left")
+        if (event.key === "ArrowLeft" || event.key === "ArrowUp") 
             if (caretPosition !== 0) // If we're at the start of the input there's no need to move left
                 setCaretPosition(caretPosition - 1)
-        }
 
-        if (event.key === "ArrowRight" || event.key === "ArrowDown") {
-            console.log(" > > > Pressed Arrow Right")
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") 
             if (caretPosition !== durationString.length - 1) // Unless we're at the end of the input there's no need to move right
                 setCaretPosition(caretPosition + 1)
-        }
 
         // Handle input processing
         const VALID_INPUT_NUMBERS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
@@ -105,13 +98,10 @@ const InputDuration = ({ id, durationSeconds, handleSubmit }) => {
                 setCaretPosition(caretPosition + 1 + skipFlag)
             skipFlag = 0
 
-            console.log(`The new tempDuration would be: ${tempDurationString}`)
         }
 
-        if (["Escape", "Enter"].indexOf(event.key) !== -1) {
+        if (["Escape", "Enter"].indexOf(event.key) !== -1) 
             handleCloseInput(event)
-            console.log(`Closing on key ${event.key}`)
-        }
     }
 
     const handlePositionUpdate = event => {

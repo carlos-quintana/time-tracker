@@ -55,10 +55,6 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
     const handleIntervalUpdate = newInterval =>
         editTask(task.id, { ...task, interval: newInterval })
 
-    /** The id of the Task to delete was already assigned in the parent component. */
-    const handleDeleteTask = () =>
-        deleteTask() // TODO: Add a confirmation message before deleting the Task
-
     /** This will set the current Task to a Task with the same details as this one starting from the moment the button is pressed. */
     const handleRestartTask = () => {
         if (currentTask)
@@ -100,7 +96,6 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
         setIsOpenDeletePopover(false);
         popoverFirstClick.current = false;
         deleteTask()
-        console.warn("Deleted")
     }
 
     return (

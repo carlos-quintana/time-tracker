@@ -36,7 +36,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
     /** This variable is used to change the props given to the Dropdown component which triggers a hook to reset it's selection to none. */
     const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0);
     /** These are the controls for the modal that will pop up if there are errors with the form validation */
-    const {isOpen, openModal, closeModal} = useModal(false);
+    const { isOpen, openModal, closeModal } = useModal(false);
     /** This is the dynamic message that will be shown in the modal. This is so we can use one single modal for all possible errors */
     const [modalText, setModalText] = useState("Error");
 
@@ -75,7 +75,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
             return;
         }
         //      Callback to submit task
-        console.log(`Submitting new task with the name "${taskName}", starterTimestamp: ${startTimestamp}, endTimestamp:${endTimestamp}, taskProject:${taskProject}`);
+        // console.log(`Submitting new task with the name "${taskName}", starterTimestamp: ${startTimestamp}, endTimestamp:${endTimestamp}, taskProject:${taskProject}`);
         handleEntrySubmit(taskName, { start: startTimestamp, end: endTimestamp }, taskProject || undefined);
         //      Reset the form
         setTaskName("");
@@ -97,7 +97,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
         setTaskProject(newProjectID);
         return newProjectID;
     }
-    
+
     /**
      * This function is used to change the modal text so it can be reutilized. For the time being there is no way the user could see this message without modifying the html to disable the browser's validation.
      * @param {string} message - The string to be put in the modal body
