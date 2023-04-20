@@ -44,33 +44,28 @@ const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, 
         let newMappedTasks = {};
         tasksList.forEach(task => {
             let taskStart = new Date(task.interval.start)
-            // console.log(`Sorting the task ${task.name} with date ${taskStart.toLocaleString()}`)
             if (isSameDay(currentDate.current, taskStart)) {
                 if (!newMappedTasks.today)
                     newMappedTasks.today = { tasks: [], title: "Today" }
                 newMappedTasks.today.tasks.push(task)
-                // console.log("Appended a task to today")
                 return
             }
             if (isYesterday(currentDate.current, taskStart)) {
                 if (!newMappedTasks.yesterday)
                     newMappedTasks.yesterday = { tasks: [], title: "Yesterday" }
                 newMappedTasks.yesterday.tasks.push(task)
-                // console.log("Appended a task to yesterday")
                 return
             }
             if (isSameWeek(taskStart, currentDate.current)) {
                 if (!newMappedTasks.thisWeek)
                     newMappedTasks.thisWeek = { tasks: [], title: "This Week" }
                 newMappedTasks.thisWeek.tasks.push(task)
-                // console.log("Appended a task to this week")
                 return
             }
             else {
                 if (!newMappedTasks.older)
                     newMappedTasks.older = { tasks: [], title: "Older" }
                 newMappedTasks.older.tasks.push(task)
-                // console.log("Appended a task to older")
                 return
             }
         })

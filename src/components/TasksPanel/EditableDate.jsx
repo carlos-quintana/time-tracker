@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 import { timestampToDateSnake, dateSnakeToTimestamp, timestampToDateToDisplay } from "../../helpers/timeFormatting"
+import usePopover from "../../hooks/usePopover";
+import Popover from "../Shared Components/Popover";
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("../types"); // JSDoc Type Definitions
 
@@ -37,11 +39,11 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
         // Make sure that if both dates happen in the same day, the start time is before the end time (and for more than 1s).
         // If this component is for the start date and the selected date is after the end.
         if (intervalPosition === "start" && tempTimestamp > end) {
-            abortSubmit("The starting date cannot be after the end date"); return;
+            abortSubmit("The starting date and time cannot be after the end date and time"); return;
         }
         // If this component is for the end date and the selected date is before the start.
         if (intervalPosition === "end" && tempTimestamp < start) {
-            abortSubmit("The ending date cannot be before the end date"); return;
+            abortSubmit("The ending date and time cannot be before the end date and time"); return;
         }
 
         //      Update Task
@@ -58,10 +60,15 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
      * @param {string} message - The message to display in the alert
      */
     const abortSubmit = message => {
-        console.log("ERROR " + message); // TODO: Implement a better notification system
+        popoverErrorMessage.current = message;
+        openPopover();
         setTempTimestamp(intervalPosition === "start" ? start : end)
         setIsEditingDate(false)
     }
+
+    /** This is for the error popover that appears when validation fails */
+    const { openPopover, closePopover, setRefFocusElement, popoverProps } = usePopover();
+    let popoverErrorMessage = useRef("");
 
     return (
         <>
@@ -85,12 +92,19 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
                     <button
                         className="editable editable-display compact"
                         onClick={() => setIsEditingDate(true)}
+                        // @ts-ignore
+                        ref={setRefFocusElement}
                     >
                         <span>
                             {timestampToDateToDisplay(tempTimestamp)}
                         </span>
                     </button>
             }
+            <Popover {...popoverProps}>
+                <h1 className="popover__title popover__title--danger">Error</h1>
+                <p className="popover__text">{popoverErrorMessage.current}</p>
+                <button className="button" onClick={closePopover}>Okay</button>
+            </Popover >
         </>
     )
 }

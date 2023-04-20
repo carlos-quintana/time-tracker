@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react"
-
+import React, { useEffect, useRef, useState } from "react"
+import usePopover from "../../hooks/usePopover";
+import Popover from "../Shared Components/Popover";
 
 /**
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
@@ -17,12 +18,12 @@ const MAX_NAME_LENGTH = 60;
 const EditableName = ({ id, name, handleNameUpdate }) => {
 
     /** This will be used to control the input tag. */
-    const [tempName, setTempName] = useState(name)
+    const [tempName, setTempName] = useState(name);
     /** This value controls the conditional rendering for when the component is in editing mode. */
-    const [isEditingName, setIsEditingName] = useState(false)
+    const [isEditingName, setIsEditingName] = useState(false);
 
     /** This will be used to control the input tag. */
-    useEffect(() => setTempName(name), [name])
+    useEffect(() => setTempName(name), [name]);
 
     const handleNameChange = event => {
         // This line will take the input given by the user and remove any trailing white spaces. There is the special condition where the user uses one single space at the end to separate words though.
@@ -31,10 +32,14 @@ const EditableName = ({ id, name, handleNameUpdate }) => {
             event.target.value.trim();
         // Check the length of the name is valid. If the user exceeds this limit stop adding characters to the input and fire the notification
         if (newName.length > MAX_NAME_LENGTH) {
-            console.log("ERROR: The name you're trying to input is too long") // TODO: Implement a better notification
+            // Because we don't want to close the input this time we open the popover manually
+            popoverErrorMessage.current = "The name you're trying to input is too long";
+            openPopover();
             setTempName(newName.slice(0, MAX_NAME_LENGTH));
             return;
         }
+        if (popoverProps.isOpenPopover && newName.length < MAX_NAME_LENGTH)
+            closePopover()
         setTempName(newName);
     }
 
@@ -55,9 +60,9 @@ const EditableName = ({ id, name, handleNameUpdate }) => {
             abortSubmit("The name is too long"); return;
         }
         //      Update Task
-        handleNameUpdate(tempName)
+        handleNameUpdate(tempName);
         //      Cleanup
-        setIsEditingName(false)
+        setIsEditingName(false);
     }
 
     /**
@@ -65,10 +70,15 @@ const EditableName = ({ id, name, handleNameUpdate }) => {
      * @param {string} message - The message to display in the alert
      */
     const abortSubmit = message => {
-        console.log("ERROR " + message); // TODO: Implement a better notification system
-        setTempName(name)
-        setIsEditingName(false)
+        popoverErrorMessage.current = message;
+        openPopover();
+        setTempName(name);
+        setIsEditingName(false);
     }
+
+    /** This is for the error popover that appears when validation fails */
+    const { openPopover, closePopover, setRefFocusElement, popoverProps } = usePopover();
+    let popoverErrorMessage = useRef("");
 
     return (
         <>
@@ -91,12 +101,19 @@ const EditableName = ({ id, name, handleNameUpdate }) => {
                         className="editable editable-display"
                         title={name}
                         onClick={() => setIsEditingName(true)}
+                        // @ts-ignore
+                        ref={setRefFocusElement}
                     >
                         <span>
                             {name}
                         </span>
                     </button>
             }
+            <Popover {...popoverProps}>
+                <h1 className="popover__title popover__title--danger">Error</h1>
+                <p className="popover__text">{popoverErrorMessage.current}</p>
+                <button className="button" onClick={closePopover}>Okay</button>
+            </Popover >
         </>
     )
 }

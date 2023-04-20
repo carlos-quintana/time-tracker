@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import DropdownSearch from "../Shared Components/DropdownSearch"
 import EditableName from "./EditableName"
@@ -9,6 +10,9 @@ import TodayIcon from '@mui/icons-material/Today';
 import EventIcon from '@mui/icons-material/Event';
 import RemoveIcon from '@mui/icons-material/Remove';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
+// Custom made Popover component and hook using React Popper
+import usePopover from "../../hooks/usePopover";
+import Popover from "../Shared Components/Popover";
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("../types"); // JSDoc Type Definitions
 
@@ -52,16 +56,26 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
     const handleIntervalUpdate = newInterval =>
         editTask(task.id, { ...task, interval: newInterval })
 
-    /** The id of the Task to delete was already assigned in the parent component. */
-    const handleDeleteTask = () =>
-        deleteTask() // TODO: Add a confirmation message before deleting the Task
-
     /** This will set the current Task to a Task with the same details as this one starting from the moment the button is pressed. */
     const handleRestartTask = () => {
         if (currentTask)
             alert("There is an active task currently running in the timer. To restart this task please stop the active task")  // TODO: Implement a better alert system, maybe a modal or a tooltip
         else
             setCurrentTask({ name: task.name, start: Date.now(), project: task.project })
+    }
+
+    /** This relates to the popover that will appear over the delete button when clicked */
+     const {
+        isOpenPopover,
+        openPopover: openDeletePopover,
+        closePopover: closeDeletePopover,
+        setRefFocusElement: setRefDeleteButton,
+        popoverProps,
+    } = usePopover();
+
+    const handleClickDeletePopover = () => {
+        closeDeletePopover();
+        deleteTask()
     }
 
     return (
@@ -154,11 +168,23 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                 </button>
                 {/* Task delete button */}
                 <button
-                    className="button button-danger"
-                    onClick={() => handleDeleteTask()}
+                    className={`button button-danger ${isOpenPopover && "button-danger-focus"}`}
+                    // @ts-ignore
+                    ref={setRefDeleteButton}
+                    onClick={openDeletePopover}
                 >
                     Delete
                 </button>
+                {/* Delete warning popover */}
+                <Popover {...popoverProps}>
+                    <h1 className="popover__title popover__title--danger">Warning</h1>
+                    <p className="popover__text">Are you sure you want to delete this?</p>
+                    <button
+                        className="button button-danger"
+                        onClick={handleClickDeletePopover}>
+                        Confirm
+                    </button>
+                </Popover>
             </div>
         </div>
     );

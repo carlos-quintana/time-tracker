@@ -1,4 +1,6 @@
 @use 'abstracts/colors' as*;
+@use './components/modal';
+@use './components/popover';
 
 * {
     box-sizing: border-box;
@@ -230,18 +232,17 @@ input {
     margin-block: 0.2rem;
 }
 
-.input-start-interval-container,
-.input-end-interval-container {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: baseline;
-    justify-content: space-around;
-    gap: 5%;
-    max-width: 20rem;
-    margin-block: 0.35rem;
+.input-intervals-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 1rem;
+    row-gap: 0.5rem;
+    margin-block: 1rem;
+    padding-inline: 0.5rem;
 
     &>label {
-        min-width: 3rem;
+        display: inline-grid;
+        justify-content: end;
     }
 
     &>input {
