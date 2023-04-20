@@ -2,8 +2,8 @@
 import React, { useState, useEffect, useRef } from "react"
 import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
 import DropdownSearch from "../Shared Components/DropdownSearch"
-import Modal from "../Shared Components/Modal";
-import { useModal } from "../../hooks/useModal";
+import Popover from "../Shared Components/Popover";
+import usePopover from "../../hooks/usePopover";
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("./../types"); // JSDoc Type Definitions
 
@@ -12,7 +12,7 @@ const typedefs = require("./../types"); // JSDoc Type Definitions
  * @type {Number}
  * @memberof Component_InputTimer
  */
-const TIMER_INTERVAL_MS = 50; // TODO: Reset to 1000 ms
+const TIMER_INTERVAL_MS = 1000; // TODO: Reset to 1000 ms
 
 /**
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
@@ -76,10 +76,14 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
             event.target.value.trim();
         // Check the length of the name is valid. If the user exceeds this limit stop adding characters to the input and fire the notification
         if (newName.length > MAX_NAME_LENGTH) {
-            console.log("ERROR: The name you're trying to input is too long")
+            // Because we don't want to close the input this time we open the popover manually
+            popoverErrorMessageInput.current = "The name you're trying to input is too long";
+            openPopoverInput();
             setTaskName(newName.slice(0, MAX_NAME_LENGTH));
             return;
         }
+        if (popoverPropsInput.isOpenPopover && newName.length < MAX_NAME_LENGTH)
+            closePopoverInput()
         setTaskName(newName);
         if (timerStatus === "running")
             setCurrentTask({ ...currentTask, name: newName });
@@ -87,16 +91,11 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
 
     /**  When the timer is started take the current Timestamp and whatever text is in the name field and create a CurrentTask that will be assigned to the global state, and start the timer so that it will start counting seconds from this moment. */
     const handleStartTimer = () => {
-        //      Validate the inputs
-        if (taskName === "") {
-            triggerErrorModal("Cannot start the timer while the name of the task is empty!");
-            return;
-        }
         starterTimestamp.current = Date.now();
         /** @type {typedefs.CurrentTask} */
         let newCurrentTask = { name: taskName, start: starterTimestamp.current };
         setCurrentTask(newCurrentTask);
-        setTimerStatus("running"); 
+        setTimerStatus("running");
     }
 
     /** When the timer is stopped not only it should stop counting seconds, but immediately validate and submit the form for the creation of a new task */
@@ -105,7 +104,8 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         if (timerStatus === "stopped") return;
         //      Validate the inputs
         if (taskName === "") {
-            triggerErrorModal("Cannot stop the timer while the name of the task is empty!");
+            popoverErrorMessageButton.current = "Cannot stop the timer while the name of the task is empty!";
+            openPopoverButton();
             return;
         }
         // This is the real amount of ms in between the timer being started and stopped
@@ -137,18 +137,19 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         return newProjectID;
     }
 
-    const { isOpen, openModal, closeModal } = useModal(false);
-    /** This is the dynamic message that will be shown in the modal. This is so we can use one single modal for all possible errors */
-    const [modalText, setModalText] = useState("Error");
+    /** This is for the error popover that appears over the input when validation fails (like when the input is too long) */
+    const { openPopover: openPopoverInput,
+        closePopover: closePopoverInput,
+        setRefFocusElement: setRefFocusElementInput,
+        popoverProps: popoverPropsInput } = usePopover(true);
+    let popoverErrorMessageInput = useRef("");
+    /** This is for the error popover that appears over the button when validation fails (like when the name is empty) */
+    const { openPopover: openPopoverButton,
+        closePopover: closePopoverButton,
+        setRefFocusElement: setRefFocusElementButton,
+        popoverProps: popoverPropsButton } = usePopover(true);
+    let popoverErrorMessageButton = useRef("");
 
-    /**
-     * This function is used to change the modal text so it can be reutilized. For the time being there is no way the user could see this message without modifying the html to disable the browser's validation.
-     * @param {string} message - The string to be put in the modal body
-     */
-    const triggerErrorModal = (message) => {
-        setModalText(message);
-        openModal();
-    }
 
     return (
         <div>
@@ -162,6 +163,8 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                         value={taskName}
                         onChange={handleNameChange}
                         placeholder="Input what you're working on"
+                        // @ts-ignore
+                        ref={setRefFocusElementInput}
                     />
                     {/* Task project Dropdown */}
                     <DropdownSearch
@@ -185,30 +188,31 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                 <div className="button-submit-task-container">
                     {timerStatus === "stopped" &&
                         <button
-                            className={`button button-submit-task ${taskName.trim() === "" ? "button button-disabled" : "button button-success"}`}
+                            className="button button-submit-task button button-primary"
                             onClick={handleStartTimer}
-                        // Only allow the timer to start when there is text in the input field
-                        // disabled={taskName.trim() === ""}
                         >
                             Start
                         </button>}
                     {timerStatus === "running" &&
                         <input id="submitNewTask"
                             name="submitNewTask"
-                            className={`button button-submit-task ${taskName.trim() === "" ? "button button-disabled" : "button button-danger"}`}
+                            className="button button-submit-task button button-danger"
                             type="submit"
                             value="Stop"
-                        // Only allow submissions when there is text in the input field
-                        // disabled={taskName.trim() === ""}
+                            // @ts-ignore
+                            ref={setRefFocusElementButton}
                         />}
                 </div>
             </form>
-            <Modal
-                // @ts-ignore
-                isOpen={isOpen} closeModal={closeModal}
-                modalTitle="Error">
-                <p>{modalText}</p>
-            </Modal>
+            <Popover {...popoverPropsInput}>
+                <h1 className="popover__title popover__title--danger">Error</h1>
+                <p className="popover__text">{popoverErrorMessageInput.current}</p>
+            </Popover >
+            <Popover {...popoverPropsButton}>
+                <h1 className="popover__title popover__title--danger">Error</h1>
+                <p className="popover__text">{popoverErrorMessageButton.current}</p>
+                <button className="button" onClick={closePopoverButton}>Okay</button>
+            </Popover >
         </div>
     )
 }
