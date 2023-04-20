@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
+import usePopover from "../../hooks/usePopover";
+import Popover from "../Shared Components/Popover";
 import { timestampToHMS, HMSToTimestamp, timestampToTimeToDisplay } from "../../helpers/timeFormatting"
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("../types"); // JSDoc Type Definitions
@@ -45,7 +47,7 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
         }
         // If this component is for the end time and the selected time is before the start.
         if (intervalPosition === "end" && tempTimestamp < start) {
-            abortSubmit("The ending time cannot be before the end time on the same day"); return;
+            abortSubmit("The ending time cannot be before the start time on the same day"); return;
         }
         // If this component is for the end time and the selected time is within 1 second of the start.
         if (intervalPosition === "end" && tempTimestamp < start + 1000) {
@@ -65,10 +67,15 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
      * @param {string} message - The message to display in the alert
      */
     const abortSubmit = message => {
-        console.log("ERROR " + message); // TODO: Implement a better notification system
+        popoverErrorMessage.current = message;
+        openPopover();
         setTempTimestamp(intervalPosition === "start" ? start : end)
         setIsEditingTime(false)
     }
+
+    /** This is for the error popover that appears when validation fails */
+    const { openPopover, closePopover, setRefFocusElement, popoverProps } = usePopover();
+    let popoverErrorMessage = useRef("");
 
     return (
         <>
@@ -92,12 +99,19 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
                     <button
                         className="editable editable-display compact"
                         onClick={() => setIsEditingTime(true)}
+                        // @ts-ignore
+                        ref={setRefFocusElement}
                     >
                         <span>
                             {timestampToTimeToDisplay(tempTimestamp)}
                         </span>
                     </button>
             }
+            <Popover {...popoverProps}>
+                <h1 className="popover__title popover__title--danger">Error</h1>
+                <p className="popover__text">{popoverErrorMessage.current}</p>
+                <button className="button" onClick={closePopover}>Okay</button>
+            </Popover >
         </>
     )
 }

@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { secondsToFormattedHMS, formattedHMSToSeconds } from "../../helpers/timeFormatting"
 import InputDuration from "./InputDuration"
+import usePopover from "../../hooks/usePopover";
+import Popover from "../Shared Components/Popover";
 // eslint-disable-next-line no-unused-vars
 const typedefs = require("../types"); // JSDoc Type Definitions
 
@@ -14,12 +16,12 @@ const typedefs = require("../types"); // JSDoc Type Definitions
 const EditableDuration = ({ id, interval: { start, end }, handleIntervalUpdate }) => {
 
     /** This will be a whole number that will keep track of the duration of the interval in seconds. This number will be used to calculate the HMS string which will be displayed and provided to the custom input duration component */
-    const [durationSeconds, setDurationSeconds] = useState(Math.floor((end - start) / 1000))
+    const [durationSeconds, setDurationSeconds] = useState(Math.floor((end - start) / 1000));
     /** This value controls the conditional rendering for when the component is in editing mode. */
-    const [isEditingDuration, setIsEditingDuration] = useState(false)
+    const [isEditingDuration, setIsEditingDuration] = useState(false);
 
     /** Other components also edit on the interval of the task so it is important to keep listening for changes. */
-    useEffect(() => setDurationSeconds(Math.floor((end - start) / 1000)), [start, end])
+    useEffect(() => setDurationSeconds(Math.floor((end - start) / 1000)), [start, end]);
 
     const handleSubmit = event => {
         event.preventDefault()
@@ -28,20 +30,30 @@ const EditableDuration = ({ id, interval: { start, end }, handleIntervalUpdate }
         //      Form Validations
         // Validate the string is of the form H+:MM:SS
         if (!((/^\d+:[012345]\d:[012345]\d$/).test(inputDurationString))) {
-            alert("An error has ocurred, the inputted duration is not valid") // TODO: Implement a better notifications system.
-            setIsEditingDuration(false)
-            return
+            abortSubmit("An error has ocurred, the inputted duration is not valid"); return;
         }
         if (formattedHMSToSeconds(inputDurationString) <= 0) {
-            alert("The duration cannot be zero")
-            setIsEditingDuration(false)
-            return
+            abortSubmit("The duration cannot be zero"); return;
         }
         //      Edit submission
-        handleIntervalUpdate({ start, end: (start + formattedHMSToSeconds(inputDurationString) * 1000) })
+        handleIntervalUpdate({ start, end: (start + formattedHMSToSeconds(inputDurationString) * 1000) });
         //      Cleanup
-        setIsEditingDuration(false)
+        setIsEditingDuration(false);
     }
+
+    /**
+     * This component has enough different validations and escape conditions that it warrants having a separate function for handling the errors.
+     * @param {string} message - The message to display in the alert
+     */
+    const abortSubmit = message => {
+        popoverErrorMessage.current = message;
+        openPopover();
+        setIsEditingDuration(false);
+    }
+
+    /** This is for the error popover that appears when validation fails */
+    const { openPopover, closePopover, setRefFocusElement, popoverProps } = usePopover();
+    let popoverErrorMessage = useRef("");
 
     return (
         <>
@@ -58,12 +70,19 @@ const EditableDuration = ({ id, interval: { start, end }, handleIntervalUpdate }
                     <button
                         className="editable editable-display"
                         onClick={() => setIsEditingDuration(true)}
+                        // @ts-ignore
+                        ref={setRefFocusElement}
                     >
                         <span>
                             {secondsToFormattedHMS(durationSeconds)}s
                         </span>
                     </button>
             }
+            <Popover {...popoverProps}>
+                <h1 className="popover__title popover__title--danger">Error</h1>
+                <p className="popover__text">{popoverErrorMessage.current}</p>
+                <button className="button" onClick={closePopover}>Okay</button>
+            </Popover >
         </>
     )
 }
