@@ -9,8 +9,8 @@
     margin-bottom: 1rem;
 
     text-align: center;
-    min-width: 7rem;
-    max-width: 10rem;
+    min-width: 10rem;
+    max-width: 12rem;
 
     position: relative;
 
@@ -30,7 +30,6 @@
         }
     }
 
-
     &__text {
         font-size: 0.85rem;
         padding: 0.2rem;
@@ -39,16 +38,17 @@
         margin-inline: 0.5rem;
     }
 
+    /* This was not a good idea, as in small viewports it probably won't point at the right place
+    // A small arrow coming from the bottom of the tooltip
     &::after {
         content: " ";
         position: absolute;
         top: 100%;
-        /* At the bottom of the tooltip */
+        // At the bottom of the tooltip 
         left: 50%;
         margin-left: -10px;
         border-width: 10px;
         border-style: solid;
         border-color: #eee transparent transparent transparent;
-    }
-
+    }*/
 }
