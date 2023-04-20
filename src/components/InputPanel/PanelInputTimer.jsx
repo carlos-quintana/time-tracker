@@ -89,22 +89,23 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
     const handleStartTimer = () => {
         //      Validate the inputs
         if (taskName === "") {
-            triggerErrorModal("The name of the task cannot be empty");
+            triggerErrorModal("Cannot start the timer while the name of the task is empty!");
             return;
         }
         starterTimestamp.current = Date.now();
         /** @type {typedefs.CurrentTask} */
         let newCurrentTask = { name: taskName, start: starterTimestamp.current };
         setCurrentTask(newCurrentTask);
-        setTimerStatus("running");
+        setTimerStatus("running"); 
     }
 
     /** When the timer is stopped not only it should stop counting seconds, but immediately validate and submit the form for the creation of a new task */
     const handleStopTimer = event => {
         event.preventDefault();
+        if (timerStatus === "stopped") return;
         //      Validate the inputs
         if (taskName === "") {
-            triggerErrorModal("The name of the task cannot be empty");
+            triggerErrorModal("Cannot stop the timer while the name of the task is empty!");
             return;
         }
         // This is the real amount of ms in between the timer being started and stopped
