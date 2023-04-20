@@ -166,16 +166,6 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                 >
                     Restart
                 </button>
-                {/* Delete warning popover */}
-                <Popover {...popoverProps}>
-                    <h1 className="popover__title popover__title--danger">Warning</h1>
-                    <p className="popover__text">Are you sure you want to delete this?</p>
-                    <button
-                        className="button button-danger"
-                        onClick={handleClickDeletePopover}>
-                        Delete
-                    </button>
-                </Popover>
                 {/* Task delete button */}
                 <button
                     className={`button button-danger ${isOpenPopover && "button-danger-focus"}`}
@@ -185,6 +175,16 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                 >
                     Delete
                 </button>
+                {/* Delete warning popover */}
+                <Popover {...popoverProps}>
+                    <h1 className="popover__title popover__title--danger">Warning</h1>
+                    <p className="popover__text">Are you sure you want to delete this?</p>
+                    <button
+                        className="button button-danger"
+                        onClick={handleClickDeletePopover}>
+                        Confirm
+                    </button>
+                </Popover>
             </div>
         </div>
     );
