@@ -10,7 +10,7 @@
  * @example secondsToHMSArray(10000)
  * '2:46:40'
  */
-export function secondsToFormattedHMS(secondsInput) {
+export function secondsToFormattedHMS(secondsInput: number): string {
     // TODO: Validate the incoming number
     let hours = Math.floor(secondsInput / 3600)
     let minutes = Math.floor(secondsInput / 60) % 60
@@ -29,7 +29,7 @@ export function secondsToFormattedHMS(secondsInput) {
  * @example formattedHMSToSeconds('1:10:10')
  * 3680
  */
-export function formattedHMSToSeconds(HMSstring) {
+export function formattedHMSToSeconds(HMSstring: string): number {
     // TODO: Validate the incoming string
     let [hours, minutes, seconds] = HMSstring.split(":")
     let total = Number.parseInt(hours) * 3600 + Number.parseInt(minutes) * 60 + Number.parseInt(seconds)
@@ -43,7 +43,7 @@ export function formattedHMSToSeconds(HMSstring) {
  * @example timestampToDateSnake(1672549200000)
  * '2023-01-01'
  */
-export function timestampToDateSnake(timestamp) {
+export function timestampToDateSnake(timestamp: number): string {
     // TODO: Validate the incoming number
     let dateObject = new Date(timestamp)
     let year = dateObject.getFullYear()
@@ -62,7 +62,7 @@ export function timestampToDateSnake(timestamp) {
  * @example dateSnakeToTimestamp('2023-01-01', 1679084700000)
  * 1672604700000
  */
-export function dateSnakeToTimestamp(dateString, oldTimestamp = 0) {
+export function dateSnakeToTimestamp(dateString: string, oldTimestamp: number = 0): number {
     // TODO: Validate the incoming string
     // TODO: To process a timestamp with value 0
     let [year, month, day] = dateString.split("-")
@@ -80,7 +80,7 @@ export function dateSnakeToTimestamp(dateString, oldTimestamp = 0) {
  * @example timestampToDateSnake(1672549200000)
  * '12:00:00'
  */
-export function timestampToHMS(timestamp) {
+export function timestampToHMS(timestamp: number): string {
     // TODO: Validate the incoming number
     let dateObject = new Date(timestamp)
     let [hours, minutes, seconds] = [dateObject.getHours(), dateObject.getMinutes(), dateObject.getSeconds()]
@@ -99,7 +99,7 @@ export function timestampToHMS(timestamp) {
  * @example HMSToTimestamp('16:00:00', 1672604700000)
  * 1672606800000
  */
-export function HMSToTimestamp(timeString, oldTimestamp) {
+export function HMSToTimestamp(timeString: string, oldTimestamp: number): number {
     // TODO: Validate the incoming string
     let [hours, minutes, seconds] = timeString.split(":")
     let dateObject = new Date(oldTimestamp)
@@ -116,7 +116,7 @@ export function HMSToTimestamp(timeString, oldTimestamp) {
  * @example timestampToDateToDisplay(1672549200000)
  * '1/1/2023' // might change depending on the settings of the machine where it's executed
  */
-export function timestampToDateToDisplay(timestamp) {
+export function timestampToDateToDisplay(timestamp: number): string {
     return (new Date(timestamp)).toLocaleString().split(",")[0].trim()
 }
 
@@ -127,6 +127,6 @@ export function timestampToDateToDisplay(timestamp) {
  * @example timestampToDateToDisplay(1672549200000)
  * '12:00:00 a. m.' // might change depending on the settings of the machine where it's executed
  */
-export function timestampToTimeToDisplay(timestamp) {
+export function timestampToTimeToDisplay(timestamp: number): string {
     return (new Date(timestamp)).toLocaleString().split(",")[1].trim()
 }
