@@ -1,25 +1,29 @@
 /** @namespace Component_InputInterval */
-import React, { useRef, useState } from "react"
+import { useRef, useState } from "react"
+import { Project } from "../../types";
 import DropdownSearch from "../Shared Components/DropdownSearch"
 import usePopover from "../../hooks/usePopover";
 import Popover from "../Shared Components/Popover";
-// eslint-disable-next-line no-unused-vars
-const typedefs = require("./../types"); // JSDoc Type Definitions
 
 /**
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
  * @type {Number}
  * @memberof Component_InputInterval
  */
-const MAX_NAME_LENGTH = 60;
+const MAX_NAME_LENGTH: number = 60;
 
+type Props = {
+    handleSubmit: Function,
+    projectsList: Project[],
+    createProject: Function
+}
 /**
  * @param {Object} props - Component props object
  * @param {function(String,typedefs.Interval,Number|undefined):void} props.handleSubmit - Callback function that will be fired when the form is submitted
  * @param {Array<typedefs.Project>} props.projectsList - The list of existing projects. This is used in the dropdown component that is used to select a project to assign the task to.
  * @param {function(String):Number} props.createProject - Callback function that will be fired when any of the input panels submits a new project (this is used inside of the Dropdown components)
  */
-const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, createProject }) => {
+const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, createProject }: Props) => {
 
     /** The name the new task will have. The corresponding input is controlled by this state. */
     const [taskName, setTaskName] = useState("");
@@ -36,7 +40,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
     /** This variable is used to change the props given to the Dropdown component which triggers a hook to reset it's selection to none. */
     const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0);
 
-    const handleNameChange = event => {
+    const handleNameChange = (event: any) => {
         // This line will take the input given by the user and remove any trailing white spaces. There is the special condition where the user uses one single space at the end to separate words though.
         let newName = event.target.value.slice(-1) === " " ?
             event.target.value.trim() + " " :
@@ -55,7 +59,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
     }
 
     /** When the form is submitted validate the data for the new task and then elevate this with the callback to submit the new task. */
-    const handleFormSubmit = (event) => {
+    const handleFormSubmit = (event: any) => {
         event.preventDefault();
         //      Validation
         //      Validate empty fields
@@ -91,7 +95,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
      * @param {String} newProjectName - The name for the new project.
      * @returns {Number} - The id of the newly created project
      */
-    const handleProjectCreation = newProjectName => {
+    const handleProjectCreation = (newProjectName: string): number => {
         let newProjectID = createProject(newProjectName);
         setTaskProject(newProjectID);
         return newProjectID;
@@ -101,7 +105,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
      * This component has enough different validations and escape conditions that it warrants having a separate function for handling the errors.
      * @param {string} message - The message to display in the alert
      */
-    const abortSubmit = message => {
+    const abortSubmit = (message: string) => {
         popoverErrorMessageButton.current = message;
         openPopoverButton();
     }

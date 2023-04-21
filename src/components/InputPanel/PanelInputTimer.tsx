@@ -1,25 +1,32 @@
 /** @namespace Component_InputTimer */
-import React, { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
+import { CurrentTask, Project } from "../../types";
 import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
 import DropdownSearch from "../Shared Components/DropdownSearch"
 import Popover from "../Shared Components/Popover";
 import usePopover from "../../hooks/usePopover";
-// eslint-disable-next-line no-unused-vars
-const typedefs = require("./../types"); // JSDoc Type Definitions
 
 /**
  * This variable refers to the amount of time the timer will wait to tick each time in milliseconds. In a production environment this value will be 1000[ms], or 1 second, but this can be varied so that it can be debugged more easily.
  * @type {Number}
  * @memberof Component_InputTimer
  */
-const TIMER_INTERVAL_MS = 1000; // TODO: Reset to 1000 ms
+const TIMER_INTERVAL_MS: number = 100; // TODO: Reset to 1000 ms
 
 /**
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
  * @type {Number}
  * @memberof Component_InputTimer
  */
-const MAX_NAME_LENGTH = 60;
+const MAX_NAME_LENGTH: number = 60;
+
+type Props = {
+    handleSubmit: Function,
+    currentTask: null | CurrentTask,
+    setCurrentTask: Function,
+    projectsList: Project[],
+    createProject: Function
+}
 
 /**
  * @param {Object} props - Component props object
@@ -29,7 +36,7 @@ const MAX_NAME_LENGTH = 60;
  * @param {Array<typedefs.Project>} props.projectsList - The list of existing projects. This is used in the Dropdown component that is used to select a project to assign the task to.
  * @param {function(String):Number} props.createProject - Callback function that will be fired when any of the input panels submits a new project (this is used inside of the Dropdown components)
  */
-const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, createProject }) => {
+const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, createProject }: Props) => {
     /** Holds the amount of seconds the timer will display. */
     const [secondsToDisplay, setSecondsToDisplay] = useState(0);
     /** The name the new task will have. The corresponding input is controlled by this state. */
@@ -37,7 +44,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
     /** Keeps track of the state of the timer: it's running or it's stopped. */
     const [timerStatus, setTimerStatus] = useState("stopped"); // TODO Change this for a boolean value.
     /** Keeps track of the project selected through the Dropdown component. */
-    const [taskProject, setTaskProject] = useState(/**@type {null | Number}*/(null));
+    const [taskProject, setTaskProject] = useState<number | null>(null);
     /** This variable is used to change the props given to the Dropdown component which triggers a hook to reset it's selection to none. */
     const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0);
     /** This variable will hold the timestamp where the timer is started, giving the first half of the Interval the new task will have. The ending timestamp will be calculated when the timer is stopped. */
@@ -58,7 +65,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
 
     /** Whenever the timer status is changed, it either creates an interval when it starts or clears it when it stops. */
     useEffect(() => {
-        let timerSetInterval = null; // Might be better off putting this in a useRef hook
+        let timerSetInterval: any = null; // Might be better off putting this in a useRef hook
         if (timerStatus === "running")
             timerSetInterval = setInterval(() =>
                 setSecondsToDisplay(prevTime => prevTime + 1)
@@ -69,7 +76,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
     }, [timerStatus]);
 
     /** Not only update the controlled input in the form, but whenever the name changes also update the current running task in the global state */
-    const handleNameChange = event => {
+    const handleNameChange = (event: any) => {
         // This line will take the input given by the user and remove any trailing white spaces. There is the special condition where the user uses one single space at the end to separate words though.
         let newName = event.target.value.slice(-1) === " " ?
             event.target.value.trim() + " " :
@@ -99,7 +106,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
     }
 
     /** When the timer is stopped not only it should stop counting seconds, but immediately validate and submit the form for the creation of a new task */
-    const handleStopTimer = event => {
+    const handleStopTimer = (event: any) => {
         event.preventDefault();
         if (timerStatus === "stopped") return;
         //      Validate the inputs
@@ -131,7 +138,7 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
      * @param {String} newProjectName - The name for the new project.
      * @returns {Number} - The id of the newly created project
      */
-    const handleProjectCreation = newProjectName => {
+    const handleProjectCreation = (newProjectName: string) => {
         let newProjectID = createProject(newProjectName);
         setTaskProject(newProjectID);
         return newProjectID;
