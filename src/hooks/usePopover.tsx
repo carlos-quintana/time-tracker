@@ -25,9 +25,10 @@ export default function usePopover(isFlippingEnabled=false) {
     }
 
     useEffect(() => {
-        function handleClickOutside(event) {
+        function handleClickOutside(event: any) {
             if (isOpenPopover) {
                 if (popoverFirstClick.current) { // If the flag is true
+                    // @ts-ignore
                     if (popoverRef.current && !popoverRef.current.contains(event.target))  // If the click is outside of the popover
                         closePopover()
                 } else
