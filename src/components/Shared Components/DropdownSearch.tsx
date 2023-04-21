@@ -9,12 +9,12 @@ type Option = { id: number, value: string };
 
 type Props = {
     defaultText: string,
-    searchPlaceholder: string,
+    searchPlaceholder?: string,
     optionsList: Option[],
-    initialSelection: number | null,
+    initialSelection?: number | null,
     onSelectCallback: Function,
     onCreateCallback: Function,
-    resetTrigger: number
+    resetTrigger?: number
 }
 
 /**

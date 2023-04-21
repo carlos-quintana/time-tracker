@@ -4,10 +4,10 @@ type Props = {
     children: any,
     isOpen: boolean,
     closeModal: Function,
-    modalTitle: string,
-    hasConfirmation: boolean,
-    confirmationButtonText: string,
-    onConfirmationCallback: Function | null
+    modalTitle?: string,
+    hasConfirmation?: boolean,
+    confirmationButtonText?: string,
+    onConfirmationCallback?: Function | null
 }
 
 /**

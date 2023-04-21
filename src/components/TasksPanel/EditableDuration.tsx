@@ -1,11 +1,15 @@
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { secondsToFormattedHMS, formattedHMSToSeconds } from "../../helpers/timeFormatting"
 import InputDuration from "./InputDuration"
 import usePopover from "../../hooks/usePopover";
 import Popover from "../Shared Components/Popover";
-// eslint-disable-next-line no-unused-vars
-const typedefs = require("../types"); // JSDoc Type Definitions
+import { Interval } from "../../types";
 
+type Props = {
+    id: number,
+    interval: Interval,
+    handleIntervalUpdate: Function,
+}
 /**
  * This component will display a time, not as in a time in a 24h day but as in an arbitrary amount of time in the same shape of Hours, Minutes and Seconds, used for displaying the total duration of any task calculated using the start and end timestamps. When clicked, this component will allow the user to edit the value with another component that will act as an input for this custom format, so that it constraints the input to a valid format.
  * @param {Object} props - Component props object
@@ -13,7 +17,7 @@ const typedefs = require("../types"); // JSDoc Type Definitions
  * @param {typedefs.Interval} props.interval - The Interval object of the task, containing its timestamps.
  * @param {function(typedefs.Interval):void} props.handleIntervalUpdate - Callback function that will be fired when the changes are submitted.
  */
-const EditableDuration = ({ id, interval: { start, end }, handleIntervalUpdate }) => {
+const EditableDuration = ({ id, interval: { start, end }, handleIntervalUpdate }: Props) => {
 
     /** This will be a whole number that will keep track of the duration of the interval in seconds. This number will be used to calculate the HMS string which will be displayed and provided to the custom input duration component */
     const [durationSeconds, setDurationSeconds] = useState(Math.floor((end - start) / 1000));
@@ -23,7 +27,7 @@ const EditableDuration = ({ id, interval: { start, end }, handleIntervalUpdate }
     /** Other components also edit on the interval of the task so it is important to keep listening for changes. */
     useEffect(() => setDurationSeconds(Math.floor((end - start) / 1000)), [start, end]);
 
-    const handleSubmit = event => {
+    const handleSubmit = (event: any) => {
         event.preventDefault()
         // The string given to us by the custom input duration component
         let inputDurationString = event.target.value;
@@ -45,7 +49,7 @@ const EditableDuration = ({ id, interval: { start, end }, handleIntervalUpdate }
      * This component has enough different validations and escape conditions that it warrants having a separate function for handling the errors.
      * @param {string} message - The message to display in the alert
      */
-    const abortSubmit = message => {
+    const abortSubmit = (message: string) => {
         popoverErrorMessage.current = message;
         openPopover();
         setIsEditingDuration(false);
