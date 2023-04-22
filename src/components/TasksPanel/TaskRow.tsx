@@ -176,7 +176,6 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                 {/* Task delete button */}
                 <button
                     className={`button button-danger ${isOpenDeletePopover && "button-danger-focus"}`}
-                    // @ts-ignore
                     ref={setRefDeleteButton}
                     onClick={openDeletePopover}
                 >

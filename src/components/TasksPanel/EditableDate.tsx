@@ -98,7 +98,6 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
                     <button
                         className="editable editable-display compact"
                         onClick={() => setIsEditingDate(true)}
-                        // @ts-ignore
                         ref={setRefFocusElement}
                     >
                         <span>

@@ -1,3 +1,4 @@
+import { VirtualElement } from "@popperjs/core";
 import { useEffect, useRef, useState } from "react";
 import { usePopper } from "react-popper";
 
@@ -7,7 +8,7 @@ import { usePopper } from "react-popper";
 export default function usePopover(isFlippingEnabled=false) {
     /** This relates to the popover that will appear over the delete button when clicked */
     const [isOpenPopover, setIsOpenPopover] = useState(false);
-    const [refFocusElement, setRefFocusElement] = useState(null);
+    const [refFocusElement, setRefFocusElement] = useState<Element | VirtualElement | null>(null);
     const [refPopperElement, setRefPopperElement] = useState(null);
     const { styles, attributes } = usePopper(refFocusElement, refPopperElement, {
         placement: 'top', modifiers: [{ name: 'flip', enabled: isFlippingEnabled }]

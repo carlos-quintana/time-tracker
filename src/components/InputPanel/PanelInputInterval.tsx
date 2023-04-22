@@ -133,7 +133,6 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                         value={taskName}
                         onChange={handleNameChange}
                         placeholder="Input what you're working on"
-                        // @ts-ignore
                         ref={setRefFocusElementInput}
                     />
                     {/* Task project */}
@@ -187,7 +186,6 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                         className="button button-submit-task button button-primary"
                         type="submit"
                         value="Submit"
-                        // @ts-ignore
                         ref={setRefFocusElementButton} />
                 </div>
             </form>

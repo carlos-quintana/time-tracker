@@ -105,7 +105,6 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
                     <button
                         className="editable editable-display compact"
                         onClick={() => setIsEditingTime(true)}
-                        // @ts-ignore
                         ref={setRefFocusElement}
                     >
                         <span>

@@ -108,7 +108,6 @@ const EditableName = ({ id, name, handleNameUpdate }: Props) => {
                         className="editable editable-display"
                         title={name}
                         onClick={() => setIsEditingName(true)}
-                        // @ts-ignore
                         ref={setRefFocusElement}
                     >
                         <span>

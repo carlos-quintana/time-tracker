@@ -170,7 +170,6 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                         value={taskName}
                         onChange={handleNameChange}
                         placeholder="Input what you're working on"
-                        // @ts-ignore
                         ref={setRefFocusElementInput}
                     />
                     {/* Task project Dropdown */}
@@ -206,7 +205,6 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                             className="button button-submit-task button button-danger"
                             type="submit"
                             value="Stop"
-                            // @ts-ignore
                             ref={setRefFocusElementButton}
                         />}
                 </div>
