@@ -22,8 +22,6 @@ This repository holds a SPA made with React and Typescript, to be showcased in m
 
 Time tracking applications can help individuals or teams understand how they are using their time throughout the day, and identify where they are spending too much time or not enough time. By identifying areas of improvement, we can become more productive and accomplish more in less time.
 
-By tracking their time, people can also better understand how they are spending their day and identify areas where they may be able to carve out more time for personal activities or hobbies. This can help promote a better work-life balance and reduce burnout.
-
 With this single page application you will be able to track your time and improve your productivity by focusing on the tasks with the highest impact.
 
 ## Description
