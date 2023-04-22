@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Task, Project } from "../../types";
+import { useModal } from "../../hooks/useModal";
+import Modal from "../Shared Components/Modal";
+import usePopover from "../../hooks/usePopover";
+import Popover from "../Shared Components/Popover";
 
 /**
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
  * @type {Number}
  */
-const MAX_NAME_LENGTH: number = 60;
+const MAX_NAME_LENGTH: number = 40;
 
 type Props = {
     tasksList: Task[],
@@ -40,10 +44,13 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
             event.target.value.trim();
         // Check the length of the name is valid. If the user exceeds this limit stop adding characters to the input and fire the notification
         if (newName.length > MAX_NAME_LENGTH) {
-            console.log("ERROR: The name you're trying to input is too long") // TODO: Implement a better notification
+            openPopoverNameLengthError()
             setNewProjectName(newName.slice(0, MAX_NAME_LENGTH));
             return;
         }
+        if (isOpenPopoverNameLengthError && newName.length < MAX_NAME_LENGTH)
+            closePopoverNameLengthError()
+
         setNewProjectName(newName);
     }
 
@@ -54,15 +61,21 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
         let newName = newProjectName.trim();
         // Check for empty strings 
         if (newName === "") {
-            alert("Please input a valid name"); return; // TODO better notification system
+            popoverErrorMessage.current = "The name of the project cannot be empty!";
+            openPopoverError();
+            return
         }
         // Check for the length once again 
         if (newName.length > MAX_NAME_LENGTH) {
-            alert("The name is too long"); return; // TODO better notification system
+            popoverErrorMessage.current = "The name of the project is too long!";
+            openPopoverError();
+            return
         }
         // Check that the name of the new project is not taken
         if (projectsList.find(project => project.name === newName)) {
-            alert("Another project already has this name"); return; // TODO better notification system
+            popoverErrorMessage.current = "Another project already has this name";
+            openPopoverError();
+            return
         }
         createProject(newProjectName);
         setNewProjectName("");
@@ -75,14 +88,18 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
         let newName = newProjectName.trim();
         // Check for empty strings 
         if (newName === "") {
-            alert("Please input a valid name"); return; // TODO better notification system
+            popoverErrorMessage.current = "The name of the project cannot be empty!";
+            openPopoverError();
+            return
         }
         // Check for the length once again 
         if (newName.length > MAX_NAME_LENGTH) {
-            alert("The name is too long"); return; // TODO better notification system
+            popoverErrorMessage.current = "The name of the project is too long!";
+            openPopoverError();
+            return
         }
         // Check that the name of the new project is not taken
-        if (projectsList.find(project => project.id === editingId)) {
+        if (projectsList.find(project => project.name === newName)) {
             // Unless the name taken is the same as the project the user is currently editing (Which means they did not modified the name).
             if (newName === projectsList.find(project => project.id === editingId)?.name) {
                 setNewProjectName("");
@@ -90,12 +107,13 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
                 setEditingId(null);
                 return;
             } else {
-                alert("Another project already has this name"); return; // TODO better notification system
+                popoverErrorMessage.current = "Another project already has this name";
+                openPopoverError();
+                return
             }
         }
         if (editingId === null) return;
-        /** @type {Project} */
-        let newProject = { id: editingId, name: newProjectName };
+        let newProject: Project = { id: editingId, name: newProjectName };
         editProject(editingId, newProject);
         // Reset the form
         setNewProjectName("");
@@ -113,12 +131,43 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
     const handleDeleteProject = (id: number) => {
         // Before deleting the Project check if there are any Tasks that have this Project assigned. If there are then ask the user for confirmation.
         let totalTasksWithProject = tasksList.filter(task => task.project && task.project === id).length;
-        if (totalTasksWithProject) {
-            if (!window.confirm(`The project has ${totalTasksWithProject} tasks assigned. \nThe tasks will remain but their projects will be reset to none. \nAre you sure you want to delete it?`)) // TODO better notification system
-                return;
-        }
-        deleteProject(id);
+        // This is the message that will be shown in the body of the modal
+        warningModalMessage.current = totalTasksWithProject > 0 ?
+            `The project has ${totalTasksWithProject} tasks assigned. 
+            The tasks will remain but their projects will be reset to none. 
+            Are you sure you want to delete it?`
+            :
+            `Are you sure you want to delete this project?`;
+        selectedProjectDeletion.current = id;
+        openModalWarning();
     }
+
+    const handleDeleteConfirmation = () => {
+        if (selectedProjectDeletion.current !== null)
+            deleteProject(selectedProjectDeletion.current);
+    }
+
+    /** These are the values for the warning modal that opens when a delete button is clicked */
+    const { isOpen: isOpenWarning,
+        openModal: openModalWarning,
+        closeModal: closeModalWarning } = useModal(false);
+
+    const warningModalMessage = useRef("");
+
+    const selectedProjectDeletion = useRef<number | null>(null);
+
+    /** This relates to the popover that will appear over the Project input controls when the max name length is reached */
+    const { isOpenPopover: isOpenPopoverNameLengthError,
+        openPopover: openPopoverNameLengthError,
+        closePopover: closePopoverNameLengthError,
+        setRefFocusElement: setRefFocusElementNameLengthError,
+        popoverProps: popoverPropsNameLengthError } = usePopover();
+    /** This relates to the popover that will appear over the Project input controls when the max name length is reached */
+    const { openPopover: openPopoverError,
+        closePopover: closePopoverError,
+        setRefFocusElement: setRefFocusElementError,
+        popoverProps: popoverPropsError } = usePopover();
+    let popoverErrorMessage = useRef("An error happened");
 
     return (
         <div className="projects-container">
@@ -131,17 +180,28 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
                             <input
                                 type="text"
                                 placeholder="Input a new name"
-                                className="projects-input-text"
+                                className={`projects-input-text ${newProjectName.length >= MAX_NAME_LENGTH ? 'input--invalid' : ''}`}
                                 value={newProjectName}
-                                onChange={handleNameChange} />
+                                onChange={handleNameChange}
+                                ref={setRefFocusElementNameLengthError} />
+                            <Popover {...popoverPropsNameLengthError}>
+                                <h1 className="popover__title popover__title--danger">Error</h1>
+                                <p className="popover__text">The name you're trying to input is too long</p>
+                            </Popover >
                             <div>
                                 <input
                                     type="submit"
                                     value="Submit"
                                     className="button button-primary"
+                                    ref={setRefFocusElementError}
                                 />
+                                <Popover {...popoverPropsError}>
+                                    <h1 className="popover__title popover__title--danger">Error</h1>
+                                    <p className="popover__text">{popoverErrorMessage.current}</p>
+                                    <button className="button" onClick={closePopoverError}>Okay</button>
+                                </Popover >
                                 <button
-                                    className="button button-warning"
+                                    className="button"
                                     onClick={handleCancelEditProject}
                                 >
                                     Cancel
@@ -158,14 +218,25 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
                             <input
                                 type="text"
                                 placeholder="Input the name of the new project"
-                                className="projects-input-text"
+                                className={`projects-input-text ${newProjectName.length >= MAX_NAME_LENGTH ? 'input--invalid' : ''}`}
                                 value={newProjectName}
-                                onChange={handleNameChange} />
+                                onChange={handleNameChange}
+                                ref={setRefFocusElementNameLengthError} />
+                            <Popover {...popoverPropsNameLengthError}>
+                                <h1 className="popover__title popover__title--danger">Error</h1>
+                                <p className="popover__text">The name you're trying to input is too long</p>
+                            </Popover >
                             <input
                                 type="submit"
                                 value="Submit"
                                 className="button button-primary"
+                                ref={setRefFocusElementError}
                             />
+                            <Popover {...popoverPropsError}>
+                                <h1 className="popover__title popover__title--danger">Error</h1>
+                                <p className="popover__text">{popoverErrorMessage.current}</p>
+                                <button className="button" onClick={closePopoverError}>Okay</button>
+                            </Popover >
                         </div>
                     </form>
                 </>}
@@ -192,6 +263,15 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
                     </li>
                 )}
             </ul>
+            <Modal
+                isOpen={isOpenWarning}
+                closeModal={closeModalWarning}
+                modalTitle="Warning"
+                hasConfirmation={true}
+                onConfirmationCallback={handleDeleteConfirmation}
+            >
+                <p>{warningModalMessage.current}</p>
+            </Modal>
         </div>
     );
 }
