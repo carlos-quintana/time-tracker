@@ -1,19 +1,25 @@
-import React, { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import { timestampToDateSnake, dateSnakeToTimestamp, timestampToDateToDisplay } from "../../helpers/timeFormatting"
 import usePopover from "../../hooks/usePopover";
 import Popover from "../Shared Components/Popover";
-// eslint-disable-next-line no-unused-vars
-const typedefs = require("../types"); // JSDoc Type Definitions
+import { Interval } from "../../types";
+
+type Props = {
+    id: number,
+    interval: Interval,
+    handleIntervalUpdate: Function,
+    intervalPosition: "start" | "end"
+}
 
 /**
  * This component will display a date, used for displaying the start and end dates for the Tasks. When clicked, this component will allow the user to edit the value with an input of type date.
  * @param {Object} props - Component props object
  * @param {Number} props.id - The id of the Task associated to this component object contained in this row, used when setting the id for the input tag.
- * @param {typedefs.Interval} props.interval - The Interval object of the task, containing its timestamps.
- * @param {function(typedefs.Interval):void} props.handleIntervalUpdate - Callback function that will be fired when the changes are submitted.
+ * @param {Interval} props.interval - The Interval object of the task, containing its timestamps.
+ * @param {function(Interval):void} props.handleIntervalUpdate - Callback function that will be fired when the changes are submitted.
  * @param {"start" | "end"} props.intervalPosition - This value tells us what position of the interval this component represents and modify the logic accordingly when submitting. This is so we can use the same component for both the start and end dates.
  */
-const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }) => {
+const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }: Props) => {
 
     /** This will have the timestamp of whichever position was established in the props. */
     const [tempTimestamp, setTempTimestamp] = useState(intervalPosition === "start" ? start : end)
@@ -23,13 +29,13 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
     /** Other components also edit on the interval of the task so it is important to keep listening for changes */
     useEffect(() => setTempTimestamp(intervalPosition === "start" ? start : end), [start, end, intervalPosition])
 
-    const handleInputChange = event => {
+    const handleInputChange = (event: any) => {
         // The input node keeps the value in the format 'YYYY-MM-DD' so we calculate its timestamp, using also the original timestamp which will have the time
         let formattedDate = dateSnakeToTimestamp(event.target.value, tempTimestamp)
         setTempTimestamp(formattedDate)
     }
 
-    const handleSubmit = event => {
+    const handleSubmit = (event: any) => {
         event.preventDefault()
         //      Form Validation
         // This condition is to prevent the HTML time picker component to be cleared and the form submitted
@@ -59,7 +65,7 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
      * This component has enough different validations and escape conditions that it warrants having a separate function for handling the errors.
      * @param {string} message - The message to display in the alert
      */
-    const abortSubmit = message => {
+    const abortSubmit = (message: string) => {
         popoverErrorMessage.current = message;
         openPopover();
         setTempTimestamp(intervalPosition === "start" ? start : end)

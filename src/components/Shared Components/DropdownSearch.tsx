@@ -1,8 +1,21 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
+// import { Interval, Task, CurrentTask, Project } from "../../types";
 // Material Icons
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+
+type Option = { id: number, value: string };
+
+type Props = {
+    defaultText: string,
+    searchPlaceholder?: string,
+    optionsList: Option[],
+    initialSelection?: number | null,
+    onSelectCallback: Function,
+    onCreateCallback: Function,
+    resetTrigger?: number
+}
 
 /**
  * This component will act as a select dropdown input field, where the user can click on it to expand a menu listing all of the different options, and when clicking on any of these options it will change the state of the component to the selected option. 
@@ -24,11 +37,10 @@ const DropdownSearch = ({
     initialSelection = null,
     onSelectCallback,
     onCreateCallback,
-    resetTrigger = 0 }) => {
+    resetTrigger = 0 }: Props) => {
 
     /** This variable holds the numeric id of the option that's currently selected, or 'null' if no option is selected. */
-    const [selection, setSelection] = useState(
-        /** @type {number|null} */(null));
+    const [selection, setSelection] = useState<number | null>(null);
 
     /** This variable controls the conditional rendering for when the dropodown opens. */
     const [isOpen, setIsOpen] = useState(false);
@@ -37,14 +49,13 @@ const DropdownSearch = ({
     const [searchText, setSearchText] = useState("");
 
     /** This variable contains the list of options to display in the dropdown component. */
-    const [optionsList, setOptionsList] = useState(
-        /** @type {Array<{id:Number,value:string}>} */([]));
+    const [optionsList, setOptionsList] = useState<Option[]>([]);
 
     /** With this ref we'll be able to add a Listener to the document to know when the user clicks outside of the dropdown and close it */
     const dropdownRef = useRef(null);
 
     useEffect(() => {
-        function handleClickOutside(event) {
+        function handleClickOutside(event: any) {
             if (isOpen)
                 // @ts-ignore the DOM element.contains gives a linter error
                 if (dropdownRef.current && !dropdownRef.current.contains(event.target))
@@ -89,7 +100,7 @@ const DropdownSearch = ({
     }, [resetTrigger])
 
     /** @param {null | Number} id - The id of the new option selected. If it's null then it will reset the selection and the display text to the default values.*/
-    const handleSelectOption = id => {
+    const handleSelectOption = (id: number | null) => {
         if (id === null) {
             setSelection(null)
             onSelectCallback(null)
@@ -117,9 +128,9 @@ const DropdownSearch = ({
                 className="round-box dropdown-display"
                 onClick={() => setIsOpen(!isOpen)}
             >
-                <span 
-                className="dropdown-display-text"
-                title={options.find(option => option.id === selection)?.value || ""}
+                <span
+                    className="dropdown-display-text"
+                    title={options.find(option => option.id === selection)?.value || ""}
                 >
                     {
                         options.find(option => option.id === selection)?.value
@@ -141,11 +152,11 @@ const DropdownSearch = ({
                     >
                         <span className="mui-icon ">
                             <CancelOutlinedIcon fontSize="small" />
-                            </span>
+                        </span>
                     </button>
                 }
                 <span className="dropdown-display-arrow">
-                    {isOpen ? <ExpandLessIcon/> : <ExpandMoreIcon/>}
+                    {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 </span>
             </div>
             {/* The dropdown */}

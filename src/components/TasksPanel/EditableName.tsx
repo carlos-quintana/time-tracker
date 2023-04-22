@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import usePopover from "../../hooks/usePopover";
 import Popover from "../Shared Components/Popover";
 
@@ -6,7 +6,13 @@ import Popover from "../Shared Components/Popover";
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
  * @type {Number}
  */
-const MAX_NAME_LENGTH = 60;
+const MAX_NAME_LENGTH: number = 60;
+
+type Props = {
+    id: number,
+    name: string,
+    handleNameUpdate: Function
+}
 
 /**
  * This component will display the name of the Task. When clicked, this component will allow the user to edit the value with an input of type text.
@@ -15,7 +21,7 @@ const MAX_NAME_LENGTH = 60;
  * @param {String} props.name - The name the Task already has.
  * @param {function(String):void} props.handleNameUpdate - Callback function that will be fired when the changes are submitted.
  */
-const EditableName = ({ id, name, handleNameUpdate }) => {
+const EditableName = ({ id, name, handleNameUpdate }: Props) => {
 
     /** This will be used to control the input tag. */
     const [tempName, setTempName] = useState(name);
@@ -25,11 +31,12 @@ const EditableName = ({ id, name, handleNameUpdate }) => {
     /** This will be used to control the input tag. */
     useEffect(() => setTempName(name), [name]);
 
-    const handleNameChange = event => {
+    const handleNameChange = (event: any) => {
         // This line will take the input given by the user and remove any trailing white spaces. There is the special condition where the user uses one single space at the end to separate words though.
-        let newName = event.target.value.slice(-1) === " " ?
-            event.target.value.trim() + " " :
-            event.target.value.trim();
+        let newName: string =
+            event.target.value.slice(-1) === " " ?
+                event.target.value.trim() + " " :
+                event.target.value.trim();
         // Check the length of the name is valid. If the user exceeds this limit stop adding characters to the input and fire the notification
         if (newName.length > MAX_NAME_LENGTH) {
             // Because we don't want to close the input this time we open the popover manually
@@ -43,10 +50,10 @@ const EditableName = ({ id, name, handleNameUpdate }) => {
         setTempName(newName);
     }
 
-    const handleSubmit = event => {
+    const handleSubmit = (event: any) => {
         event.preventDefault()
         //      Form Validation
-        let newName = tempName.trim();
+        let newName: string = tempName.trim();
         // If the name is the same don't even update the state
         if (newName === name) {
             setIsEditingName(false); return;
@@ -69,7 +76,7 @@ const EditableName = ({ id, name, handleNameUpdate }) => {
      * This component has enough different validations and escape conditions that it warrants having a separate function for handling the errors.
      * @param {string} message - The message to display in the alert
      */
-    const abortSubmit = message => {
+    const abortSubmit = (message: string) => {
         popoverErrorMessage.current = message;
         openPopover();
         setTempName(name);

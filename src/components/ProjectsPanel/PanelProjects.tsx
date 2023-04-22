@@ -1,33 +1,39 @@
-import React, { useState } from "react";
-
-// eslint-disable-next-line no-unused-vars
-const typedefs = require("./../types"); // JSDoc Type Definitions
+import { useState } from "react";
+import { Task, Project } from "../../types";
 
 /**
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
  * @type {Number}
  */
-const MAX_NAME_LENGTH = 60;
+const MAX_NAME_LENGTH: number = 60;
+
+type Props = {
+    tasksList: Task[],
+    projectsList: Project[],
+    createProject: Function,
+    editProject: Function,
+    deleteProject: Function
+}
 
 /**
  * This component is used for the time being to show a list of the current existing projects, as well as the controls to do CRUD operations on them.
  * @param {Object} props - Component props object
- * @param {Array<typedefs.Task>} props.tasksList - The list of existing tasks. This is used to check when deleting a Project if it has Tasks assigned to.
- * @param {Array<typedefs.Project>} props.projectsList - The list of existing Projects to be displayed.
+ * @param {Array<Task>} props.tasksList - The list of existing tasks. This is used to check when deleting a Project if it has Tasks assigned to.
+ * @param {Array<Project>} props.projectsList - The list of existing Projects to be displayed.
  * @param {function(String):Number} props.createProject - Callback function that will be fired when the form is used to create a new Project.
- * @param {function(Number,typedefs.Project):void} props.editProject - Callback function that will be fired when the form is used to edit an existing Project.
+ * @param {function(Number,Project):void} props.editProject - Callback function that will be fired when the form is used to edit an existing Project.
  * @param {function(Number):void} props.deleteProject - Callback function that will be fired when any Project is deleted.
  */
-const PanelProjects = ({ tasksList, projectsList, createProject, editProject, deleteProject }) => {
+const PanelProjects = ({ tasksList, projectsList, createProject, editProject, deleteProject }: Props) => {
 
     /** It's used in the controlled input field, and works to hold both the new Project name or an existing Project name, depending on wether the form is in creating or editing mode. */
-    const [newProjectName, setNewProjectName] = useState("");
+    const [newProjectName, setNewProjectName] = useState<string>("");
     /** When this is true the form will be used to change the details of any selected Project. For the time being the only field it's the name */
-    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState<boolean>(false);
     /** When isEditing is true we need to keep track of the selected Project to edit */
-    const [editingId, setEditingId] = useState(/**@type {null | number}*/(null));
+    const [editingId, setEditingId] = useState<number | null>(null);
 
-    const handleNameChange = event => {
+    const handleNameChange = (event: any) => {
         // This line will take the input given by the user and remove any trailing white spaces. There is the special condition where the user uses one single space at the end to separate words though.
         let newName = event.target.value.slice(-1) === " " ?
             event.target.value.trim() + " " :
@@ -42,7 +48,7 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
     }
 
     /** When the form is submitted in creation mode we validate the data for the new Project and then elevate this with the callback to submit the new Project. */
-    const handleSubmitNewProject = (event) => {
+    const handleSubmitNewProject = (event: any) => {
         event.preventDefault();
         //      Form Validation
         let newName = newProjectName.trim();
@@ -63,7 +69,7 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
     }
 
     /** When the form is submitted in editing we validate the data for the new Project and then elevate this with the callback to edit an existing Project. */
-    const handleSubmitEditProject = (event) => {
+    const handleSubmitEditProject = (event: any) => {
         event.preventDefault();
         //      Form Validation
         let newName = newProjectName.trim();
@@ -88,7 +94,7 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
             }
         }
         if (editingId === null) return;
-        /** @type {typedefs.Project} */
+        /** @type {Project} */
         let newProject = { id: editingId, name: newProjectName };
         editProject(editingId, newProject);
         // Reset the form
@@ -97,14 +103,14 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
         setEditingId(null);
     }
 
-    const handleCancelEditProject = event => {
+    const handleCancelEditProject = (event: any) => {
         event.preventDefault();
         setNewProjectName("");
         setIsEditing(false);
         setEditingId(null);
     }
 
-    const handleDeleteProject = id => {
+    const handleDeleteProject = (id: number) => {
         // Before deleting the Project check if there are any Tasks that have this Project assigned. If there are then ask the user for confirmation.
         let totalTasksWithProject = tasksList.filter(task => task.project && task.project === id).length;
         if (totalTasksWithProject) {

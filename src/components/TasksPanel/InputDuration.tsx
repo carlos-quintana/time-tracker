@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
 
 /**
@@ -11,7 +11,14 @@ import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
  * @example replaceCharacter("abcde", 2, "x")
  * "abxde"
  */
-const replaceCharacter = (string, position, character) => string.substring(0, position) + character + string.substring(position + 1)
+const replaceCharacter = (string: string, position: number, character: string): string =>
+    string.substring(0, position) + character + string.substring(position + 1)
+
+type Props = {
+    id: number,
+    durationSeconds: number,
+    handleSubmit: Function
+}
 
 /** This component will create an input element of type text, which we will control the position of the caret (cursor) and the values that are inputed, so that it always represents a valid time in the form of H:MM:SS, including the colon signs.
  * To keep track of the position of the caret we will use the input properties of selectionStart and selectionEnd, and we will use the event onKeyDown to receive the numeric inputs from the user and handle them appropriately, and the logic that comes with the constrainst of the format, for example, that seconds and minutes are 2 digits numbers and cannot be larger than 59, etc. 
@@ -20,11 +27,11 @@ const replaceCharacter = (string, position, character) => string.substring(0, po
  * @param {Number} props.durationSeconds - The total duration of seconds to first display.
  * @param {function(String):void} props.handleSubmit - Callback function that will be fired when the changes are submitted.
  */
-const InputDuration = ({ id, durationSeconds, handleSubmit }) => {
+const InputDuration = ({ id, durationSeconds, handleSubmit }: Props) => {
     // This will be in the form of a formatted H:MM:SS string to be displayed
-    const [durationString, setDurationString] = useState(null)
+    const [durationString, setDurationString] = useState<string | null>(null)
     // This points to the element of the input, so that we can access it's selectionStart and End properties to manually select and keep track of the position of the real caret abd the position that will be updated when the corresponding keystroke comes.
-    const inputRef = useRef(null)
+    const inputRef = useRef<HTMLInputElement | null>(null)
     // selectionPosition will keep track of the character that the user can edit next, and this character will be highlighted at all times. We will also use this value to calculate the position of an imaginary pointer which will work the same way but backwards, so that we can know when the user goes through the position of the seconds, the minutes, the hours and both of the colon simbols ':', by substracting the length of the string and this pointer. The reason we work backwards is because the value of hours, which goes at the start of the string, can be arbitrary, as an interval can have 1 hour '1:mm:ss' or 100 hours '100:mm:ss'. On the other hand, the last parts of the string remain very consisten, as all intervals can only have 2 digits for the minutes and the seconds.
     const [caretPosition, setCaretPosition] = useState(-1)
     // This variable is used to detect when an alternative input method is being used, one that would not work with the keydown event that the input is using, namely Android default keyboards. /TODO/ This can be used to activate an alternative behavior to still capture the inputs.
@@ -48,24 +55,25 @@ const InputDuration = ({ id, durationSeconds, handleSubmit }) => {
     }, [durationSeconds])
 
     useEffect(() => {
-        if (durationString) {
+        if (durationString && inputRef.current?.selectionStart) {
             inputRef.current.selectionStart = caretPosition
             inputRef.current.selectionEnd = caretPosition + 1
         }
     }, [caretPosition, durationString])
 
-    const handleOnChange = event => { }
+    const handleOnChange = (_event: any) => { }
 
-    const handleKeyDown = event => {
+    const handleKeyDown = (event: any) => {
         if (isComposing) return;
+        if (!durationString) return;
         event.preventDefault(); // event.stopPropagation();
 
         // Handle movement operations
-        if (event.key === "ArrowLeft" || event.key === "ArrowUp") 
+        if (event.key === "ArrowLeft" || event.key === "ArrowUp")
             if (caretPosition !== 0) // If we're at the start of the input there's no need to move left
                 setCaretPosition(caretPosition - 1)
 
-        if (event.key === "ArrowRight" || event.key === "ArrowDown") 
+        if (event.key === "ArrowRight" || event.key === "ArrowDown")
             if (caretPosition !== durationString.length - 1) // Unless we're at the end of the input there's no need to move right
                 setCaretPosition(caretPosition + 1)
 
@@ -100,11 +108,12 @@ const InputDuration = ({ id, durationSeconds, handleSubmit }) => {
 
         }
 
-        if (["Escape", "Enter"].indexOf(event.key) !== -1) 
+        if (["Escape", "Enter"].indexOf(event.key) !== -1)
             handleCloseInput(event)
     }
 
-    const handlePositionUpdate = event => {
+    const handlePositionUpdate = (event: any) => {
+        if (!inputRef.current || !inputRef.current.selectionStart) return; // Check for a null ref value
         if (inputRef.current.selectionStart === event.target.value.length) { // If we're at the end of the input take a step back
             setCaretPosition(inputRef.current.selectionStart - 1)
             // There is a scenario where if the user clicks on the exact same spot more than once, the position will not be highlighted.
@@ -122,7 +131,7 @@ const InputDuration = ({ id, durationSeconds, handleSubmit }) => {
         }
     }
 
-    const handleCloseInput = event => handleSubmit(event)
+    const handleCloseInput = (event: any) => handleSubmit(event)
 
     return (
         <>

@@ -1,5 +1,3 @@
-// @ts-nocheck
-import React from "react";
 import DropdownSearch from "../Shared Components/DropdownSearch"
 import EditableName from "./EditableName"
 import EditableDate from "./EditableDate"
@@ -13,29 +11,38 @@ import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 // Custom made Popover component and hook using React Popper
 import usePopover from "../../hooks/usePopover";
 import Popover from "../Shared Components/Popover";
-// eslint-disable-next-line no-unused-vars
-const typedefs = require("../types"); // JSDoc Type Definitions
+import { CurrentTask, Interval, Project, Task } from "../../types"
+
+type Props = {
+    task: Task,
+    editTask: Function,
+    deleteTask: Function,
+    currentTask: CurrentTask | null,
+    setCurrentTask: Function,
+    projectsList: Project[],
+    createProject: Function
+}
 
 /**
  * This component contains all the data of the Tasks that will be displayed and also the controls to edit the different fields, as well as the controls to delete the Task or create a new Task in the timer with the same data (restart the Task).
  * @param {Object} props - Component props object
- * @param {typedefs.Task} props.task - The Task object contained in this row.
- * @param {function(Number,typedefs.Task):void} props.editTask - Callback function that will be fired when any of the fields of a Task is edited.
+ * @param {Task} props.task - The Task object contained in this row.
+ * @param {function(Number,Task):void} props.editTask - Callback function that will be fired when any of the fields of a Task is edited.
  * @param {function():void} props.deleteTask - Callback function that will be fired when the delete controls of the Task are triggered.
- * @param {null | typedefs.CurrentTask} props.currentTask - The current running Task state that represents the current task in the Timer. (The state initializes as null but it should change to CurrentTask after it's mounted). This is used to check if there's a Current Task running at the moment.
+ * @param {null | CurrentTask} props.currentTask - The current running Task state that represents the current task in the Timer. (The state initializes as null but it should change to CurrentTask after it's mounted). This is used to check if there's a Current Task running at the moment.
  * @param {Function} props.setCurrentTask - Callback function that will set the state for the new current running task when the restart control is triggered.
- * @param {Array<typedefs.Project>} props.projectsList - The list of existing projects. This is used in the Dropdown component that is used to select a project to assign the task to.
+ * @param {Array<Project>} props.projectsList - The list of existing projects. This is used in the Dropdown component that is used to select a project to assign the task to.
  * @param {function(String):Number} props.createProject - Callback function that will be fired when the form is used to create a new Project.
  */
-const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, projectsList, createProject }) => {
+const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, projectsList, createProject }: Props) => {
 
     /** @param {String} newName - The new name for the Task. */
-    const handleNameUpdate = newName => {
+    const handleNameUpdate = (newName: string) => {
         editTask(task.id, { ...task, name: newName })
     }
 
     /** @param {null | Number} newProjectID - The id for the project to assign to this task. If a null value is passed then the project is removed. */
-    const handleProjectUpdate = newProjectID => {
+    const handleProjectUpdate = (newProjectID: number) => {
         if (newProjectID !== null)
             editTask(task.id, { ...task, project: newProjectID })
         else
@@ -45,15 +52,15 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
     /**  This function is used when a project is created in the Dropdown component.
      * @param {String} newProjectName - The name for the new project.
      * @returns {Number} - The id of the newly created project */
-    const handleProjectCreation = newProjectName => {
+    const handleProjectCreation = (newProjectName: string): number => {
         let newProjectID = createProject(newProjectName)
         handleProjectUpdate(newProjectID)
         return newProjectID
     }
 
     /** This method can be triggered from different components inside of this row, such as the Date, Time and Duration components.
-     *  @param {typedefs.Interval} newInterval - The new Interval object to assign to the task */
-    const handleIntervalUpdate = newInterval =>
+     *  @param {Interval} newInterval - The new Interval object to assign to the task */
+    const handleIntervalUpdate = (newInterval: Interval) =>
         editTask(task.id, { ...task, interval: newInterval })
 
     /** This will set the current Task to a Task with the same details as this one starting from the moment the button is pressed. */
@@ -65,12 +72,12 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
     }
 
     /** This relates to the popover that will appear over the delete button when clicked */
-     const {
-        isOpenPopover,
+    const {
+        isOpenPopover: isOpenDeletePopover,
         openPopover: openDeletePopover,
         closePopover: closeDeletePopover,
         setRefFocusElement: setRefDeleteButton,
-        popoverProps,
+        popoverProps: deletePopoverProps,
     } = usePopover();
 
     const handleClickDeletePopover = () => {
@@ -168,7 +175,7 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                 </button>
                 {/* Task delete button */}
                 <button
-                    className={`button button-danger ${isOpenPopover && "button-danger-focus"}`}
+                    className={`button button-danger ${isOpenDeletePopover && "button-danger-focus"}`}
                     // @ts-ignore
                     ref={setRefDeleteButton}
                     onClick={openDeletePopover}
@@ -176,7 +183,7 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                     Delete
                 </button>
                 {/* Delete warning popover */}
-                <Popover {...popoverProps}>
+                <Popover {...deletePopoverProps}>
                     <h1 className="popover__title popover__title--danger">Warning</h1>
                     <p className="popover__text">Are you sure you want to delete this?</p>
                     <button

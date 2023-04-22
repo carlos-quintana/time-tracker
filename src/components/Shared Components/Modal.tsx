@@ -1,5 +1,14 @@
-import React from "react";
 import CloseIcon from '@mui/icons-material/Close';
+
+type Props = {
+    children: any,
+    isOpen: boolean,
+    closeModal: Function,
+    modalTitle?: string,
+    hasConfirmation?: boolean,
+    confirmationButtonText?: string,
+    onConfirmationCallback?: Function | null
+}
 
 /**
  * TODO
@@ -20,8 +29,7 @@ const Modal = ({
     modalTitle = "",
     hasConfirmation = false,
     confirmationButtonText = "Confirm",
-    onConfirmationCallback = null
-}) => {
+    onConfirmationCallback = null }: Props) => {
 
     const handleConfirmation = () => {
         onConfirmationCallback && onConfirmationCallback();

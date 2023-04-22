@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
+import { Interval, Task, CurrentTask, Project } from "../types";
 
 import PanelInputs from "./InputPanel/PanelInputs"
 import PanelTasks from "./TasksPanel/PanelTasks"
 import PanelProjects from "./ProjectsPanel/PanelProjects"
+import ControlsPanel from "./ControlsPanel/ControlsPanel"
 // JSON files that contain example dummy data to populate the application
 import exampleTasksFromJSON from "../exampleTasks.json"
 import exampleProjectsFromJSON from "../exampleProjects.json"
@@ -12,9 +14,7 @@ import parseExampleTasks from "../helpers/parseExampleTasks"
 import GitHubIcon from '@mui/icons-material/GitHub';
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import ControlsPanel from "./ControlsPanel/ControlsPanel"
-// eslint-disable-next-line no-unused-vars
-const typedefs = require("./types"); // JSDoc Type Definitions
+
 
 /**
  * This is the main component for the application and the one that is at the top of the components hierarchy. This means that this will hold the state for the data of the application until a state manager is implemented, like Context or Redux.
@@ -22,17 +22,9 @@ const typedefs = require("./types"); // JSDoc Type Definitions
 */
 export default function App() {
 
-  /** @type {Array<typedefs.Task>}*/
-  const INITIAL_TASKS_STATE = [];
-  const [tasksList, setTasksList] = useState(INITIAL_TASKS_STATE);
-
-  /** @type {Array<typedefs.Project>}*/
-  const INITIAL_PROJECTS_STATE = [];
-  const [projectsList, setProjectsList] = useState(INITIAL_PROJECTS_STATE);
-
-  /** @type {typedefs.CurrentTask | null}*/
-  const INITIAL_CURRENT_TASK_STATE = null;
-  const [currentTask, setCurrentTask] = useState(INITIAL_CURRENT_TASK_STATE);
+  const [tasksList, setTasksList] = useState<Task[]>([]);
+  const [projectsList, setProjectsList] = useState<Project[]>([]);
+  const [currentTask, setCurrentTask] = useState<CurrentTask | null>(null);
 
   /** Since we have three useEffect hooks touching the Local Storage we want to avoid overwriting empty data on it when the application renders for the first time, so we use a flag to check if the application is being run for the first time, skip it and disable the flag (This two times, one for the tasks and one for the projects) */
   const firstRenderFlag = useRef([true, true, true]);
@@ -83,9 +75,9 @@ export default function App() {
    */
   useEffect(() => {
     // The first time the component is mounted we will ignore this hook and not set any data in Local Storage. Otherwise it would overwrite it with empty data (As the first useState hook wouldn't be executed yet)
-    if (firstRenderFlag.current[1]) 
+    if (firstRenderFlag.current[1])
       firstRenderFlag.current[1] = false
-     else 
+    else
       localStorage.setItem('projectsList', JSON.stringify(projectsList));
   }, [projectsList])
 
@@ -94,38 +86,38 @@ export default function App() {
    */
   useEffect(() => {
     // The first time the component is mounted we will ignore this hook and not set any data in Local Storage. Otherwise it would overwrite it with empty data (As the first useState hook wouldn't be executed yet)
-    if (firstRenderFlag.current[2]) 
+    if (firstRenderFlag.current[2])
       firstRenderFlag.current[2] = false
-    else 
+    else
       localStorage.setItem('currentTask', JSON.stringify(currentTask));
   }, [currentTask])
 
   /**
    * @param {String} taskName - The name for the new task.
-   * @param {typedefs.Interval} taskInterval - The start and end timestamps for the new task.
+   * @param {Interval} taskInterval - The start and end timestamps for the new task.
    * @param {Number} [project] - The id for the project the new task is assigned to. May be undefined.
    */
-  const createNewTask = (taskName, taskInterval, project) => {
-    /** @type {typedefs.Task}*/
-    let newTaskObject = {
+  const createNewTask = (taskName: string, taskInterval: Interval, projectId: number) => {
+    /** @type {Task}*/
+    let newTaskObject: Task = {
       id: Date.now(),
       name: taskName,
       interval: taskInterval,
-      project: project
+      project: projectId
     }
     setTasksList([newTaskObject, ...tasksList])
   }
 
   /**
    * @param {Number} idEdit - The id of the Task to update
-   * @param {typedefs.Task} newTask - A Task Object that will replace the Task with the given id
+   * @param {Task} newTask - A Task Object that will replace the Task with the given id
    */
-  const editTask = (idEdit, newTask) => {
+  const editTask = (idEdit: number, newTask: Task) => {
     setTasksList(tasksList.map((task) => task.id === idEdit ? newTask : task))
   }
 
   /** @param {Number} idDelete - The id of the Task to delete */
-  const deleteTask = idDelete => {
+  const deleteTask = (idDelete: number) => {
     setTasksList(tasksList.filter(el => el.id !== idDelete))
   }
 
@@ -133,9 +125,9 @@ export default function App() {
    * @param {String} projectName - The name of the new project.
    * @returns {Number} - The generated Id of the newly created project.
    */
-  const createProject = (projectName) => {
-    /** @type {typedefs.Project}*/
-    let newProject = {
+  const createProject = (projectName: string) => {
+    /** @type {Project}*/
+    let newProject: Project = {
       id: Date.now(),
       name: projectName
     }
@@ -145,9 +137,9 @@ export default function App() {
 
   /**
    * @param {Number} idEdit - The id of the Project to update.
-   * @param {typedefs.Project} newProject - A Project Object that will replace the Project with the given id.
+   * @param {Project} newProject - A Project Object that will replace the Project with the given id.
    */
-  const editProject = (idEdit, newProject) => {
+  const editProject = (idEdit: number, newProject: Project) => {
     setProjectsList(
       projectsList.map(project =>
         project.id === idEdit ? newProject : project))
@@ -157,7 +149,7 @@ export default function App() {
    * This function will remove the project from the list of projects state, but also will go through the list of tasks and change any 'project' property assigned to this project to undefined.
    * @param {Number} idDelete - The id of the Task to delete
    */
-  const deleteProject = idDelete => {
+  const deleteProject = (idDelete: number) => {
     setTasksList(
       tasksList.map(task =>
         task.project === idDelete ?

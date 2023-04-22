@@ -1,5 +1,11 @@
-import React from "react"
-
+type Props = {
+    children: any,
+    isOpenPopover: boolean,
+    setRefPopperElement: any,
+    popoverRef: any,
+    styles: any,
+    attributes: any
+}
 /**
  * This component represents as very small floating window that appears on top of a designated element and contains a small message. It's like a modal but less intrusive, and can be used to deliver messages, ask for confirmation for an action, etc. The parent component that will utilize this component will have to call the custom hook usePopover to initialize a series of state variables and DOM refs that the Popover component needs. This component and said hook, rely heavily on the use of React Popper. For more information visit the docs: https://popper.js.org/react-popper/v2/
  * 
@@ -12,17 +18,18 @@ import React from "react"
  * @param {Object} props.attributes - This comes from the Popper documentation.
  * @returns 
  */
-const Popover = (props) => {
+const Popover = (props: Props) => {
 
-    const {isOpenPopover, setRefPopperElement, popoverRef, styles, attributes} = props;
+    const { isOpenPopover, setRefPopperElement, popoverRef, styles, attributes } = props;
 
     return (
         <>
             {
                 isOpenPopover &&
                 <div
-                    // @ts-ignore
-                    ref={setRefPopperElement} style={{ ...styles.popper, display: 'flex', justifyContent: 'center' }} {...attributes.popper}>
+                    ref={setRefPopperElement}
+                    style={{ ...styles.popper, display: 'flex', justifyContent: 'center' }}
+                    {...attributes.popper}>
                     <div className="popover" ref={popoverRef}>
                         {props.children}
                     </div>
