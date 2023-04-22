@@ -94,7 +94,7 @@ const PanelProjects = ({ tasksList, projectsList, createProject, editProject, de
             }
         }
         if (editingId === null) return;
-        /** @type {typedefs.Project} */
+        /** @type {Project} */
         let newProject = { id: editingId, name: newProjectName };
         editProject(editingId, newProject);
         // Reset the form

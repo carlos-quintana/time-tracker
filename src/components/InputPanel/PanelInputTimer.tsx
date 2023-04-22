@@ -30,10 +30,10 @@ type Props = {
 
 /**
  * @param {Object} props - Component props object
- * @param {function(String,typedefs.Interval,Number|undefined):void} props.handleSubmit - Callback function that will be fired when the form is submitted
- * @param {null | typedefs.CurrentTask} props.currentTask - The current running Task state that represents the current task in the Timer. (The state initializes as null but it should change to CurrentTask after it's mounted)
+ * @param {function(String,Interval,Number|undefined):void} props.handleSubmit - Callback function that will be fired when the form is submitted
+ * @param {null | CurrentTask} props.currentTask - The current running Task state that represents the current task in the Timer. (The state initializes as null but it should change to CurrentTask after it's mounted)
  * @param {Function} props.setCurrentTask - Callback function that will set the state for the new current running task.
- * @param {Array<typedefs.Project>} props.projectsList - The list of existing projects. This is used in the Dropdown component that is used to select a project to assign the task to.
+ * @param {Array<Project>} props.projectsList - The list of existing projects. This is used in the Dropdown component that is used to select a project to assign the task to.
  * @param {function(String):Number} props.createProject - Callback function that will be fired when any of the input panels submits a new project (this is used inside of the Dropdown components)
  */
 const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, createProject }: Props) => {
@@ -99,8 +99,8 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
     /**  When the timer is started take the current Timestamp and whatever text is in the name field and create a CurrentTask that will be assigned to the global state, and start the timer so that it will start counting seconds from this moment. */
     const handleStartTimer = () => {
         starterTimestamp.current = Date.now();
-        /** @type {typedefs.CurrentTask} */
-        let newCurrentTask = { name: taskName, start: starterTimestamp.current };
+        /** @type {CurrentTask} */
+        let newCurrentTask: CurrentTask = { name: taskName, start: starterTimestamp.current };
         setCurrentTask(newCurrentTask);
         setTimerStatus("running");
     }

@@ -19,7 +19,7 @@ type ExampleTask = {
  * This function will receive an array of example Tasks and parse it into an array of Tasks that can be used by the App to be displayed.
  * This is necessary because the example tasks' dates will be adjusted to the moment these are generated. This is so the application can consistently display it's behavior regarding the dates of the tasks, like how to display a task that was registered today, yesterday, last week, etc.
  * @param {Array<{offset:number,task:string,start:string,end:string,project:string}>} exampleTasksJSON 
- * @returns {Array<typedefs.Task>}
+ * @returns {Array<Task>}
  */
 export default function parseExampleTasks(exampleTasksJSON: ExampleTask[]): Task[] {
     return exampleTasksJSON.map((exampleTask:ExampleTask) => {

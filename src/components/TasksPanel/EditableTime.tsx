@@ -15,8 +15,8 @@ type Props = {
  * This component will display a time, used for displaying the start and end times for the Tasks. When clicked, this component will allow the user to edit the value with an input of type time.
  * @param {Object} props - Component props object
  * @param {Number} props.id - The id of the Task associated to this component object contained in this row, used when setting the id for the input tag.
- * @param {typedefs.Interval} props.interval - The Interval object of the task, containing its timestamps.
- * @param {function(typedefs.Interval):void} props.handleIntervalUpdate - Callback function that will be fired when the changes are submitted.
+ * @param {Interval} props.interval - The Interval object of the task, containing its timestamps.
+ * @param {function(Interval):void} props.handleIntervalUpdate - Callback function that will be fired when the changes are submitted.
  * @param {"start" | "end"} props.intervalPosition - This value tells us what position of the interval this component represents and modify the logic accordingly when submitting. This is so we can use the same component for both the start and end times.
  */
 const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }: Props) => {

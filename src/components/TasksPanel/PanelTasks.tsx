@@ -2,12 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import TaskRow from "./TaskRow";
 import { Task, Project, CurrentTask } from "../../types";
 
-
 type Props = {
     tasksList: Task[],
     editTask: Function,
     deleteTask: Function,
-    currentTask: CurrentTask,
+    currentTask: CurrentTask | null,
     setCurrentTask: Function,
     projectsList: Project[],
     createProject: Function
@@ -54,26 +53,38 @@ const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, 
         tasksList.forEach(task => {
             let taskStart = new Date(task.interval.start)
             if (isSameDay(currentDate.current, taskStart)) {
+                // @ts-ignore
                 if (!newMappedTasks.today)
+                    // @ts-ignore
                     newMappedTasks.today = { tasks: [], title: "Today" }
+                // @ts-ignore
                 newMappedTasks.today.tasks.push(task)
                 return
             }
             if (isYesterday(currentDate.current, taskStart)) {
+                // @ts-ignore
                 if (!newMappedTasks.yesterday)
+                    // @ts-ignore
                     newMappedTasks.yesterday = { tasks: [], title: "Yesterday" }
+                // @ts-ignore
                 newMappedTasks.yesterday.tasks.push(task)
                 return
             }
             if (isSameWeek(taskStart, currentDate.current)) {
+                // @ts-ignore
                 if (!newMappedTasks.thisWeek)
+                    // @ts-ignore
                     newMappedTasks.thisWeek = { tasks: [], title: "This Week" }
+                // @ts-ignore
                 newMappedTasks.thisWeek.tasks.push(task)
                 return
             }
             else {
+                // @ts-ignore
                 if (!newMappedTasks.older)
+                    // @ts-ignore
                     newMappedTasks.older = { tasks: [], title: "Older" }
+                // @ts-ignore
                 newMappedTasks.older.tasks.push(task)
                 return
             }
@@ -81,14 +92,17 @@ const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, 
         return newMappedTasks;
     }
 
+    // @ts-ignore
     const isSameDay = (dateA, dateB) => {
         return dateA.getDate() === dateB.getDate() && dateA.getMonth() === dateB.getMonth() && dateA.getFullYear() === dateB.getFullYear()
     }
 
+    // @ts-ignore
     const isYesterday = (dateA, dateB) => {
         return dateA.getDate() - 1 === dateB.getDate() && dateA.getMonth() === dateB.getMonth() && dateA.getFullYear() === dateB.getFullYear()
     }
 
+    // @ts-ignore
     const isSameWeek = (dateA, dateB) => {
         return dateA.valueOf() >= dateB.valueOf() - 1000 * 60 * 60 * 24 * 7
     }
@@ -98,23 +112,27 @@ const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, 
             {Object.keys(mappedTasks).map(milestone =>
                 // This represents each one of the separators in the list of tasks
                 <>
-                    <h3 key={mappedTasks[milestone].title}>
-                        {mappedTasks[milestone].title}
+                    <h3
+                        // @ts-ignore
+                        key={mappedTasks[milestone].title}>
+                        {// @ts-ignore
+                            mappedTasks[milestone].title}
                     </h3>
-                    {mappedTasks[milestone].tasks.map(task =>
-                        <>
-                            {<TaskRow
-                                key={task.id}
-                                task={task}
-                                deleteTask={() => deleteTask(task.id)}
-                                editTask={editTask}
-                                currentTask={currentTask}
-                                setCurrentTask={setCurrentTask}
-                                projectsList={projectsList}
-                                createProject={createProject}
-                            />}
-                        </>
-                    )}
+                    {// @ts-ignore
+                        mappedTasks[milestone].tasks.map(task =>
+                            <>
+                                {<TaskRow
+                                    key={task.id}
+                                    task={task}
+                                    deleteTask={() => deleteTask(task.id)}
+                                    editTask={editTask}
+                                    currentTask={currentTask}
+                                    setCurrentTask={setCurrentTask}
+                                    projectsList={projectsList}
+                                    createProject={createProject}
+                                />}
+                            </>
+                        )}
                 </>
             )}
         </section>

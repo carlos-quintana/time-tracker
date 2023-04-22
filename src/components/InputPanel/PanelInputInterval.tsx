@@ -19,8 +19,8 @@ type Props = {
 }
 /**
  * @param {Object} props - Component props object
- * @param {function(String,typedefs.Interval,Number|undefined):void} props.handleSubmit - Callback function that will be fired when the form is submitted
- * @param {Array<typedefs.Project>} props.projectsList - The list of existing projects. This is used in the dropdown component that is used to select a project to assign the task to.
+ * @param {function(String,Interval,Number|undefined):void} props.handleSubmit - Callback function that will be fired when the form is submitted
+ * @param {Array<Project>} props.projectsList - The list of existing projects. This is used in the dropdown component that is used to select a project to assign the task to.
  * @param {function(String):Number} props.createProject - Callback function that will be fired when any of the input panels submits a new project (this is used inside of the Dropdown components)
  */
 const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, createProject }: Props) => {

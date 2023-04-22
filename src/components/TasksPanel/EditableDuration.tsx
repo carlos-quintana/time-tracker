@@ -14,8 +14,8 @@ type Props = {
  * This component will display a time, not as in a time in a 24h day but as in an arbitrary amount of time in the same shape of Hours, Minutes and Seconds, used for displaying the total duration of any task calculated using the start and end timestamps. When clicked, this component will allow the user to edit the value with another component that will act as an input for this custom format, so that it constraints the input to a valid format.
  * @param {Object} props - Component props object
  * @param {Number} props.id - The id of the Task associated to this component object contained in this row, used when setting the id for the input tag.
- * @param {typedefs.Interval} props.interval - The Interval object of the task, containing its timestamps.
- * @param {function(typedefs.Interval):void} props.handleIntervalUpdate - Callback function that will be fired when the changes are submitted.
+ * @param {Interval} props.interval - The Interval object of the task, containing its timestamps.
+ * @param {function(Interval):void} props.handleIntervalUpdate - Callback function that will be fired when the changes are submitted.
  */
 const EditableDuration = ({ id, interval: { start, end }, handleIntervalUpdate }: Props) => {
 

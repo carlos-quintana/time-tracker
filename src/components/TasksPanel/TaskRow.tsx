@@ -17,7 +17,7 @@ type Props = {
     task: Task,
     editTask: Function,
     deleteTask: Function,
-    currentTask: CurrentTask,
+    currentTask: CurrentTask | null,
     setCurrentTask: Function,
     projectsList: Project[],
     createProject: Function
