@@ -125,11 +125,11 @@ const DropdownSearch = ({
         <div className="dropdown" ref={dropdownRef}>
             {/* The Dropdown trigger */}
             <div
-                className="round-box dropdown-display"
+                className="round-box dropdown__display"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <span
-                    className="dropdown-display-text"
+                    className="dropdown__display-text"
                     title={options.find(option => option.id === selection)?.value || ""}
                 >
                     {
@@ -144,7 +144,7 @@ const DropdownSearch = ({
                 {/* A small button to the side of the dropdown to reset its selection */}
                 {selection !== null &&
                     <button
-                        className="dropdown-reset"
+                        className="dropdown__reset"
                         onClick={e => {
                             e.stopPropagation();
                             handleSelectOption(null)
@@ -155,18 +155,18 @@ const DropdownSearch = ({
                         </span>
                     </button>
                 }
-                <span className="dropdown-display-arrow">
+                <span className="dropdown__display-arrow">
                     {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                 </span>
             </div>
             {/* The dropdown */}
             {isOpen &&
                 <div
-                    className="dropdown-body"
+                    className="dropdown__body"
                 >
                     {/* The search input */}
                     <input
-                        name="dropdown-search"
+                        className="dropdown__search"
                         placeholder={searchPlaceholder}
                         onChange={event => setSearchText(event.target.value)}
                         value={searchText}
@@ -178,7 +178,7 @@ const DropdownSearch = ({
                                 option =>
                                     <li
                                         key={option.id}
-                                        className="dropdown-result"
+                                        className="dropdown__item"
                                         onClick={() => handleSelectOption(option.id)}
                                         style={{ width: "100%", overflow: "hidden", textOverflow: "ellipsis", listStyle: "none" }}
                                     >
@@ -193,7 +193,7 @@ const DropdownSearch = ({
                     {
                         searchText.trim() !== "" && !optionsList.find(option => option.value === searchText.trim()) &&
                         <button
-                            className="button dropdown-create"
+                            className="button dropdown__create"
                             onClick={handleNewOption}
                         >
                             Create <i>"{searchText}"</i>
