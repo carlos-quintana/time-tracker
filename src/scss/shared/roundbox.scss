@@ -1,0 +1,11 @@
+// A nice minimalistic style for a standard look on elements like inputs and some buttons
+.round-box {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.75rem;
+    padding: 0 0.45rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    background-color: white;
+    color: #111;
+}

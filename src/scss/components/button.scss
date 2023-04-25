@@ -1,0 +1,74 @@
+@use '../abstracts/colors' as *;
+@use '../shared/roundbox.scss';
+
+button {
+    @extend .round-box;
+}
+
+input {
+    @extend .round-box;
+
+    &:focus {
+        border: #4b9aee 1px solid;
+        outline: 0;
+    }
+}
+
+.button {
+    // flex-shrink: 0;
+    margin-inline: 0.25rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+
+    // border-radius: 5px;
+    box-shadow: 0 1px 2px 0 #aaa;
+    transition: 0.3s;
+    border: 0;
+
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0 3px 5px 0 #aaa;
+    }
+
+    &-primary {
+        background-color: $primary-color;
+        color: white;
+
+        &:hover {
+            background-color: $primary-color--light;
+        }
+    }
+
+    &-success {
+        background-color: $success-color;
+        color: white;
+
+        &:hover {
+            background-color: $success-color--light;
+        }
+    }
+
+    &-warning {
+        background-color: $warning-color;
+        color: black;
+
+        &:hover {
+            background-color: $warning-color--light;
+        }
+    }
+
+    &-danger {
+        background-color: $danger-color;
+        color: white;
+
+        &:hover {
+            background-color: $danger-color--light;
+        }
+    }
+
+    &-disabled {
+        background-color: #ccc;
+        color: #666;
+    }
+}
