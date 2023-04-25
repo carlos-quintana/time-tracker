@@ -1,4 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close';
+import { MouseEventHandler } from 'react';
 
 type Props = {
     children: any,
@@ -39,8 +40,7 @@ const Modal = ({
     return (
         <article
             className={`modal ${isOpen && "modal--is-open"}`}
-            // @ts-ignore
-            onClick={closeModal}
+            onClick={closeModal as MouseEventHandler<HTMLButtonElement>}
         >
             <div
                 className="modal__container"
@@ -50,36 +50,31 @@ const Modal = ({
                     <h2 className="modal__title">{modalTitle}</h2>
                     <button
                         className="modal__close button button-danger"
-                        // @ts-ignore
-                        onClick={closeModal}
+                        onClick={closeModal as MouseEventHandler<HTMLButtonElement>}
                     >
                         <CloseIcon />
                     </button>
                 </div>
                 <div className="modal__content">
                     {children}
-
                 </div>
+
                 <div className="modal__footer">
-
-
-                    <button
-                        className={`button ${hasConfirmation ? "button-warning" : "button-success"}`}
-                        // @ts-ignore
-                        onClick={closeModal}
-                    >
-                        {hasConfirmation ? "Cancel" : "Okay"}
-                    </button>
                     {
                         hasConfirmation &&
                         <button
-                            className="button button-success"
+                            className="button button-primary"
                             onClick={handleConfirmation}
                         >
                             {confirmationButtonText}
                         </button>
                     }
-
+                    <button
+                        className={`button ${hasConfirmation ? "" : "button-primary"}`}
+                        onClick={closeModal as MouseEventHandler<HTMLButtonElement>}
+                    >
+                        {hasConfirmation ? "Cancel" : "Okay"}
+                    </button>
                 </div>
             </div>
         </article>

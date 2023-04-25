@@ -1,3 +1,49 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#root {
+  background-color: rgba(238, 238, 238, 0.6666666667);
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+@media (min-width: 1500px) {
+  #root {
+    width: 80rem;
+  }
+}
+@media (max-width: 550px) {
+  #root {
+    width: 97.5%;
+  }
+}
+#root > header,
+#root > div,
+#root > section,
+#root > footer {
+  width: 100%;
+}
+
+header {
+  background-color: #1f70c0;
+  color: white;
+  padding: 1rem 1rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
 .modal {
   position: fixed;
   z-index: 500;
@@ -97,53 +143,7 @@
   margin-inline: 0.5rem;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
-}
-
-#root {
-  background-color: rgba(238, 238, 238, 0.6666666667);
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-@media (min-width: 1500px) {
-  #root {
-    width: 80rem;
-  }
-}
-@media (max-width: 550px) {
-  #root {
-    width: 97.5%;
-  }
-}
-#root > header,
-#root > div,
-#root > section,
-#root > footer {
-  width: 100%;
-}
-
-header {
-  background-color: #1f70c0;
-  color: white;
-  padding: 1rem 1rem;
-  border-radius: 0.5rem 0.5rem 0 0;
-}
-
-.round-box, .row-task .editable, input, button {
+.round-box, .row-task .editable, button, input {
   display: inline-flex;
   align-items: center;
   min-height: 1.75rem;
@@ -154,12 +154,19 @@ header {
   color: #111;
 }
 
+.input--invalid {
+  border: 1px solid red;
+}
+.input--invalid:focus {
+  border: 1px solid red;
+}
+
 input:focus {
   border: #4b9aee 1px solid;
   outline: 0;
 }
 
-.button, footer a {
+.button {
   margin-inline: 0.25rem;
   font-size: 0.8rem;
   font-weight: bold;
@@ -168,7 +175,7 @@ input:focus {
   border: 0;
   cursor: pointer;
 }
-.button:hover, footer a:hover {
+.button:hover {
   box-shadow: 0 3px 5px 0 #aaa;
 }
 .button-primary {
@@ -202,11 +209,6 @@ input:focus {
 .button-disabled {
   background-color: #ccc;
   color: #666;
-}
-
-.mui-icon {
-  display: flex;
-  align-items: center;
 }
 
 /*
@@ -375,7 +377,6 @@ input:focus {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border: #98a5cf 1px solid;
   padding: 1px;
   border-radius: 0.25rem;
 }
@@ -506,14 +507,19 @@ input:focus {
   }
 }
 
-.dropdown-display {
+.dropdown {
+  /* The button shown in the task row that opens the dropdown */
+  user-select: none;
+  /* The floating box that displays all the options */
+}
+.dropdown__display {
   width: 100%;
   flex-grow: 1;
   transition: 0.3s;
   background-color: #e6e6e6;
   font-size: 0.9rem;
 }
-.dropdown-display-text {
+.dropdown__display-text {
   flex-grow: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -522,10 +528,10 @@ input:focus {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.dropdown-display-text-default {
+.dropdown__display-text-default {
   color: #555;
 }
-.dropdown-display-arrow {
+.dropdown__display-arrow {
   height: 1.25rem;
   min-width: 1.25rem;
   display: inline-flex;
@@ -533,12 +539,12 @@ input:focus {
   justify-content: center;
   pointer-events: none;
 }
-.dropdown-display:hover {
+.dropdown__display:hover {
   background-color: white;
   color: #555;
   cursor: pointer;
 }
-.dropdown-reset {
+.dropdown__reset {
   background-color: unset;
   border: none;
   margin-left: 0.5rem;
@@ -546,22 +552,24 @@ input:focus {
   min-height: unset;
   cursor: pointer;
 }
-.dropdown-reset .mui-icon {
+.dropdown__reset .mui-icon {
   color: #666;
   border-radius: 50%;
   transition: 0.3s;
 }
-.dropdown-reset .mui-icon:hover {
+.dropdown__reset .mui-icon:hover {
   box-shadow: 0 1px 2px 0 #666;
 }
-.dropdown-body {
-  background-color: #aaaaaa;
+.dropdown__body {
+  background-color: #eee;
+  border: 1px #aaa solid;
+  box-shadow: 0 1px 2px 0 #666;
   position: absolute;
   z-index: 2;
   padding: 0.25rem;
+  border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
-  border-radius: 0.5rem;
   min-height: 10.5rem;
   max-height: 10.5rem;
   width: min(17rem, 95%);
@@ -570,29 +578,26 @@ input:focus {
   white-space: nowrap;
   font-size: 0.9rem;
 }
-.dropdown-result {
-  margin: 0.25rem 0.1rem;
-  padding: 0.25rem 0.1rem 0.1rem 0.5rem;
-  background-color: #cecece;
-  border-radius: 0.5rem;
+.dropdown__search {
+  margin-bottom: 0.25rem;
+}
+.dropdown__item {
+  padding: 0.2rem;
+  padding-left: 0.5rem;
   transition: 0.2s;
+  border-bottom: solid 1px #aaa;
 }
-.dropdown-result:hover {
-  background-color: white;
+.dropdown__item:hover {
+  background-color: #ccc;
   cursor: pointer;
 }
-.dropdown-create {
-  margin: 0;
-  background-color: #cecece;
+.dropdown__create {
+  margin-top: 0.5rem;
+  overflow-x: hidden;
 }
-.dropdown-create:hover {
-  background-color: white;
+.dropdown__create:hover {
+  background-color: #cde3ff;
   cursor: pointer;
-}
-
-.compact {
-  font-size: 0.85rem !important;
-  padding-inline: 0.15rem;
 }
 
 .projects-container {
@@ -636,7 +641,7 @@ input:focus {
   font-size: 0.85rem;
 }
 
-footer {
+.footer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -647,7 +652,7 @@ footer {
   margin-top: 1.5rem;
   padding-block: 2rem;
 }
-footer a {
+.footer a {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -661,9 +666,14 @@ footer a {
   box-shadow: 0 1px 2px 0 #5a81ff;
   transition: 0.3s;
 }
-footer a:hover {
+.footer a:hover {
   background-color: #5c9bda;
   box-shadow: 0 3px 5px 0 #314997;
+}
+
+.mui-icon {
+  display: flex;
+  align-items: center;
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -191,7 +191,7 @@ export default function App() {
       <section className="data-reset">
         <ControlsPanel />
       </section>
-      <footer>
+      <footer className="footer">
         <h4>This demo was created by Carlos Quintana</h4>
         <a href="https://carlos-quintana.github.io/" target="_blank" rel="noreferrer">
           <WorkOutlineIcon /> See my Web Portfolio and other Projects

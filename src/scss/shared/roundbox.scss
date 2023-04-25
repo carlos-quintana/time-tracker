@@ -9,3 +9,11 @@
     background-color: white;
     color: #111;
 }
+
+.input--invalid {
+    border: 1px solid red;
+
+    &:focus {
+        border: 1px solid red;
+    }
+}
