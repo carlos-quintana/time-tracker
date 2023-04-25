@@ -11,7 +11,7 @@ import usePopover from "../../hooks/usePopover";
  * @type {Number}
  * @memberof Component_InputTimer
  */
-const TIMER_INTERVAL_MS: number = 100; // TODO: Reset to 1000 ms
+const TIMER_INTERVAL_MS: number = 1000
 
 /**
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
