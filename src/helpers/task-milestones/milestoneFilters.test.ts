@@ -1,4 +1,4 @@
-import { isSameDay, isYesterday } from "./milestoneFilters";
+import { isSameDay, isFuture, isYesterday, isPastWeek } from "./milestoneFilters";
 
 describe("Test milestone filter for Today", () => {
     test("Validate a correct today", () => {
@@ -19,37 +19,87 @@ describe("Test milestone filter for Today", () => {
     });
 });
 
+describe("Test milestone filter for Future", () => {
+    test("Validate a correct future", () => {
+        // One day and one hour ahead 
+        let dateBase = new Date("2023-03-01 23:30");
+        let dateFuture = new Date("2023-03-02 00:30");
+        expect(isFuture(dateBase, dateFuture)).toBe(true);
+        // Three days ahead
+        dateBase = new Date("2023-03-01 08:00");
+        dateFuture = new Date("2023-03-04 09:30");
+        expect(isFuture(dateBase, dateFuture)).toBe(true);
+        // Same day but ahead - It is important to have the Today filter first 
+        dateBase = new Date("2023-03-01 08:00");
+        dateFuture = new Date("2023-03-01 10:00");
+        expect(isFuture(dateBase, dateFuture)).toBe(true);
+    });
+    test("Validate an incorrect future on a previous day", () => {
+        // Previous day
+        let dateBase = new Date("2023-03-03 08:00");
+        let dateFuture = new Date("2023-03-01 10:00");
+        expect(isFuture(dateBase, dateFuture)).toBe(false);
+    });
+});
+
 describe("Test milestone filter for Yesterday", () => {
     test("Validate a correct yesterday", () => {
         // Different days, one hour of difference
-        let dateToTest = new Date("Mar 03 2023 00:00");
+        let dateBase = new Date("Mar 03 2023 00:00");
         let dateYesterday = new Date("Mar 02 2023 23:30");
-        expect(isYesterday(dateToTest, dateYesterday)).toBe(true);
+        expect(isYesterday(dateBase, dateYesterday)).toBe(true);
         // Different days, 48 hours minus one minute of difference
-        dateToTest = new Date("Mar 03 2023 23:59");
+        dateBase = new Date("Mar 03 2023 23:59");
         dateYesterday = new Date("Mar 02 2023 00:00");
-        expect(isYesterday(dateToTest, dateYesterday)).toBe(true);
+        expect(isYesterday(dateBase, dateYesterday)).toBe(true);
     });
     test("Validate a correct yesterday different month", () => {
         // Different days, one hour of difference
-        let dateToTest = new Date("Mar 01 2023 06:00");
+        let dateBase = new Date("Mar 01 2023 06:00");
         let dateYesterday = new Date("Feb 28 2023 18:30");
-        expect(isYesterday(dateToTest, dateYesterday)).toBe(true);
+        expect(isYesterday(dateBase, dateYesterday)).toBe(true);
     });
     test("Validate a correct yesterday different year", () => {
         // Different days, one hour of difference
-        let dateToTest = new Date("Jan 01 2023 06:00");
+        let dateBase = new Date("Jan 01 2023 06:00");
         let dateYesterday = new Date("Dec 31 2022 18:30");
-        expect(isYesterday(dateToTest, dateYesterday)).toBe(true);
+        expect(isYesterday(dateBase, dateYesterday)).toBe(true);
     });
     test("Validate an incorrect yesterday", () => {
         // One day in between 
-        let dateToTest = new Date("Mar 01 2023 23:59");
+        let dateBase = new Date("Mar 01 2023 23:59");
         let dateYesterday = new Date("Mar 03 2023 00:00");
-        expect(isYesterday(dateToTest, dateYesterday)).toBe(false);
+        expect(isYesterday(dateBase, dateYesterday)).toBe(false);
         // Same day 
-        dateToTest = new Date("Mar 03 2023 23:59");
+        dateBase = new Date("Mar 03 2023 23:59");
         dateYesterday = new Date("Mar 03 2023 00:00");
-        expect(isYesterday(dateToTest, dateYesterday)).toBe(false);
+        expect(isYesterday(dateBase, dateYesterday)).toBe(false);
+    });
+})
+
+describe("Test milestone filter for Past Week", () => {
+    test("Validate a correct past week", () => {
+        // The previous day
+        let dateBase = new Date("Mar 03 2023 08:00");
+        let datePastWeek = new Date("Mar 02 2023 08:00");
+        expect(isPastWeek(dateBase, datePastWeek)).toBe(true);
+        // Three days before
+        dateBase = new Date("Mar 03 2023 08:00");
+        datePastWeek = new Date("Feb 28 2023 08:00");
+        expect(isPastWeek(dateBase, datePastWeek)).toBe(true);
+        // Seven days before
+        dateBase = new Date("Mar 03 2023 08:00");
+        datePastWeek = new Date("Feb 24 2023 09:00");
+        expect(isPastWeek(dateBase, datePastWeek)).toBe(true);
+    });
+    test("Validate an incorrect past week", () => {
+        // Eight days before
+        let dateBase = new Date("Mar 03 2023 09:00");
+        let datePastWeek = new Date("Feb 22 2023 23:00");
+        expect(isPastWeek(dateBase, datePastWeek)).toBe(false);
+        // In the future 
+        dateBase = new Date("Mar 03 2023 08:00");
+        datePastWeek = new Date("Mar 04 2023 08:00");
+        expect(isPastWeek(dateBase, datePastWeek)).toBe(false);
     });
 })
