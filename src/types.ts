@@ -31,3 +31,7 @@ export type MilestoneFilter = {
     title: string,
     filter: Function
 };
+
+export type MappedTasksToMilestones = {
+    [key: string]: Milestone
+}

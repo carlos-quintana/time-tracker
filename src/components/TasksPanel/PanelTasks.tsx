@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import TaskRow from "./TaskRow";
-import { Task, Project, CurrentTask } from "../../types";
+import { Task, Project, CurrentTask, MappedTasksToMilestones } from "../../types";
 import mapTasksToMilestone from "../../helpers/task-milestones/milestones";
 
 type Props = {
@@ -25,7 +25,7 @@ type Props = {
  */
 const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, setCurrentTask, projectsList, createProject }: Props) => {
 
-    const [mappedTasks, setMappedTasks] = useState<Object>({});
+    const [mappedTasks, setMappedTasks] = useState<MappedTasksToMilestones>({});
     const currentDate = useRef(new Date());
 
     useEffect(() => {

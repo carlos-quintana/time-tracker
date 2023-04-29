@@ -1,4 +1,4 @@
-import { Task, Milestone } from "../../types";
+import { Task, Milestone, MappedTasksToMilestones } from "../../types";
 import { FILTERS } from "./milestoneFilters";
 
 /**
@@ -7,9 +7,9 @@ import { FILTERS } from "./milestoneFilters";
  * @param {Date} currentDate - The date of the system of the user, as these values are calculated relative to it.
  * @param {Array<Task>} tasksList - The list of tasks to be categorized.
  * @param {Array<Task>} [filters] - The array of milestone filters to be evaluated. Default value is the filters coming from a separate file where they're declared and implemented.
- * @returns {Object} An object containing the different milestones extracted from the tasks, each containing a title and the list of tasks.
+ * @returns {MappedTasksToMilestones} An object containing the different milestones extracted from the tasks, each containing a title and the list of tasks.
  */
-const mapTasksToMilestone = (currentDate: Date, tasksList: Task[], filters = FILTERS): object => {
+const mapTasksToMilestone = (currentDate: Date, tasksList: Task[], filters = FILTERS): MappedTasksToMilestones => {
     let newMappedTasks: any = {};
 
     tasksList.forEach(task => {
