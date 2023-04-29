@@ -506,6 +506,11 @@ input:focus {
     display: none;
   }
 }
+.row-task__date-header {
+  font-style: italic;
+  color: #666;
+  margin-left: 3rem;
+}
 
 .dropdown {
   /* The button shown in the task row that opens the dropdown */
