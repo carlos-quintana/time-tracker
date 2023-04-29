@@ -27,11 +27,12 @@ const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, 
 
     const [mappedTasks, setMappedTasks] = useState<MappedTasksToMilestones>({});
     const currentDate = useRef(new Date());
+    const latestHeader = useRef<string>("");
 
     useEffect(() => {
         console.log(`Going to set Mapped Tasks`)
         setMappedTasks(
-            mapTasksToMilestone( 
+            mapTasksToMilestone(
                 // Pass in the date which the milestones will be calculated around
                 currentDate.current,
                 // Set the organized tasks to display to an object that has them organized into milestones
@@ -45,21 +46,34 @@ const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, 
         )
     }, [givenTasks])
 
+    const getHeader = (timestamp: number): string =>
+        new Date(timestamp).toLocaleDateString("en-US", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+
+    const shouldUpdateHeader = (newHeader: string): boolean => {
+        if (latestHeader.current === newHeader) return false;
+        // This might be an unwanted side effect happening in the JSX rendering, gotta figure out a way to do this better
+        latestHeader.current = newHeader;
+        return true;
+    }
+
     return (
         <section>
-            {Object.keys(mappedTasks).map(milestone =>
+            {Object.keys(mappedTasks).map((milestone: string) =>
                 // This represents each one of the separators in the list of tasks
                 <>
                     <h3
-                        // @ts-ignore
                         key={mappedTasks[milestone].title}>
-                        {// @ts-ignore
-                            mappedTasks[milestone].title}
+                        {mappedTasks[milestone].title}
                     </h3>
-                    {// @ts-ignore
-                        mappedTasks[milestone].tasks.map(task =>
+                    {
+                        mappedTasks[milestone].tasks.map((task: Task) =>
                             <>
-                                {<TaskRow
+                                {
+                                    // This is basically: If the (date) header for this task row has already been used before, do not render it
+                                    shouldUpdateHeader(getHeader(task.interval.start)) &&
+                                    <h5 className="row-task__date-header">{getHeader(task.interval.start)}</h5>
+                                }
+                                <TaskRow
                                     key={task.id}
                                     task={task}
                                     deleteTask={() => deleteTask(task.id)}
@@ -68,9 +82,10 @@ const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, 
                                     setCurrentTask={setCurrentTask}
                                     projectsList={projectsList}
                                     createProject={createProject}
-                                />}
+                                />
                             </>
-                        )}
+                        )
+                    }
                 </>
             )}
         </section>

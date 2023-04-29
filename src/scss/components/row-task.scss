@@ -245,4 +245,10 @@
             display: none;
         }
     }
+
+    &__date-header {
+        font-style: italic;
+        color: #666;
+        margin-left: 3rem;
+    }
 }
