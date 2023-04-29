@@ -30,6 +30,7 @@ const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, 
     const latestHeader = useRef<string>("");
 
     useEffect(() => {
+        if (givenTasks.length < 1) return;
         console.log(`Going to set Mapped Tasks`)
         setMappedTasks(
             mapTasksToMilestone(
