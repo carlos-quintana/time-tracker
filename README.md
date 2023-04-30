@@ -107,6 +107,7 @@ This will run all the tests in the src directory.
 - JSDoc
 - React Popper
 - Material UI Icons
+- Jest
 
 ## Get in touch
 
