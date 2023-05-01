@@ -115,4 +115,4 @@ Let's get in touch through:
 
 [💼 LinkedIn](https://linkedin.com/in/carlos-quintana-dev)
 
-*Last update: April of 2023*
+*Last update: May of 2023*
