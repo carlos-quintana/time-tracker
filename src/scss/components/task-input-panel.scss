@@ -118,7 +118,7 @@
     }
 }
 
-.button-submit-task {
+.button-submit-task, .button-cancel-task {
     min-width: 10rem;
     display: inline-flex;
     justify-content: center;
@@ -126,5 +126,8 @@
 
 .button-submit-task-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    row-gap: 3px;
 }

@@ -127,17 +127,29 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         // However, given that we can modify the speed of the timer for testing purpouses we will take that into account and adjust the timestamps for this duration. In a normal setting where each tick is 1000ms this adjustment would be 1.0
         let adjustment = (1000 / TIMER_INTERVAL_MS);
         let endTimestamp = starterTimestamp.current + duration * adjustment;
-        //      Stop the timer
-        setTimerStatus("stopped");
-        //      Submit the new task
+        // Submit the new task
         handleSubmit(taskName, { start: starterTimestamp.current, end: endTimestamp }, taskProject || undefined);
-        //      Reset the form
+        resetForm()
+    }
+
+    const resetForm = () => {
+        // Stop the timer
+        setTimerStatus("stopped");
+        // Reset the form
         setTaskName("");
         setTaskProject(null);
         setDropdownResetTrigger(dropdownResetTrigger + 1); // Trigger a useEffect hook in the child component to change state
         setSecondsToDisplay(0);
-        //      Change the state of the variable in the App component too
+        // Change the state of the variable in the App component too
         setCurrentTask(null);
+    }
+
+    const handleCancelTask = (event: any) => {
+        event.preventDefault()
+        if (secondsToDisplay > 59)
+            openPopoverConfirmCancel()
+        else
+            resetForm()
     }
 
     /**
@@ -163,6 +175,11 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         setRefFocusElement: setRefFocusElementButton,
         popoverProps: popoverPropsButton } = usePopover(true);
     let popoverErrorMessageButton = useRef("");
+    /** This is for the confirmation popover that appears over the button when attempting to cancel a task that's been running for one minute or more  */
+    const { openPopover: openPopoverConfirmCancel,
+        closePopover: closePopoverConfirmCancel,
+        setRefFocusElement: setRefFocusElementConfirmCancel,
+        popoverProps: popoverPropsConfirmCancel } = usePopover(true);
 
 
     return (
@@ -211,13 +228,23 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
                             Start
                         </button>}
                     {timerStatus === "running" &&
-                        <input id="submitNewTask"
-                            name="submitNewTask"
-                            className="button button-submit-task button button-danger"
-                            type="submit"
-                            value="Stop"
-                            ref={setRefFocusElementButton}
-                        />}
+                        <>
+                            <input id="submitNewTask"
+                                name="submitNewTask"
+                                className="button button-submit-task button button-danger"
+                                type="submit"
+                                value="Stop"
+                                ref={setRefFocusElementButton}
+                            />
+                            <button
+                                className="button button-cancel-task"
+                                onClick={handleCancelTask}
+                                ref={setRefFocusElementConfirmCancel}
+                            >
+                                Cancel
+                            </button>
+                        </>
+                    }
                 </div>
             </form>
             <Popover {...popoverPropsInput}>
@@ -227,12 +254,22 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
             <Popover {...popoverPropsButton}>
                 <h1 className="popover__title popover__title--danger">Error</h1>
                 <p className="popover__text">{popoverErrorMessageButton.current}</p>
-                <button className="button" onClick={
-                    () => {
-                        if (inputRef.current) inputRef.current.focus()
-                        closePopoverButton();
-                    }
-                }>Okay</button>
+                <button className="button" onClick={() => {
+                    if (inputRef.current) inputRef.current.focus()
+                    closePopoverButton();
+                }}>
+                    Okay
+                </button>
+            </Popover >
+            <Popover {...popoverPropsConfirmCancel}>
+                <h1 className="popover__title popover__title--warning">Warning</h1>
+                <p className="popover__text">Are you sure you want to cancel this task?</p>
+                <button className="button" onClick={() => {
+                    resetForm()
+                    closePopoverConfirmCancel();
+                }}>
+                    Confirm
+                </button>
             </Popover >
         </div>
     )
