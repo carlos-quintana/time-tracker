@@ -66,7 +66,7 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
     /** This will set the current Task to a Task with the same details as this one starting from the moment the button is pressed. */
     const handleRestartTask = () => {
         if (currentTask)
-            alert("There is an active task currently running in the timer. To restart this task please stop the active task")  // TODO: Implement a better alert system, maybe a modal or a tooltip
+            openRestartPopover()
         else
             setCurrentTask({ name: task.name, start: Date.now(), project: task.project })
     }
@@ -83,6 +83,19 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
     const handleClickDeletePopover = () => {
         closeDeletePopover();
         deleteTask()
+    }
+
+    /** This relates to the popover that will appear over the delete button when clicked */
+    const {
+        openPopover: openRestartPopover,
+        closePopover: closeRestartPopover,
+        setRefFocusElement: setRefRestartButton,
+        popoverProps: restartPopoverProps,
+    } = usePopover();
+
+    const handleClickRestartPopover = () => {
+        closeRestartPopover();
+        setCurrentTask({ name: task.name, start: Date.now(), project: task.project })
     }
 
     return (
@@ -170,9 +183,25 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                 <button
                     className="button button-primary"
                     onClick={handleRestartTask}
+                    ref={setRefRestartButton}
                 >
                     Restart
                 </button>
+                {/* Restart confirmation popover */}
+                <Popover {...restartPopoverProps}>
+                    <h1 className="popover__title popover__title--warning">Warning</h1>
+                    <p className="popover__text">There is another task running in the timer. Do you want to cancel it and restart this one?</p>
+                    <button
+                        className="button"
+                        onClick={closeRestartPopover}>
+                        Cancel
+                    </button>
+                    <button
+                        className="button button-warning"
+                        onClick={handleClickRestartPopover}>
+                        Confirm
+                    </button>
+                </Popover>
                 {/* Task delete button */}
                 <button
                     className={`button button-danger ${isOpenDeletePopover && "button-danger-focus"}`}
