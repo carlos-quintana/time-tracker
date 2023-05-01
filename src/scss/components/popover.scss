@@ -25,6 +25,11 @@
             background-color: $primary-color;
         }
 
+        &--warning {
+            background-color: $warning-color;
+            color: #222;
+        }
+
         &--danger {
             background-color: $danger-color;
         }
@@ -37,18 +42,4 @@
         margin-block: 0.25rem;
         margin-inline: 0.5rem;
     }
-
-    /* This was not a good idea, as in small viewports it probably won't point at the right place
-    // A small arrow coming from the bottom of the tooltip
-    &::after {
-        content: " ";
-        position: absolute;
-        top: 100%;
-        // At the bottom of the tooltip 
-        left: 50%;
-        margin-left: -10px;
-        border-width: 10px;
-        border-style: solid;
-        border-color: #eee transparent transparent transparent;
-    }*/
 }

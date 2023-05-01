@@ -108,19 +108,6 @@ header {
   min-width: 10rem;
   max-width: 12rem;
   position: relative;
-  /* This was not a good idea, as in small viewports it probably won't point at the right place
-  // A small arrow coming from the bottom of the tooltip
-  &::after {
-      content: " ";
-      position: absolute;
-      top: 100%;
-      // At the bottom of the tooltip 
-      left: 50%;
-      margin-left: -10px;
-      border-width: 10px;
-      border-style: solid;
-      border-color: #eee transparent transparent transparent;
-  }*/
 }
 .popover__title {
   font-size: 1rem;
@@ -131,6 +118,10 @@ header {
 }
 .popover__title--primary {
   background-color: #1f70c0;
+}
+.popover__title--warning {
+  background-color: #ffd519;
+  color: #222;
 }
 .popover__title--danger {
   background-color: #ca3e3e;
