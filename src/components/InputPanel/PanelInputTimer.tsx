@@ -49,6 +49,8 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
     const [dropdownResetTrigger, setDropdownResetTrigger] = useState(0);
     /** This variable will hold the timestamp where the timer is started, giving the first half of the Interval the new task will have. The ending timestamp will be calculated when the timer is stopped. */
     let starterTimestamp = useRef(0);
+    /**  */
+    let inputRef = useRef<null | HTMLInputElement>(null);
 
     /** Whenever the currentTask given changes for a valid CurrentTask we will assign this to the form fields and activate the timer. */
     useEffect(() => {
@@ -103,6 +105,11 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         let newCurrentTask: CurrentTask = { name: taskName, start: starterTimestamp.current };
         setCurrentTask(newCurrentTask);
         setTimerStatus("running");
+        if (taskName === "" && inputRef.current) {
+            popoverErrorMessageInput.current = "Please input the name of the task";
+            openPopoverInput();
+            inputRef.current.focus()
+        }
     }
 
     /** When the timer is stopped not only it should stop counting seconds, but immediately validate and submit the form for the creation of a new task */
@@ -162,16 +169,20 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
         <div>
             <form onSubmit={handleStopTimer}>
                 <div className="input-task-info">
-                    {/* Task Name Input */}
-                    <input id="newTaskInput"
-                        name="newTaskInput"
-                        className="round-box"
-                        type="text"
-                        value={taskName}
-                        onChange={handleNameChange}
-                        placeholder="Input what you're working on"
+                    <div className="task-name-container"
                         ref={setRefFocusElementInput}
-                    />
+                    >
+                        {/* Task Name Input */}
+                        <input id="newTaskInput"
+                            name="newTaskInput"
+                            className="task-name-input round-box"
+                            type="text"
+                            value={taskName}
+                            onChange={handleNameChange}
+                            placeholder="Input what you're working on"
+                            ref={inputRef}
+                        />
+                    </div>
                     {/* Task project Dropdown */}
                     <DropdownSearch
                         defaultText={"Assign a project"}
@@ -216,7 +227,12 @@ const InputTimer = ({ handleSubmit, currentTask, setCurrentTask, projectsList, c
             <Popover {...popoverPropsButton}>
                 <h1 className="popover__title popover__title--danger">Error</h1>
                 <p className="popover__text">{popoverErrorMessageButton.current}</p>
-                <button className="button" onClick={closePopoverButton}>Okay</button>
+                <button className="button" onClick={
+                    () => {
+                        if (inputRef.current) inputRef.current.focus()
+                        closePopoverButton();
+                    }
+                }>Okay</button>
             </Popover >
         </div>
     )

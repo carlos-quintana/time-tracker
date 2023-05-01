@@ -258,9 +258,12 @@ input:focus {
   justify-content: center;
   gap: 0.2rem;
 }
-.input-task-info > input {
+.input-task-info .task-name-container {
   flex-grow: 5;
   font-size: 0.9rem;
+}
+.input-task-info .task-name-input {
+  width: 100%;
 }
 .input-task-info .dropdown {
   flex-grow: 1;
@@ -270,7 +273,7 @@ input:focus {
   .input-task-info {
     flex-wrap: wrap;
   }
-  .input-task-info > input,
+  .input-task-info .task-name-container,
 .input-task-info .dropdown {
     flex-grow: 0;
     min-width: 100%;

@@ -68,9 +68,13 @@
     justify-content: center;
     gap: 0.2rem;
 
-    &>input {
+    .task-name-container {
         flex-grow: 5;
         font-size: 0.9rem;
+    }
+
+    .task-name-input {
+        width: 100%;
     }
 
     .dropdown {
@@ -79,14 +83,14 @@
     }
 
     @media (max-width:550px) {
-
         flex-wrap: wrap;
 
-        &>input,
+        .task-name-container,
         .dropdown {
             flex-grow: 0;
             min-width: 100%;
         }
+
     }
 }
 
