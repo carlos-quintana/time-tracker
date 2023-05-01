@@ -64,7 +64,8 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
 
     /** This will set the current Task to a Task with the same details as this one starting from the moment the button is pressed. */
     const restartTask = () => {
-        setCurrentTask({ name: task.name, start: Date.now(), project: task.project })
+        setCurrentTask({ name: task.name, start: Date.now(), project: task.project });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     return (
