@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { CurrentTask, Interval, Project, Task } from "../types";
-
+import Cookies from 'universal-cookie';
 // JSON files that contain example dummy data to populate the application
 import exampleTasksFromJSON from "../exampleTasks.json"
 import exampleProjectsFromJSON from "../exampleProjects.json"
@@ -16,6 +16,10 @@ export default function useDataAccess() {
     /** Since we have three useEffect hooks touching the Local Storage we want to avoid overwriting empty data on it when the application renders for the first time, so we use a flag to check if the application is being run for the first time, skip it and disable the flag (This two times, one for the tasks and one for the projects) */
     const firstRenderFlag = useRef([true, true, true]);
 
+    /** We're going to use a cookie to automatically reset all the data after 12 hours. */
+    const cookies = new Cookies();
+    const cookieMaxAge = 60*60*12
+
     /**
      * This useEffect hook is expected to run just once when the application loads. Here we will perform a check on the Local Storage:
      * - If there is no data in the Local Storage it means it's the first time of the user in the page so we load a set of example tasks and example projects from a couple JSON files.
@@ -23,28 +27,30 @@ export default function useDataAccess() {
      */
     useEffect(() => {
         // Here we would retrieve the data from the API with a fetch request, after receiving it we'll compare it to the local storage and if they are inconsitent with each other the user would be presented with a prompt to choose which data to prioritize, as we don't expect a server to be up most of the time
-        let localStorageTasks = localStorage.getItem("tasksList")
-        let localStorageCurrentTask = localStorage.getItem("currentTask")
-        let localStorageProjects = localStorage.getItem("projectsList")
-        if (localStorageTasks === null) {
-            localStorage.clear()
-            let exampleTasks = parseExampleTasks(exampleTasksFromJSON)
-            let exampleProjects = exampleProjectsFromJSON
+        let localStorageTasks = localStorage.getItem("tasksList");
+        let localStorageCurrentTask = localStorage.getItem("currentTask");
+        let localStorageProjects = localStorage.getItem("projectsList");
+        // Reset the data if the localStorageTasks value is null. Not to be confused with having zero tasks, as the value localStorageTasks would exist as an empty array. This means that the localStorage does not have this key. Also reset the data if the cookie has expired.
+        if (localStorageTasks === null || !cookies.get('autoReset')) {
+            cookies.set('autoReset', 'true', { maxAge: cookieMaxAge })
+            localStorage.clear();
+            let exampleTasks = parseExampleTasks(exampleTasksFromJSON);
+            let exampleProjects = exampleProjectsFromJSON;
             localStorage.setItem('tasksList', JSON.stringify(exampleTasks));
-            setTasksList(exampleTasks)
+            setTasksList(exampleTasks);
             localStorage.setItem('projectsList', JSON.stringify(exampleProjects));
-            setProjectsList(exampleProjects)
+            setProjectsList(exampleProjects);
         }
         else {
             setTasksList(JSON.parse(localStorageTasks))
             localStorageCurrentTask ?
                 setCurrentTask(JSON.parse(localStorageCurrentTask)) :
-                setCurrentTask(null)
+                setCurrentTask(null);
             localStorageProjects ?
                 setProjectsList(JSON.parse(localStorageProjects)) :
-                setProjectsList([])
+                setProjectsList([]);
         }
-    }, [])
+    }, []);
 
     /** 
      * Everytime the list of tasks is updated, the Local Storage must be updated as well. This includes actions of creating, editing or removing tasks.
@@ -53,7 +59,7 @@ export default function useDataAccess() {
     useEffect(() => {
         // The first time the component is mounted we will ignore this hook and not set any data in Local Storage. Otherwise it would overwrite it with empty data (As the first useState hook wouldn't be executed yet)
         if (firstRenderFlag.current[0])
-            firstRenderFlag.current[0] = false
+            firstRenderFlag.current[0] = false;
         else
             localStorage.setItem('tasksList', JSON.stringify(tasksList));
     }, [tasksList])
@@ -64,7 +70,7 @@ export default function useDataAccess() {
     useEffect(() => {
         // The first time the component is mounted we will ignore this hook and not set any data in Local Storage. Otherwise it would overwrite it with empty data (As the first useState hook wouldn't be executed yet)
         if (firstRenderFlag.current[1])
-            firstRenderFlag.current[1] = false
+            firstRenderFlag.current[1] = false;
         else
             localStorage.setItem('projectsList', JSON.stringify(projectsList));
     }, [projectsList])
@@ -75,7 +81,7 @@ export default function useDataAccess() {
     useEffect(() => {
         // The first time the component is mounted we will ignore this hook and not set any data in Local Storage. Otherwise it would overwrite it with empty data (As the first useState hook wouldn't be executed yet)
         if (firstRenderFlag.current[2])
-            firstRenderFlag.current[2] = false
+            firstRenderFlag.current[2] = false;
         else
             localStorage.setItem('currentTask', JSON.stringify(currentTask));
     }, [currentTask])
@@ -92,8 +98,8 @@ export default function useDataAccess() {
             name: taskName,
             interval: taskInterval,
             project: projectId
-        }
-        setTasksList([newTaskObject, ...tasksList])
+        };
+        setTasksList([newTaskObject, ...tasksList]);
     }
 
     /**
@@ -102,13 +108,13 @@ export default function useDataAccess() {
      */
     const editTask = (idEdit: number, newTask: Task) => {
         // @TODO: API call would go here
-        setTasksList(tasksList.map((task) => task.id === idEdit ? newTask : task))
+        setTasksList(tasksList.map((task) => task.id === idEdit ? newTask : task));
     }
 
     /** @param {Number} idDelete - The id of the Task to delete */
     const deleteTask = (idDelete: number) => {
         // @TODO: API call would go here
-        setTasksList(tasksList.filter(el => el.id !== idDelete))
+        setTasksList(tasksList.filter(el => el.id !== idDelete));
     }
 
     /**
@@ -121,8 +127,8 @@ export default function useDataAccess() {
         let newProject: Project = {
             id: Date.now(),
             name: projectName
-        }
-        setProjectsList([newProject, ...projectsList])
+        };
+        setProjectsList([newProject, ...projectsList]);
         return newProject.id;
     }
 
@@ -134,7 +140,7 @@ export default function useDataAccess() {
         // @TODO: API call would go here
         setProjectsList(
             projectsList.map(project =>
-                project.id === idEdit ? newProject : project))
+                project.id === idEdit ? newProject : project));
     }
 
     /**
@@ -149,8 +155,8 @@ export default function useDataAccess() {
                     { ...task, project: undefined } :
                     task
             )
-        )
-        setProjectsList(projectsList.filter(el => el.id !== idDelete))
+        );
+        setProjectsList(projectsList.filter(el => el.id !== idDelete));
     }
 
     return {
@@ -164,6 +170,6 @@ export default function useDataAccess() {
         createProject,
         editProject,
         deleteProject,
-    }
+    };
 
 }
