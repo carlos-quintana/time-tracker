@@ -148,7 +148,7 @@
     },
     {
         "offset": -8,
-        "task": "Fix bug #1565154 (contact page not responsive)",
+        "task": "Fix bug #156 (contact page not responsive)",
         "start": "15:50",
         "end": "17:50",
         "project": "3000"
