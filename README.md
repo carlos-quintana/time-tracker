@@ -101,13 +101,14 @@ This will run all the tests in the src directory.
 - React
 - JavaScript
 - TypeScript
+- Jest
 - NPM
 - Vite
 - SASS
 - JSDoc
 - React Popper
 - Material UI Icons
-- Jest
+- Universal Cookie
 
 ## Get in touch
 
