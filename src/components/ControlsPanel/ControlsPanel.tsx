@@ -12,7 +12,7 @@ const ControlsPanel = () => {
     }
 
     return (
-        <>
+        <div className="data-reset">
             <button className="button button-warning" onClick={openModalReset} >
                 Reset data
             </button>
@@ -25,7 +25,7 @@ const ControlsPanel = () => {
             >
                 <p>This will reset all Tasks and Projects to the example data.</p>
             </Modal>
-        </>
+        </div>
     );
 }
 

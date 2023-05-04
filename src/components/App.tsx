@@ -1,11 +1,9 @@
+import Header from "./Header";
+import Footer from "./Footer";
 import PanelInputs from "./InputPanel/PanelInputs"
 import PanelTasks from "./TasksPanel/PanelTasks"
 import PanelProjects from "./ProjectsPanel/PanelProjects"
 import ControlsPanel from "./ControlsPanel/ControlsPanel"
-// Material Icons
-import GitHubIcon from '@mui/icons-material/GitHub';
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
 // Data Access Logic
 import useDataAccess from "../hooks/useDataAccess";
 
@@ -27,47 +25,24 @@ export default function App() {
 
   return (
     <>
-      <header>
-        <h2>Time Tracker application</h2>
-      </header>
+      <Header />
       <PanelInputs
         createNewTask={createNewTask}
-        currentTask={currentTask}
-        setCurrentTask={setCurrentTask}
-        projectsList={projectsList}
-        createProject={createProject}
+        currentTask={currentTask} setCurrentTask={setCurrentTask}
+        projectsList={projectsList} createProject={createProject}
       />
       <PanelTasks
-        tasksList={tasksList}
-        editTask={editTask}
-        deleteTask={deleteTask}
-        currentTask={currentTask}
-        setCurrentTask={setCurrentTask}
-        projectsList={projectsList}
-        createProject={createProject}
+        tasksList={tasksList} editTask={editTask} deleteTask={deleteTask}
+        currentTask={currentTask} setCurrentTask={setCurrentTask}
+        projectsList={projectsList} createProject={createProject}
       />
       <PanelProjects
         tasksList={tasksList}
-        projectsList={projectsList}
-        createProject={createProject}
-        editProject={editProject}
-        deleteProject={deleteProject}
+        projectsList={projectsList} createProject={createProject} 
+        editProject={editProject} deleteProject={deleteProject}
       />
-      <section className="data-reset">
-        <ControlsPanel />
-      </section>
-      <footer className="footer">
-        <h4>This demo was created by Carlos Quintana</h4>
-        <a href="https://carlos-quintana.github.io/" target="_blank" rel="noreferrer">
-          <WorkOutlineIcon /> See my Web Portfolio and other Projects
-        </a>
-        <a href="https://github.com/carlos-quintana/" target="_blank" rel="noreferrer">
-          <GitHubIcon /> See my GitHub Page
-        </a>
-        <a href="https://www.linkedin.com/in/carlos-quintana-dev/" target="_blank" rel="noreferrer">
-          <LinkedInIcon /> Let's get in touch through LinkedIn
-        </a>
-      </footer>
+      <ControlsPanel />
+      <Footer />
     </>
   )
 }
