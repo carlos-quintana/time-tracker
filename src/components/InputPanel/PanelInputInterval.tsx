@@ -4,6 +4,8 @@ import { Project } from "../../types";
 import DropdownSearch from "../Shared Components/DropdownSearch"
 import usePopover from "../../hooks/usePopover";
 import Popover from "../Shared Components/Popover";
+import { isFuture } from "../../helpers/task-milestones/milestoneFilters";
+import { isSameDay } from "../../helpers/task-milestones/milestoneFilters";
 
 /**
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.
@@ -75,9 +77,19 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
         if (startTimestamp >= endTimestamp) {
             abortSubmit("The times selected are not valid"); return;
         }
-        //      Callback to submit task
+        //      In case the task inputted happens in the future exit this function and open the popover to ask the user for confirmation
+        if (isFuture(new Date(), new Date(startTimestamp)) && !isSameDay(new Date(), new Date(startTimestamp))){
+            openPopoverWarningButton(); return;
+        }
+        
+        submitTask();
+    }
+
+    const submitTask = () =>{
+        let startTimestamp = new Date(startDate + " " + startTime).getTime();
+        let endTimestamp = new Date(endDate + " " + endTime).getTime();
         handleEntrySubmit(taskName, { start: startTimestamp, end: endTimestamp }, taskProject || undefined);
-        resetForm()
+        resetForm();
     }
 
     const resetForm = () => {
@@ -88,6 +100,9 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
         setEndTime("");
         setTaskProject(null); // The state in the panel for which project is selected
         setDropdownResetTrigger(dropdownResetTrigger + 1); // Trigger a useEffect hook in the child component to change the selected state to none. We're on the lookout for a better method to do this.
+        closePopoverInput();
+        closePopoverErrorButton();
+        closePopoverWarningButton();
     }
 
     /**
@@ -107,7 +122,7 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
      */
     const abortSubmit = (message: string) => {
         popoverErrorMessageButton.current = message;
-        openPopoverButton();
+        openPopoverErrorButton();
     }
 
     /** This is for the error popover that appears over the input when validation fails (like when the input is too long) */
@@ -117,24 +132,33 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
         popoverProps: popoverPropsInput } = usePopover(true);
     let popoverErrorMessageInput = useRef("");
     /** This is for the error popover that appears over the button when validation fails (like when the name is empty) */
-    const { openPopover: openPopoverButton,
-        closePopover: closePopoverButton,
-        setRefFocusElement: setRefFocusElementButton,
-        popoverProps: popoverPropsButton } = usePopover(true);
+    const { openPopover: openPopoverErrorButton,
+        closePopover: closePopoverErrorButton,
+        setRefFocusElement: setRefFocusElementErrorButton,
+        popoverProps: popoverPropsErrorButton } = usePopover(true);
     let popoverErrorMessageButton = useRef("");
+    /** This is for the warning popover that appears over the button when the user attempts to input a task in the future */
+    const { openPopover: openPopoverWarningButton,
+        closePopover: closePopoverWarningButton,
+        setRefFocusElement: setRefFocusElementWarningButton,
+        popoverProps: popoverPropsWarningButton } = usePopover(true);
 
     return (
         <div>
             <form onSubmit={handleFormSubmit}>
                 <div className="input-task-info">
-                    <input id="taskName"
-                        name="taskName"
-                        type="text"
-                        value={taskName}
-                        onChange={handleNameChange}
-                        placeholder="Input what you're working on"
-                        ref={setRefFocusElementInput}
-                    />
+                    <div className="task-name-container">
+                        {/* Task Name Input */}
+                        <input id="taskName"
+                            name="taskName"
+                            className="task-name-input round-box"
+                            type="text"
+                            value={taskName}
+                            onChange={handleNameChange}
+                            placeholder="Input what you're working on"
+                            ref={setRefFocusElementInput}
+                        />
+                    </div>
                     {/* Task project */}
                     <DropdownSearch
                         defaultText={"Assign a project"}
@@ -181,22 +205,30 @@ const InputCustomInterval = ({ handleSubmit: handleEntrySubmit, projectsList, cr
                         onChange={event => setEndTime(event.target.value)}
                     />
                 </div>
-                <div className="button-submit-task-container">
+                <div className="button-submit-task-container"
+                    ref={setRefFocusElementWarningButton}
+                >
                     <input
                         className="button button-submit-task button button-primary"
                         type="submit"
                         value="Submit"
-                        ref={setRefFocusElementButton} />
+                        ref={setRefFocusElementErrorButton} />
                 </div>
             </form>
             <Popover {...popoverPropsInput}>
                 <h1 className="popover__title popover__title--danger">Error</h1>
                 <p className="popover__text">{popoverErrorMessageInput.current}</p>
             </Popover >
-            <Popover {...popoverPropsButton}>
+            <Popover {...popoverPropsErrorButton}>
                 <h1 className="popover__title popover__title--danger">Error</h1>
                 <p className="popover__text">{popoverErrorMessageButton.current}</p>
-                <button className="button" onClick={closePopoverButton}>Okay</button>
+                <button className="button" onClick={closePopoverErrorButton}>Okay</button>
+            </Popover >
+            <Popover {...popoverPropsWarningButton}>
+                <h1 className="popover__title popover__title--warning">Warning</h1>
+                <p className="popover__text">You're attempting to create a task in the future.<br/> Are you sure you want to create this task?</p>
+                <button className="button" onClick={closePopoverWarningButton}>Cancel</button>
+                <button className="button button-primary" onClick={submitTask}>Confirm</button>
             </Popover >
         </div>
     )
