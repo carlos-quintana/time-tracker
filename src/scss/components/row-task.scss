@@ -208,9 +208,9 @@
         }
     }
 
-    @media (max-width:500px) {
+    @media (max-width:600px) {
         &-hyphen {
-            display: none;
+            display: none !important;
         }
     }
 
