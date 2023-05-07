@@ -2,7 +2,8 @@
 
 nav {
     width: 100%;
-    box-shadow: 0 3px 5px 0 #2228;
+    box-shadow: 0 3px 3px 0 #3334;
+    z-index: 1;
 }
 
 nav ul {
@@ -28,7 +29,7 @@ nav ul li {
 
         &:hover {
             background-color: $primary-color--light;
-            box-shadow: 0 3px 5px 0 #2223;
+            box-shadow: 0 3px 3px 0 #2223;
         }
     }
 }
@@ -39,7 +40,6 @@ nav ul li {
     nav {
         position: fixed;
         top: 60px;
-        z-index: 1;
     }
 
     nav ul {

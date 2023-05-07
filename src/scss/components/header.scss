@@ -2,11 +2,21 @@
 
 header {
     display: flex;
+    align-items: center;
     background-color: $primary-color;
     color: white;
     padding: 1rem 1rem 0.5rem;
     border-radius: 0.5rem 0.5rem 0 0;
 
+    h2 {
+        white-space: nowrap;
+    }
+
+    @media (max-width: 375px) {
+        h2 {
+            font-size: 1.25rem;
+        }
+    }
 }
 
 
