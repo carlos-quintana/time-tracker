@@ -1,9 +1,9 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import PanelInputs from "./InputPanel/PanelInputs"
-import PanelTasks from "./TasksPanel/PanelTasks"
-import PanelProjects from "./ProjectsPanel/PanelProjects"
-import ControlsPanel from "./ControlsPanel/ControlsPanel"
+import Header from "./Pages/Layout/Header";
+import Footer from "./Pages/Layout/Footer";
+import PanelInputs from "./Pages/Tasks/InputPanel/PanelInputs"
+import TasksList from "./Pages/Tasks/TasksList"
+import PanelProjects from "./Pages/Projects/PanelProjects"
+import ControlsPanel from "./Pages/Configuration/ControlsPanel"
 // Data Access Logic
 import useDataAccess from "../hooks/useDataAccess";
 
@@ -31,7 +31,7 @@ export default function App() {
         currentTask={currentTask} setCurrentTask={setCurrentTask}
         projectsList={projectsList} createProject={createProject}
       />
-      <PanelTasks
+      <TasksList
         tasksList={tasksList} editTask={editTask} deleteTask={deleteTask}
         currentTask={currentTask} setCurrentTask={setCurrentTask}
         projectsList={projectsList} createProject={createProject}

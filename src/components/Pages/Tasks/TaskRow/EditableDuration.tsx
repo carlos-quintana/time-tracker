@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react"
-import { secondsToFormattedHMS, formattedHMSToSeconds } from "../../helpers/timeFormatting"
+import { secondsToFormattedHMS, formattedHMSToSeconds } from "../../../../helpers/timeFormatting"
 import InputDuration from "./InputDuration"
-import usePopover from "../../hooks/usePopover";
-import Popover from "../Shared Components/Popover";
-import { Interval } from "../../types";
+import usePopover from "../../../../hooks/usePopover";
+import Popover from "../../../Shared Components/Popover";
+import { Interval } from "../../../../types";
 
 type Props = {
     id: number,

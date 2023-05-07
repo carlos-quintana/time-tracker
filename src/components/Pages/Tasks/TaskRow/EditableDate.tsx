@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from "react"
-import Popover from "../Shared Components/Popover";
-import usePopover from "../../hooks/usePopover";
-import { timestampToHMS, HMSToTimestamp, timestampToTimeToDisplay } from "../../helpers/timeFormatting"
-import { Interval } from "../../types";
+import { timestampToDateSnake, dateSnakeToTimestamp, timestampToDateToDisplay } from "../../../../helpers/timeFormatting"
+import usePopover from "../../../../hooks/usePopover";
+import Popover from "../../../Shared Components/Popover";
+import { Interval } from "../../../../types";
 
 type Props = {
     id: number,
@@ -12,60 +12,53 @@ type Props = {
 }
 
 /**
- * This component will display a time, used for displaying the start and end times for the Tasks. When clicked, this component will allow the user to edit the value with an input of type time.
+ * This component will display a date, used for displaying the start and end dates for the Tasks. When clicked, this component will allow the user to edit the value with an input of type date.
  * @param {Object} props - Component props object
  * @param {Number} props.id - The id of the Task associated to this component object contained in this row, used when setting the id for the input tag.
  * @param {Interval} props.interval - The Interval object of the task, containing its timestamps.
  * @param {function(Interval):void} props.handleIntervalUpdate - Callback function that will be fired when the changes are submitted.
- * @param {"start" | "end"} props.intervalPosition - This value tells us what position of the interval this component represents and modify the logic accordingly when submitting. This is so we can use the same component for both the start and end times.
+ * @param {"start" | "end"} props.intervalPosition - This value tells us what position of the interval this component represents and modify the logic accordingly when submitting. This is so we can use the same component for both the start and end dates.
  */
-const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }: Props) => {
+const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }: Props) => {
 
     /** This will have the timestamp of whichever position was established in the props. */
-    const [tempTimestamp, setTempTimestamp] = useState(intervalPosition === "start" ? start : end);
+    const [tempTimestamp, setTempTimestamp] = useState(intervalPosition === "start" ? start : end)
     /** This value controls the conditional rendering for when the component is in editing mode. */
-    const [isEditingTime, setIsEditingTime] = useState(false);
+    const [isEditingDate, setIsEditingDate] = useState(false)
 
     /** Other components also edit on the interval of the task so it is important to keep listening for changes */
     useEffect(() => setTempTimestamp(intervalPosition === "start" ? start : end), [start, end, intervalPosition])
 
     const handleInputChange = (event: any) => {
-        // The input node keeps the value in the format 'H:MM:SS' so we calculate its timestamp, using also the original timestamp which will have the date
-        let inputTimestamp = HMSToTimestamp(event.target.value, tempTimestamp)
-        setTempTimestamp(inputTimestamp)
+        // The input node keeps the value in the format 'YYYY-MM-DD' so we calculate its timestamp, using also the original timestamp which will have the time
+        let formattedDate = dateSnakeToTimestamp(event.target.value, tempTimestamp)
+        setTempTimestamp(formattedDate)
     }
 
     const handleSubmit = (event: any) => {
-        event.preventDefault();
+        event.preventDefault()
         //      Form Validation
         // This condition is to prevent the HTML time picker component to be cleared and the form submitted
         if (!tempTimestamp) {
-            abortSubmit("The time inputted is not valid"); return;
+            abortSubmit("The date inputted is not valid"); return;
         }
         // Make sure that if both dates happen in the same day, the start time is before the end time (and for more than 1s).
-        // If this component is for the start time and the selected time is after the end.
+        // If this component is for the start date and the selected date is after the end.
         if (intervalPosition === "start" && tempTimestamp > end) {
-            abortSubmit("The starting time cannot be after the end time on the same day"); return;
+            abortSubmit("The starting date and time cannot be after the end date and time"); return;
         }
-        // If this component is for the start time and the selected time is within 1 second of the end.
-        if (intervalPosition === "start" && tempTimestamp > end - 1000) {
-            abortSubmit("The difference must be at least one second"); return;
-        }
-        // If this component is for the end time and the selected time is before the start.
+        // If this component is for the end date and the selected date is before the start.
         if (intervalPosition === "end" && tempTimestamp < start) {
-            abortSubmit("The ending time cannot be before the start time on the same day"); return;
+            abortSubmit("The ending date and time cannot be before the end date and time"); return;
         }
-        // If this component is for the end time and the selected time is within 1 second of the start.
-        if (intervalPosition === "end" && tempTimestamp < start + 1000) {
-            abortSubmit("The difference must be at least one second"); return;
-        }
-        //      Edit Task
+
+        //      Update Task
         if (intervalPosition === "start")
             handleIntervalUpdate({ start: tempTimestamp, end })
         else
             handleIntervalUpdate({ start, end: tempTimestamp })
         //      Cleanup
-        setIsEditingTime(false)
+        setIsEditingDate(false)
     }
 
     /**
@@ -76,7 +69,7 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
         popoverErrorMessage.current = message;
         openPopover();
         setTempTimestamp(intervalPosition === "start" ? start : end)
-        setIsEditingTime(false)
+        setIsEditingDate(false)
     }
 
     /** This is for the error popover that appears when validation fails */
@@ -86,29 +79,29 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
     return (
         <>
             {
-                isEditingTime ?
+                isEditingDate ?
                     <form onSubmit={event => handleSubmit(event)}>
                         <input
-                            id={`${id}-editTask${intervalPosition === "start" ? "Start" : "End"}Time`}
-                            name={`editTask${intervalPosition === "start" ? "Start" : "End"}Time`}
+                            id={`${id}-editTask${intervalPosition === "start" ? "Start" : "End"}Date`}
+                            name={`editTask${intervalPosition === "start" ? "Start" : "End"}Date`}
                             className="editable compact"
-                            type="time"
-                            value={timestampToHMS(tempTimestamp)}
+                            type="date"
+                            value={timestampToDateSnake(tempTimestamp)}
                             onChange={handleInputChange}
-                            step="1"
+                            min={intervalPosition === "start" ? undefined : timestampToDateSnake(start)}
+                            max={intervalPosition === "end" ? undefined : timestampToDateSnake(end)}
                             autoFocus
                             onBlur={event => handleSubmit(event)}
-                            required
                         />
                     </form>
                     :
                     <button
                         className="editable editable-display compact"
-                        onClick={() => setIsEditingTime(true)}
+                        onClick={() => setIsEditingDate(true)}
                         ref={setRefFocusElement}
                     >
                         <span>
-                            {timestampToTimeToDisplay(tempTimestamp)}
+                            {timestampToDateToDisplay(tempTimestamp)}
                         </span>
                     </button>
             }
@@ -121,4 +114,4 @@ const EditableTime = ({ id, interval: { start, end }, handleIntervalUpdate, inte
     )
 }
 
-export default EditableTime;
+export default EditableDate;

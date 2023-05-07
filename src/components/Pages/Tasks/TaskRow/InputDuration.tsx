@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
+import { secondsToFormattedHMS } from "../../../../helpers/timeFormatting"
 
 /**
  * TODO: Move the function to another file and write its respective tests
