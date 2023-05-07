@@ -20,6 +20,13 @@ body {
     flex-direction: column;
     align-items: center;
 
+    &>header,
+    >div,
+    >section,
+    >footer {
+        width: 100%;
+    }
+
     @media (min-width:1500px) {
         width: 80rem;
     }
@@ -28,10 +35,9 @@ body {
         width: 97.5%;
     }
 
-    &>header,
-    >div,
-    >section,
-    >footer {
-        width: 100%;
+    @media (max-width: 500px) {
+        .content {
+            padding-top: 62px;
+        }
     }
 }
