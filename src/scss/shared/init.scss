@@ -16,17 +16,10 @@ body {
 #root {
     background-color: #eeea;
     width: 90%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
 
-    @media (min-width:1500px) {
-        width: 80rem;
-    }
-
-    @media (max-width:550px) {
-        width: 97.5%;
-    }
 
     &>header,
     >div,
@@ -34,4 +27,26 @@ body {
     >footer {
         width: 100%;
     }
+
+    @media (min-width:1500px) {
+        width: 80rem;
+    }
+
+    @media (max-width:550px) {
+        width: 100%;
+    }
+
+}
+
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+
+    @media (max-width: 500px) {
+        padding-top: 62px;
+    }
+
 }

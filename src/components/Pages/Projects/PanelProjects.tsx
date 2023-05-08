@@ -1,9 +1,9 @@
 import { useRef, useState } from "react";
-import { Task, Project } from "../../types";
-import { useModal } from "../../hooks/useModal";
-import Modal from "../Shared Components/Modal";
-import usePopover from "../../hooks/usePopover";
-import Popover from "../Shared Components/Popover";
+import { Task, Project } from "../../../types";
+import { useModal } from "../../../hooks/useModal";
+import Modal from "../../Shared Components/Modal";
+import usePopover from "../../../hooks/usePopover";
+import Popover from "../../Shared Components/Popover";
 
 /**
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.

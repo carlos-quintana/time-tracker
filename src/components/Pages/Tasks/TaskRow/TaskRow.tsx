@@ -1,6 +1,6 @@
-import { CurrentTask, Interval, Project, Task } from "../../types"
+import { CurrentTask, Interval, Project, Task } from "../../../../types"
 
-import DropdownSearch from "../Shared Components/DropdownSearch"
+import DropdownSearch from "../../../Shared Components/DropdownSearch"
 import EditableName from "./EditableName"
 import EditableDate from "./EditableDate"
 import EditableTime from "./EditableTime"

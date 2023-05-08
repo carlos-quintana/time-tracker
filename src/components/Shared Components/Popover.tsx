@@ -28,7 +28,7 @@ const Popover = (props: Props) => {
                 isOpenPopover &&
                 <div
                     ref={setRefPopperElement}
-                    style={{ ...styles.popper, display: 'flex', justifyContent: 'center' }}
+                    style={{ ...styles.popper, display: 'flex', justifyContent: 'center', zIndex: 300 }}
                     {...attributes.popper}>
                     <div className="popover" ref={popoverRef}>
                         {props.children}

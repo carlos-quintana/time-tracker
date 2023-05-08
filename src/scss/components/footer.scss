@@ -1,44 +1,52 @@
 @use '../abstracts/colors' as *;
 @use '../components/button' as *;
 
-.footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-
+footer {
     background-color: $primary-color;
     color: white;
+    padding-block: 1.5rem;
+    margin-top: 2rem;
 
-    text-align: center;
-    margin-top: 1.5rem;
-    padding-block: 2rem;
+    h4 {
+        align-self: center;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+
+    @media(max-width: 750px) {
+        padding-block: 0.5rem;
+    }
+}
+
+.footer-links {
+
+    display: flex;
+    justify-content: center;
 
     a {
-        // @extend .button;
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-
-        max-width: 80%;
-
-
-        text-decoration: none;
         font-weight: normal;
-        color: #111;
-        background-color: #eee;
+        color: white;
+        margin-inline: 2rem;
+        white-space: nowrap;
 
-        padding: 0.5rem;
-        border-radius: 0.75rem;
+        svg {
+            margin-right: 0.5rem;
+        }
+    }
 
-        box-shadow: 0 1px 2px 0 #5a81ff;
 
-        transition: 0.3s;
+    @media(max-width: 775px) {
+        padding-block: 0.5rem;
+        flex-direction: column;
 
-        &:hover {
-            background-color: $primary-color--light;
-            box-shadow: 0 3px 5px 0 #314997;
+        a {
+            margin-inline: unset;
+            margin-left: min(5rem, max(10%, 1rem));
+            margin-block: 0.5rem;
         }
 
     }
+
 }

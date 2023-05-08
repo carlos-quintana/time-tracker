@@ -107,6 +107,7 @@ This will run all the tests in the src directory.
 - SASS
 - JSDoc
 - React Popper
+- React Router
 - Material UI Icons
 - Universal Cookie
 

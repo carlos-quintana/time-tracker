@@ -1,11 +1,10 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import PanelInputs from "./InputPanel/PanelInputs"
-import PanelTasks from "./TasksPanel/PanelTasks"
-import PanelProjects from "./ProjectsPanel/PanelProjects"
-import ControlsPanel from "./ControlsPanel/ControlsPanel"
+import TasksPage from "./Pages/Tasks/TasksPage";
+import PanelProjects from "./Pages/Projects/PanelProjects"
+import ControlsPanel from "./Pages/Configuration/ControlsPanel"
 // Data Access Logic
 import useDataAccess from "../hooks/useDataAccess";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./Pages/Layout/Layout";
 
 /**
  * This is the main component for the application and the one that is at the top of the components hierarchy. This means that this will hold the state for the data of the application until a state manager is implemented, like Context or Redux.
@@ -25,24 +24,35 @@ export default function App() {
 
   return (
     <>
-      <Header />
-      <PanelInputs
-        createNewTask={createNewTask}
-        currentTask={currentTask} setCurrentTask={setCurrentTask}
-        projectsList={projectsList} createProject={createProject}
-      />
-      <PanelTasks
-        tasksList={tasksList} editTask={editTask} deleteTask={deleteTask}
-        currentTask={currentTask} setCurrentTask={setCurrentTask}
-        projectsList={projectsList} createProject={createProject}
-      />
-      <PanelProjects
-        tasksList={tasksList}
-        projectsList={projectsList} createProject={createProject} 
-        editProject={editProject} deleteProject={deleteProject}
-      />
-      <ControlsPanel />
-      <Footer />
+      <Routes>
+        <Route path="/" element={
+          <Layout />
+        }
+        >
+          <Route index element={
+            <TasksPage
+              tasksList={tasksList} createNewTask={createNewTask} editTask={editTask} deleteTask={deleteTask}
+              currentTask={currentTask} setCurrentTask={setCurrentTask}
+              projectsList={projectsList} createProject={createProject} />
+          } />
+          <Route path="projects" element={
+            <PanelProjects
+              tasksList={tasksList}
+              projectsList={projectsList} createProject={createProject}
+              editProject={editProject} deleteProject={deleteProject}
+            />
+          } />
+          <Route path="options" element={
+            <ControlsPanel />
+          } />
+          <Route path="about" element={
+            <><p>Coming soon...</p></>
+          } />
+          <Route path="*" element={
+            <><p><strong>404</strong> There's nobody here</p></>
+          } />
+        </Route>
+      </Routes>
     </>
   )
 }

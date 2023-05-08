@@ -1,8 +1,8 @@
 
-import { CurrentTask } from "../../types";
+import { CurrentTask } from "../../../../types";
 // Custom made Popover component and hook using React Popper
-import usePopover from "../../hooks/usePopover";
-import Popover from "../Shared Components/Popover";
+import usePopover from "../../../../hooks/usePopover";
+import Popover from "../../../Shared Components/Popover";
 
 type Props = {
     currentTask: CurrentTask | null,

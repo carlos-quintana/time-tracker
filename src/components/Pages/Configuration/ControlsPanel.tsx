@@ -1,5 +1,5 @@
-import { useModal } from "../../hooks/useModal";
-import Modal from "../Shared Components/Modal";
+import { useModal } from "../../../hooks/useModal";
+import Modal from "../../Shared Components/Modal";
 
 const ControlsPanel = () => {
 

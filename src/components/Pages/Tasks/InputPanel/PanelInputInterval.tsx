@@ -1,11 +1,11 @@
 /** @namespace Component_InputInterval */
 import { useRef, useState } from "react"
-import { Project } from "../../types";
-import DropdownSearch from "../Shared Components/DropdownSearch"
-import usePopover from "../../hooks/usePopover";
-import Popover from "../Shared Components/Popover";
-import { isFuture } from "../../helpers/task-milestones/milestoneFilters";
-import { isSameDay } from "../../helpers/task-milestones/milestoneFilters";
+import { Project } from "../../../../types";
+import DropdownSearch from "../../../Shared Components/DropdownSearch"
+import usePopover from "../../../../hooks/usePopover";
+import Popover from "../../../Shared Components/Popover";
+import { isFuture } from "../../../../helpers/task-milestones/milestoneFilters";
+import { isSameDay } from "../../../../helpers/task-milestones/milestoneFilters";
 
 /**
  * This variable will set the limit for the text input in the component. After the limit is reached it will display a warning to the user.

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Interval, CurrentTask, Project } from "../../types";
+import { Interval, CurrentTask, Project } from "../../../../types";
 import PanelInputTimer from "./PanelInputTimer"
 import PanelInputInterval from "./PanelInputInterval"
 // Material Icons

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import TaskRow from "./TaskRow";
-import { Task, Project, CurrentTask, MappedTasksToMilestones } from "../../types";
-import mapTasksToMilestone from "../../helpers/task-milestones/milestones";
+import TaskRow from "./TaskRow/TaskRow";
+import { Task, Project, CurrentTask, MappedTasksToMilestones } from "../../../types";
+import mapTasksToMilestone from "../../../helpers/task-milestones/milestones";
 
 type Props = {
     tasksList: Task[],
@@ -23,7 +23,7 @@ type Props = {
  * @param {Array<Project>} props.projectsList - The list of existing projects. This is used in the Dropdown component that is used to select a project to assign the task to.
  * @param {function(String):Number} props.createProject - Callback function that will be fired when the form is used to create a new Project.
  */
-const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, setCurrentTask, projectsList, createProject }: Props) => {
+const TasksList = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, setCurrentTask, projectsList, createProject }: Props) => {
 
     const [mappedTasks, setMappedTasks] = useState<MappedTasksToMilestones>({});
     const currentDate = useRef(new Date());
@@ -93,4 +93,4 @@ const PanelTasks = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, 
     );
 }
 
-export default PanelTasks
+export default TasksList

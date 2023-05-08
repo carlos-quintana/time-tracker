@@ -1,10 +1,10 @@
 /** @namespace Component_InputTimer */
 import { useState, useEffect, useRef } from "react"
-import { CurrentTask, Project } from "../../types";
-import { secondsToFormattedHMS } from "../../helpers/timeFormatting"
-import DropdownSearch from "../Shared Components/DropdownSearch"
-import Popover from "../Shared Components/Popover";
-import usePopover from "../../hooks/usePopover";
+import { CurrentTask, Project } from "../../../../types";
+import { secondsToFormattedHMS } from "../../../../helpers/timeFormatting"
+import DropdownSearch from "../../../Shared Components/DropdownSearch"
+import Popover from "../../../Shared Components/Popover";
+import usePopover from "../../../../hooks/usePopover";
 
 /**
  * This variable refers to the amount of time the timer will wait to tick each time in milliseconds. In a production environment this value will be 1000[ms], or 1 second, but this can be varied so that it can be debugged more easily.
