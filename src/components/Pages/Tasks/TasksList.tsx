@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import React from "react";
 import TaskRow from "./TaskRow/TaskRow";
 import { Task, Project, CurrentTask, MappedTasksToMilestones } from "../../../types";
 import mapTasksToMilestone from "../../../helpers/task-milestones/milestones";
@@ -61,21 +62,20 @@ const TasksList = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, s
         <section>
             {Object.keys(mappedTasks).map((milestone: string) =>
                 // This represents each one of the separators in the list of tasks
-                <>
-                    <h3
-                        key={mappedTasks[milestone].title}>
+                <React.Fragment key={mappedTasks[milestone].title}>
+                    <h3>
                         {mappedTasks[milestone].title}
                     </h3>
                     {
                         mappedTasks[milestone].tasks.map((task: Task) =>
-                            <>
+                            <React.Fragment key={`taskrow-${task.id}`}>
                                 {
                                     // This is basically: If the (date) header for this task row has already been used before, do not render it
                                     shouldUpdateHeader(getHeader(task.interval.start)) &&
-                                    <h5 className="row-task__date-header">{getHeader(task.interval.start)}</h5>
+                                    <h5 className="row-task__date-header" key={`t-${task.id}`}>{getHeader(task.interval.start)}</h5>
                                 }
                                 <TaskRow
-                                    key={task.id}
+                                    key={`taskrow-${task.id}`}
                                     task={task}
                                     deleteTask={() => deleteTask(task.id)}
                                     editTask={editTask}
@@ -84,10 +84,10 @@ const TasksList = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, s
                                     projectsList={projectsList}
                                     createProject={createProject}
                                 />
-                            </>
+                            </React.Fragment>
                         )
                     }
-                </>
+                </React.Fragment>
             )}
         </section>
     );
