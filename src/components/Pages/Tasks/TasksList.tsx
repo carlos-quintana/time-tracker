@@ -32,7 +32,6 @@ const TasksList = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, s
 
     useEffect(() => {
         if (givenTasks.length < 1) return;
-        console.log(`Going to set Mapped Tasks`)
         setMappedTasks(
             mapTasksToMilestone(
                 // Pass in the date which the milestones will be calculated around

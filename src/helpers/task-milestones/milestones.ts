@@ -16,6 +16,8 @@ const DEFAULT_MILESTONE: Milestone = { tasks: [], title: "Older" };
  */
 const mapTasksToMilestone = (currentDate: Date, tasksList: Task[], filters: MilestoneFilter[] = FILTERS): MappedTasksToMilestones => {
     let newMappedTasks: any = {};
+    // Clone this object, otherwise it would reuse the same reference and create ghost copies of the tasks
+    let defaultMilestone = JSON.parse(JSON.stringify(DEFAULT_MILESTONE))
 
     tasksList.forEach(task => {
         // If after going through all of the filters this flag hasn't been set to true, then the task goes into a default category called "Older"
@@ -34,7 +36,7 @@ const mapTasksToMilestone = (currentDate: Date, tasksList: Task[], filters: Mile
         }
         if (!hasTaskBeenAllocated) {
             if (!newMappedTasks.older)
-                newMappedTasks.older = DEFAULT_MILESTONE;
+                newMappedTasks.older = defaultMilestone;
             newMappedTasks.older.tasks.push(task);
         }
     })
