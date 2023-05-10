@@ -2,8 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useModal } from "../../../hooks/useModal";
 import Modal from "../../Shared Components/Modal";
 
-const OptionsPage = () => {
-    
+type Props = {
+    setTasksList: Function,
+    setProjectsList: Function,
+}
+const OptionsPage = ({ setTasksList, setProjectsList }: Props) => {
+
     const navigate = useNavigate();
 
     // This is for the modal that asks for confirmation when the user tries to reset all tasks and projects to the initial examples
@@ -19,8 +23,10 @@ const OptionsPage = () => {
         window.location.reload();
     }
 
+    /** This function will set tasks, currentTask and projects to an empty array, effectively removing all of the data and leaving the application blank */
     const clearData = () => {
-        // TODO 
+        clearAllData();
+        setTimeout(() => navigate('/'), 500);
     }
 
     //@ts-ignore

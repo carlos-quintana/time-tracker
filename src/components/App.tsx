@@ -21,6 +21,8 @@ export default function App() {
     currentTask, setCurrentTask,
     // Project operations
     projectsList, createProject, editProject, deleteProject,
+    // To clear all state
+    clearAllData,
   } = useDataAccess()
 
   return (
@@ -44,7 +46,9 @@ export default function App() {
             />
           } />
           <Route path="options" element={
-            <OptionsPage />
+            <OptionsPage
+              clearAllData={clearAllData}
+            />
           } />
           <Route path="about" element={
             <><p>Coming soon...</p></>

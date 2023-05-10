@@ -159,6 +159,13 @@ export default function useDataAccess() {
         setProjectsList(projectsList.filter(el => el.id !== idDelete));
     }
 
+    /** This function overrites all data to an empty state */
+    const clearAllData = () => {
+        setTasksList([]);
+        setCurrentTask(null);
+        setProjectsList([]);
+    }
+
     return {
         tasksList,
         createNewTask,
@@ -170,6 +177,7 @@ export default function useDataAccess() {
         createProject,
         editProject,
         deleteProject,
+        clearAllData
     };
 
 }
