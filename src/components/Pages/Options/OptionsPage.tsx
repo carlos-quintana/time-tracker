@@ -1,14 +1,18 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "../../../hooks/useModal";
 import Modal from "../../Shared Components/Modal";
+import Cookies from 'universal-cookie';
 
 type Props = {
-    setTasksList: Function,
-    setProjectsList: Function,
+    clearAllData: Function,
 }
-const OptionsPage = ({ setTasksList, setProjectsList }: Props) => {
+const OptionsPage = ({ clearAllData }: Props) => {
 
     const navigate = useNavigate();
+    const cookies = new Cookies();
+
+    const [isAutoResetDisabled, setIsAutoResetDisabled] = useState<boolean>(localStorage.getItem('disableAutoReset') === 'true');
 
     // This is for the modal that asks for confirmation when the user tries to reset all tasks and projects to the initial examples
     const { isOpen: isOpenReset, openModal: openModalReset, closeModal: closeModalReset } = useModal(false);
@@ -29,9 +33,11 @@ const OptionsPage = ({ setTasksList, setProjectsList }: Props) => {
         setTimeout(() => navigate('/'), 500);
     }
 
-    //@ts-ignore
     const toggleAutoResetCookie = () => {
-        // TODO 
+        if (isAutoResetDisabled) return;
+        localStorage.setItem('disableAutoReset', 'true');
+        cookies.remove('autoReset');
+        setIsAutoResetDisabled(true);
     }
 
     return (
@@ -81,14 +87,18 @@ const OptionsPage = ({ setTasksList, setProjectsList }: Props) => {
             <div className="option-container">
                 {/* Option 3: Toggle the auto reset cookie */}
                 <div className="option-control">
-
+                    <button className={`button ${isAutoResetDisabled ? 'button-disabled' : 'button-primary'}`}
+                        onClick={toggleAutoResetCookie}
+                        disabled={isAutoResetDisabled}
+                    >
+                        Toggle auto-reset
+                    </button>
                 </div>
                 <div className="option-description">
-
+                    When you toggle this setting the program will disable the auto-resetting cookie that clears the data every couple hours, which means any data you create in this application will persist in your Local Storage. By that logic, until this option is toggled, any data you create in this application will not be persisted.
                 </div>
-
             </div>
-        </div>
+        </div >
     );
 };
 
