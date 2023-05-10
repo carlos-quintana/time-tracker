@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router-dom";
 import { useModal } from "../../../hooks/useModal";
 import Modal from "../../Shared Components/Modal";
 
 const OptionsPage = () => {
+    
+    const navigate = useNavigate();
 
     // This is for the modal that asks for confirmation when the user tries to reset all tasks and projects to the initial examples
     const { isOpen: isOpenReset, openModal: openModalReset, closeModal: closeModalReset } = useModal(false);
@@ -9,11 +12,11 @@ const OptionsPage = () => {
     // This is for the modal that asks for confirmation when the user tries to clear all tasks and projects
     const { isOpen: isOpenClear, openModal: openModalClear, closeModal: closeModalClear } = useModal(false);
 
-    /** This function reloads the application and restores all of the dummy data in the example files. We do this by clearing the Local Storage, which the application will interpret as a new user entering for the first time. */
+    /** This function reloads the application and restores all of the dummy data in the example files. We do this by clearing the Local Storage and reloading the app, which the application will interpret as a new user entering for the first time. */
     const resetData = () => {
-        localStorage.clear()
-        // TODO - Redirect to /
-        window.location.reload()
+        localStorage.clear();
+        navigate('/');
+        window.location.reload();
     }
 
     const clearData = () => {
