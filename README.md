@@ -51,7 +51,7 @@ https://carlos-quintana.github.io/time-tracker/
 - [X] Tasks are ordered chronologically and separated by milestones (Today, Yesterday, This week, etc).
 - [X] Implement modals and tooltips.
 - [ ] Expand on projects features.
-  - [ ] Implement React Router.
+  - [X] Implement React Router.
   - [ ] Separate view for Projects CRUD.
   - [ ] Expand on Projects information.
 - [ ] Separate view for data analysis with graphs and charts.
