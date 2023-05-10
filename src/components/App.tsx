@@ -1,10 +1,11 @@
+import { Routes, Route } from "react-router-dom";
+
+import Layout from "./Pages/Layout/Layout";
 import TasksPage from "./Pages/Tasks/TasksPage";
 import PanelProjects from "./Pages/Projects/PanelProjects"
-import ControlsPanel from "./Pages/Configuration/ControlsPanel"
+import OptionsPage from "./Pages/Options/OptionsPage";
 // Data Access Logic
 import useDataAccess from "../hooks/useDataAccess";
-import { Routes, Route } from "react-router-dom";
-import Layout from "./Pages/Layout/Layout";
 
 /**
  * This is the main component for the application and the one that is at the top of the components hierarchy. This means that this will hold the state for the data of the application until a state manager is implemented, like Context or Redux.
@@ -43,7 +44,7 @@ export default function App() {
             />
           } />
           <Route path="options" element={
-            <ControlsPanel />
+            <OptionsPage />
           } />
           <Route path="about" element={
             <><p>Coming soon...</p></>
