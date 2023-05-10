@@ -196,6 +196,46 @@ nav ul li a:hover {
   justify-content: center;
 }
 
+.page {
+  padding-inline: 0.5rem;
+  padding-block: 1rem;
+}
+.page h2 {
+  margin-bottom: 0.5rem;
+}
+.page h2 + hr {
+  margin-bottom: 1rem;
+}
+
+.option__container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border: 1px rgba(187, 187, 187, 0.4666666667) solid;
+  border-radius: 1rem;
+  padding: 0.5rem 0.25rem;
+  margin-block: 0.75rem;
+}
+.option__control {
+  min-width: 150px;
+  max-width: 150px;
+}
+.option__control > .button {
+  width: 100%;
+}
+.option__description {
+  text-align: justify;
+  width: 100%;
+}
+@media (max-width: 650px) {
+  .option__container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
 .popover {
   background-color: #eee;
   box-shadow: 0 3px 5px 0 rgba(34, 34, 34, 0.5333333333);
@@ -256,6 +296,8 @@ input:focus {
 }
 
 .button {
+  display: flex;
+  justify-content: center;
   margin-inline: 0.25rem;
   font-size: 0.8rem;
   font-weight: bold;

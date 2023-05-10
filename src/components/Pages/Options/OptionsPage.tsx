@@ -44,9 +44,9 @@ const OptionsPage = ({ clearAllData }: Props) => {
         <div className="page">
             <h2>Options</h2>
             <hr />
-            <div className="option-container">
+            <div className="option__container">
                 {/* Option 1: Reset the tasks and projects to the examples */}
-                <div className="option-control">
+                <div className="option__control">
                     <button className="button button-warning" onClick={openModalReset} >
                         Reset data
                     </button>
@@ -57,16 +57,18 @@ const OptionsPage = ({ clearAllData }: Props) => {
                         hasConfirmation={true}
                         onConfirmationCallback={resetData}
                     >
-                        <p>This will reset all Tasks and Projects to the example data.</p>
+                        <p>This will <strong>replace all</strong> Tasks and Projects to the example data.<br />
+                            This action is permanent.<br />
+                            Are you sure you want to continue?</p>
                     </Modal>
                 </div>
-                <div className="option-description">
+                <div className="option__description">
                     This option will remove all of the current tasks and projects and replace them with the example data.
                 </div>
             </div>
-            <div className="option-container">
+            <div className="option__container">
                 {/* Option 2: Delete all tasks and projects */}
-                <div className="option-control">
+                <div className="option__control">
                     <button className="button button-danger" onClick={openModalClear} >
                         Clear data
                     </button>
@@ -77,16 +79,18 @@ const OptionsPage = ({ clearAllData }: Props) => {
                         hasConfirmation={true}
                         onConfirmationCallback={clearData}
                     >
-                        <p>This will delete all Tasks and Projects.</p>
+                        <p>This will <strong>delete all</strong> Tasks and Projects.<br />
+                            This action is permanent.<br />
+                            Are you sure you want to continue?</p>
                     </Modal>
                 </div>
-                <div className="option-description">
+                <div className="option__description">
                     This option will delete all of the current tasks and projects.
                 </div>
             </div>
-            <div className="option-container">
+            <div className="option__container">
                 {/* Option 3: Toggle the auto reset cookie */}
-                <div className="option-control">
+                <div className="option__control">
                     <button className={`button ${isAutoResetDisabled ? 'button-disabled' : 'button-primary'}`}
                         onClick={toggleAutoResetCookie}
                         disabled={isAutoResetDisabled}
@@ -94,8 +98,8 @@ const OptionsPage = ({ clearAllData }: Props) => {
                         Toggle auto-reset
                     </button>
                 </div>
-                <div className="option-description">
-                    When you toggle this setting the program will disable the auto-resetting cookie that clears the data every couple hours, which means any data you create in this application will persist in your Local Storage. By that logic, until this option is toggled, any data you create in this application will not be persisted.
+                <div className="option__description">
+                    When you toggle this setting the program will disable the auto-resetting cookie that clears the data every couple hours, which means until this option is toggled, any data you create in this application <strong>will not</strong> be persisted.
                 </div>
             </div>
         </div >
