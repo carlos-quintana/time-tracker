@@ -30,8 +30,11 @@ export default function useDataAccess() {
         let localStorageTasks = localStorage.getItem("tasksList");
         let localStorageCurrentTask = localStorage.getItem("currentTask");
         let localStorageProjects = localStorage.getItem("projectsList");
-        // Reset the data if the localStorageTasks value is null. Not to be confused with having zero tasks, as the value localStorageTasks would exist as an empty array. This means that the localStorage does not have this key. Also reset the data if the cookie has expired.
-        if (localStorageTasks === null || !cookies.get('autoReset')) {
+        // Reset the data if the localStorageTasks value is null. Not to be confused with having zero tasks, as the value localStorageTasks would exist as an empty array. This means that the localStorage does not have this key. 
+        let isLocalStorageEmpty = localStorageTasks === null;
+        // Also reset the data if the cookie has expired and the user hasn't disabled the auto-reset feature.
+        let isCookieExpired = !cookies.get('autoReset') && !localStorage.getItem('disableAutoReset');
+        if (isLocalStorageEmpty || isCookieExpired) {
             cookies.set('autoReset', 'true', { maxAge: cookieMaxAge })
             localStorage.clear();
             let exampleTasks = parseExampleTasks(exampleTasksFromJSON);
@@ -159,6 +162,13 @@ export default function useDataAccess() {
         setProjectsList(projectsList.filter(el => el.id !== idDelete));
     }
 
+    /** This function overrites all data to an empty state */
+    const clearAllData = () => {
+        setTasksList([]);
+        setCurrentTask(null);
+        setProjectsList([]);
+    }
+
     return {
         tasksList,
         createNewTask,
@@ -170,6 +180,7 @@ export default function useDataAccess() {
         createProject,
         editProject,
         deleteProject,
+        clearAllData
     };
 
 }

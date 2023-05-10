@@ -1,0 +1,11 @@
+.page {
+    padding-inline: 0.5rem;
+    padding-block: 1rem;
+
+    h2 {
+        margin-bottom: 0.5rem;
+    }
+    h2 + hr {
+        margin-bottom: 1rem;
+    }
+}
