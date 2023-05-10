@@ -199,12 +199,42 @@ nav ul li a:hover {
 .page {
   padding-inline: 0.5rem;
   padding-block: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .page h2 {
   margin-bottom: 0.5rem;
 }
 .page h2 + hr {
   margin-bottom: 1rem;
+}
+.page p {
+  margin-block: 1rem;
+  margin-inline: 0.25rem;
+  text-indent: 0.35rem;
+  text-align: justify;
+}
+.page p strong {
+  color: #2458a5;
+}
+.page .link {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: fit-content;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  border: rgba(4, 35, 82, 0.329) 1px solid;
+  border-radius: 0.5rem;
+  color: #2458a5;
+  transition: color 200ms ease;
+}
+.page .link:visited {
+  color: #2458a5;
+}
+.page .link:hover {
+  color: #0099e0;
 }
 
 .option__container {
@@ -791,7 +821,7 @@ footer h4 {
   text-align: center;
   margin-bottom: 0.5rem;
 }
-@media (max-width: 750px) {
+@media (max-width: 600px) {
   footer {
     padding-block: 0.5rem;
   }
@@ -812,7 +842,7 @@ footer h4 {
 .footer-links a svg {
   margin-right: 0.5rem;
 }
-@media (max-width: 775px) {
+@media (max-width: 600px) {
   .footer-links {
     padding-block: 0.5rem;
     flex-direction: column;

@@ -11,11 +11,8 @@ const Footer = () => {
                 <a href="https://carlos-quintana.github.io/" target="_blank" rel="noreferrer">
                     <WorkIcon /> Web Portfolio
                 </a>
-                <a href="https://github.com/carlos-quintana/time-tracker" target="_blank" rel="noreferrer">
-                    <GitHubIcon /> This repository
-                </a>
                 <a href="https://github.com/carlos-quintana/" target="_blank" rel="noreferrer">
-                    <GitHubIcon /> My GitHub
+                    <GitHubIcon /> GitHub
                 </a>
                 <a href="https://www.linkedin.com/in/carlos-quintana-dev/" target="_blank" rel="noreferrer">
                     <LinkedInIcon /> LinkedIn
