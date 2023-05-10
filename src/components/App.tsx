@@ -7,6 +7,7 @@ import OptionsPage from "./Pages/Options/OptionsPage";
 // Data Access Logic
 import useDataAccess from "../hooks/useDataAccess";
 import AboutPage from "./Pages/About/AboutPage";
+import Error404Page from "./Pages/Error404Page";
 
 /**
  * This is the main component for the application and the one that is at the top of the components hierarchy. This means that this will hold the state for the data of the application until a state manager is implemented, like Context or Redux.
@@ -55,7 +56,7 @@ export default function App() {
             <AboutPage />
           } />
           <Route path="*" element={
-            <><p><strong>404</strong> There's nobody here</p></>
+            <Error404Page />
           } />
         </Route>
       </Routes>
