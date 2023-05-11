@@ -106,6 +106,7 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                     <div className="task-row__date-container">
                         <EditableDate
                             id={task.id}
+                            title={new Date(task.interval.start).toDateString()}
                             interval={task.interval}
                             handleIntervalUpdate={handleIntervalUpdate}
                             intervalPosition="start"
@@ -127,6 +128,7 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                     <div className="task-row__date-container">
                         <EditableDate
                             id={task.id}
+                            title={new Date(task.interval.end).toDateString()}
                             interval={task.interval}
                             handleIntervalUpdate={handleIntervalUpdate}
                             intervalPosition="end"

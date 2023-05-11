@@ -8,7 +8,8 @@ type Props = {
     id: number,
     interval: Interval,
     handleIntervalUpdate: Function,
-    intervalPosition: "start" | "end"
+    intervalPosition: "start" | "end",
+    title?: string | null;
 }
 
 /**
@@ -18,8 +19,9 @@ type Props = {
  * @param {Interval} props.interval - The Interval object of the task, containing its timestamps.
  * @param {function(Interval):void} props.handleIntervalUpdate - Callback function that will be fired when the changes are submitted.
  * @param {"start" | "end"} props.intervalPosition - This value tells us what position of the interval this component represents and modify the logic accordingly when submitting. This is so we can use the same component for both the start and end dates.
+ * @param {String | null} [props.title] - The string to put on the input as a title to appear when hovered
  */
-const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition }: Props) => {
+const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, intervalPosition, title=null }: Props) => {
 
     /** This will have the timestamp of whichever position was established in the props. */
     const [tempTimestamp, setTempTimestamp] = useState(intervalPosition === "start" ? start : end)
@@ -97,6 +99,7 @@ const EditableDate = ({ id, interval: { start, end }, handleIntervalUpdate, inte
                     :
                     <button
                         className="editable editable-display compact"
+                        title={title ?? ''}
                         onClick={() => setIsEditingDate(true)}
                         ref={setRefFocusElement}
                     >
