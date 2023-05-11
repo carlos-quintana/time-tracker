@@ -243,6 +243,7 @@ nav ul li a:hover {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  width: 100%;
   border: 1px rgba(187, 187, 187, 0.4666666667) solid;
   border-radius: 1rem;
   padding: 0.5rem 0.25rem;
@@ -302,7 +303,7 @@ nav ul li a:hover {
   margin-inline: 0.5rem;
 }
 
-.round-box, .row-task .editable, button, input {
+.round-box, button, input {
   display: inline-flex;
   align-items: center;
   min-height: 1.75rem;
@@ -636,199 +637,6 @@ input:focus {
     justify-content: end;
     flex-grow: 2;
   }
-}
-
-.row-task {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  align-items: center;
-  gap: 0.2rem;
-  margin: 0.2rem 0.5rem;
-  padding: 0.1rem 0.2rem 0.1rem 0.35rem;
-  border-radius: 0.5rem;
-  background-color: #ccc;
-  /* The buttons that display text and all the different inputs */
-}
-.row-task .task-id {
-  display: none;
-}
-.row-task-hyphen {
-  margin-inline: 0.35rem;
-}
-.row-task .editable {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  display: inline;
-  width: 100%;
-  height: 1.5rem;
-  font-size: 1rem;
-  font-family: inherit;
-  text-align: left;
-  transition: 0.3s;
-}
-.row-task .editable-display {
-  /* The buttons that display text */
-  cursor: text;
-  background-color: #e6e6e6;
-}
-.row-task .editable-display:hover {
-  background-color: white;
-  box-shadow: 0 3px 5px 0 #aaa;
-}
-.row-task .editable:focus {
-  border-color: #4b9aee;
-  outline: 0;
-}
-.row-task .task-name-container {
-  min-width: 15rem;
-  max-width: 15rem;
-}
-.row-task .task-name-container .editable-display {
-  background-color: #f6f6f6;
-}
-.row-task .task-project-container {
-  min-width: 13rem;
-  max-width: 13rem;
-}
-.row-task .task-interval-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  padding: 1px;
-  border-radius: 0.25rem;
-}
-.row-task .task-interval-container input {
-  font-size: 0.8rem;
-  position: absolute;
-  z-index: 2;
-  width: auto;
-}
-.row-task .task-date-container,
-.row-task .task-time-container {
-  position: relative;
-}
-.row-task .task-date-container .editable,
-.row-task .task-time-container .editable {
-  display: inline-flex;
-  justify-content: flex-end;
-}
-.row-task .start-interval-container,
-.row-task .end-interval-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-.row-task .start-interval-label,
-.row-task .end-interval-label {
-  display: none;
-  font-size: 0.9rem;
-  color: #555;
-  min-width: 2.3rem;
-}
-.row-task .task-date-container {
-  min-width: 5.5rem;
-  max-width: 5.5rem;
-}
-.row-task .task-time-container {
-  min-width: 6.5rem;
-  max-width: 6.5rem;
-}
-.row-task .task-duration-container {
-  display: flex;
-  min-width: 6.5rem;
-  max-width: 6.5rem;
-}
-.row-task .task-duration-container .editable {
-  display: inline-flex;
-  justify-content: flex-end;
-  text-align: right;
-}
-.row-task .task-duration-container .editable-display {
-  background-color: #f6f6f6;
-}
-.row-task .separator {
-  flex-grow: 1;
-}
-.row-task .mui-icon {
-  color: #333;
-}
-.row-task .mui-icon:hover {
-  color: #666;
-}
-@media (max-width: 1360px) {
-  .row-task .task-name-container {
-    flex-grow: 100;
-    max-width: none;
-  }
-  .row-task .separator {
-    flex-grow: 0;
-  }
-  .row-task .task-controls {
-    flex-grow: 1;
-    display: flex;
-    justify-content: flex-end;
-  }
-}
-@media (max-width: 750px) {
-  .row-task .task-interval-container,
-.row-task .start-interval-container,
-.row-task .end-interval-container {
-    flex-grow: 1;
-  }
-}
-@media (max-width: 650px) {
-  .row-task {
-    margin: 0.2rem 0.3rem;
-    padding: 0.2rem;
-  }
-}
-@media (max-width: 550px) {
-  .row-task .task-name-container {
-    min-width: 100%;
-  }
-  .row-task .task-project-container {
-    max-width: none;
-    min-width: 100%;
-  }
-  .row-task .separator {
-    display: none;
-  }
-}
-@media (max-width: 600px) {
-  .row-task-hyphen {
-    display: none !important;
-  }
-}
-@media (max-width: 460px) {
-  .row-task .start-interval-label,
-.row-task .end-interval-label {
-    display: inline-flex;
-    align-items: center;
-  }
-  .row-task .start-interval-container,
-.row-task .end-interval-container {
-    gap: 1rem;
-    justify-content: flex-start;
-  }
-}
-@media (max-width: 350px) {
-  .row-task .start-interval-container,
-.row-task .end-interval-container {
-    gap: 3%;
-  }
-}
-@media (max-width: 300px) {
-  .row-task .start-interval-label,
-.row-task .end-interval-label {
-    display: none;
-  }
-}
-.row-task__date-header {
-  font-style: italic;
-  color: #666;
-  margin-left: 3rem;
 }
 
 .dropdown {
