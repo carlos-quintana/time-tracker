@@ -69,7 +69,7 @@ const TasksList = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, s
                                 {
                                     // This is basically: If the (date) header for this task row has already been used before, do not render it
                                     shouldUpdateHeader(getHeader(task.interval.start)) &&
-                                    <h5 className="row-task__date-header" key={`t-${task.id}`}>{getHeader(task.interval.start)}</h5>
+                                    <h5 className="task-row__date-header" key={`t-${task.id}`}>{getHeader(task.interval.start)}</h5>
                                 }
                                 <TaskRow
                                     key={`taskrow-${task.id}`}

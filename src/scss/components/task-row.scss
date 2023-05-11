@@ -1,9 +1,41 @@
 .task-list-display {
     width: 100%;
+    padding-inline: 0.5rem;
 }
 
+$debug-mode: false;
+
+/**
+ * Break points
+ */
+// The name-project and interval-container break from the remainder
+$break-point-1: 1480px;
+// The name-project and interval-container on the same row break
+$break-point-2: 1340px;
+// The interval-container and remainder break
+$break-point-3: 820px;
+// The task name and project dropdown break
+$break-point-4: 500px;
+// The inner interval containers start and end break from each other
+$break-point-5: 500px;
+// The interval labels are hidden
+$break-point-6: 350px;
+// The duration and task row controls break
+$break-point-7: 500px;
+
 .task-row {
-    // background-color: rgb(152, 248, 248);
+    background-color: #ddd;
+    border: 1px #bbb solid;
+    border-radius: 0.5rem;
+    transition: 0.15s ease-in;
+
+    // transition: box-shadow 0.15s ease-in;
+    &:hover {
+        background-color: #ededed;
+        border: 1px #ddd solid;
+        box-shadow: rgba(170, 170, 170, 0.2) 0px 3px 3px;
+    }
+
     width: 100%;
 
     display: flex;
@@ -11,12 +43,19 @@
     column-gap: 3px;
     row-gap: 2px;
 
-    background-color: #ddd;
-    border: 1px #bbb solid;
-    border-radius: 0.5rem;
     margin-block: 0.5rem;
     padding-block: 3px;
     padding-left: 3px;
+
+    @if $debug-mode {
+        background-color: red;
+    }
+
+    &__date-header {
+        font-style: italic;
+        color: rgb(102, 102, 102);
+        margin-left: 3rem;
+    }
 
     // Task id, should be hidden
     &__id {
@@ -25,34 +64,54 @@
 
     // The combined input field for the title and project dropdown
     &__name-project {
-        // border: 3px blue solid;
-
         display: flex;
-        // flex-wrap: wrap;
         min-width: (min(100%, 35rem));
         max-width: (min(100%, 35rem));
 
-        @media (max-width: 1399px) {
-            // The name-project and interval-container break from the remainder
+        @media (min-width: ($break-point-1 + 50px)) {
+            max-width: unset;
+            flex-grow: 8;
+        }
+
+        @media (max-width: ($break-point-1 - 1px)) {
             min-width: (min(100%, 42rem));
             max-width: (min(100%, 42rem));
         }
 
-        @media (max-width: 1250px) {
-            // The name-project and interval-container on the same row break
+        @media (max-width: $break-point-2) {
             min-width: 100%;
         }
 
-        @media (max-width: 500px) {
-            // The task name and project dropdown break
+        @media (max-width: $break-point-4) {
             flex-wrap: wrap;
         }
+
+        @if $debug-mode {
+            border: 3px yellow solid;
+        }
+    }
+
+    .editable {
+        width: 100%;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline;
+        height: 1.5rem;
+        font-size: 1rem;
+        font-family: inherit;
+        text-align: left;
+        overflow: hidden;
+        transition: all 0.3s ease 0s;
+    }
+
+    .editable-display:hover {
+        cursor: text;
+        // background-color: rgb(244, 253, 255);
+        box-shadow: rgb(170, 170, 170) 0px 3px 5px;
     }
 
     // The input field for the task title
     &__name-container {
-        // background-color: darkgreen;
-        // border: 3px rgb(240, 141, 28) solid;
         width: 100%;
 
         .editable {
@@ -66,82 +125,107 @@
         }
 
         @media (max-width: 750px) {
-            // The task name and project dropdown break
+            // This is so the project dropdown takes precedence over the editable name and it hides the overflow
             min-width: 0px;
         }
 
-        @media (max-width: 1250px) {
+        @media (max-width: $break-point-2) {
             flex-grow: 1;
         }
 
-        @media (min-width: 1400px) {
+        @media (min-width: $break-point-1) {
             min-width: 20rem;
             max-width: 20rem;
+        }
+
+        @media (min-width: ($break-point-1 + 50px)) {
+            max-width: 90%;
+        }
+
+        @if $debug-mode {
+            background-color: darkgreen;
+            border: 1px rgb(95, 240, 28) solid;
         }
     }
 
     // The task project dropdown
     &__project-container {
-        // background-color: brown;
-        // border: 3px blue solid;
 
         min-width: 15rem;
         max-width: 15rem;
         flex-grow: 1;
 
-        @media (max-width: 500px) {
-            // The name breaks from the project
+        @media (max-width: $break-point-4) {
             min-width: 100%;
+        }
+
+        @if $debug-mode {
+            background-color: brown;
+            border: 1px blue solid;
         }
     }
 
     &__separator {
-        height: 10px;
-        // border: 2px black solid;
         flex-grow: 1;
-        // background-color: red;
 
-        @media (max-width: 1250px) {
-            // The row breaks for the second time
+        @media (max-width: $break-point-2) {
             display: none;
+        }
+
+        @if $debug-mode {
+            border: 1px white solid;
+            height: 10px;
+            background-color: lightcoral;
         }
     }
 
-
     // The interval date and time fields
     &__interval-container {
-        // background-color: darkgoldenrod;
-        // border: 3px yellow solid;
-
         display: flex;
         flex-wrap: wrap;
 
-
-        @media (max-width: 750px) {
-            // The interval-container and remainder break
+        @media (max-width: $break-point-3) {
             width: 100%;
             justify-content: end;
+        }
+
+        @if $debug-mode {
+            background-color: darkgoldenrod;
+            border: 3px yellow solid;
         }
     }
 
     &__inner-interval-container {
-        // background-color: aquamarine;
-        // border: 3px red solid;
         display: flex;
+        font-size: unset;
 
         .editable {
             white-space: nowrap;
         }
 
-        @media (max-width: 500px) {
-            // The inner containers start and end break from each other
+        @media (max-width: $break-point-5) {
             width: 100%;
             gap: 0.5rem;
+        }
+
+        @media (max-width: 250px) {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0;
+
+            .mui-icon {
+                display: none;
+            }
+        }
+
+        @if $debug-mode {
+            background-color: aquamarine;
+            border: 3px red solid;
         }
     }
 
     &__hyphen {
-        @media (max-width: 500px) {
+        @media (max-width: $break-point-5) {
             display: none !important;
         }
     }
@@ -149,45 +233,70 @@
     &__interval-label {
         display: none;
 
-        @media (max-width: 500px) {
+        @media (max-width: $break-point-5) {
             display: block;
             min-width: 4rem;
         }
 
-        @media (max-width: 300px) {
+        @media (max-width: $break-point-6) {
             display: none;
+        }
+    }
+
+        &__date-container {
+            @media (min-width: $break-point-2) {
+                min-width: 95px;
+            }
+    }
+
+    &__time-container {
+        @media (min-width: $break-point-2 ) {
+            min-width: 110px;
         }
     }
 
     // TODO: Find a more suitable name
     &__remaining-fields {
-        // background-color: yellowgreen;
-        // border: 2px rgb(255, 0, 200) solid;
 
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: end;
 
-        @media (max-width: 1400px) {
+        @media (max-width: $break-point-1) {
             flex-grow: 1;
+        }
+
+        @media (max-width: 300px) {
+            justify-content: start;
+        }
+
+        @if $debug-mode {
+            background-color: yellowgreen;
+            border: 2px rgb(255, 0, 200) solid;
         }
     }
 
     // The input for the total duration of the task
     &__duration-container {
-        // background-color: slateblue;
         display: flex;
+
+        @if $debug-mode {
+            background-color: slateblue;
+        }
     }
 
     // The controls restart and delete
     &__controls {
-        // background-color: mediumseagreen;
         display: flex;
-        
-        @media (max-width: 500px) {
+
+        @media (max-width: $break-point-7) {
             justify-content: end;
             flex-grow: 2;
+        }
+
+        @if $debug-mode {
+            background-color: mediumseagreen;
         }
     }
 }

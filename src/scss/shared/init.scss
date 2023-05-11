@@ -16,7 +16,6 @@ body {
 #root {
     background-color: #eeea;
     width: 90%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
 
@@ -26,10 +25,6 @@ body {
     >section,
     >footer {
         width: 100%;
-    }
-
-    @media (min-width:1500px) {
-        width: 80rem;
     }
 
     @media (max-width:550px) {

@@ -16,7 +16,6 @@ body {
 #root {
   background-color: rgba(238, 238, 238, 0.6666666667);
   width: 90%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -25,11 +24,6 @@ body {
 #root > section,
 #root > footer {
   width: 100%;
-}
-@media (min-width: 1500px) {
-  #root {
-    width: 80rem;
-  }
 }
 @media (max-width: 550px) {
   #root {
@@ -489,20 +483,35 @@ input:focus {
 
 .task-list-display {
   width: 100%;
+  padding-inline: 0.5rem;
 }
 
+/**
+ * Break points
+ */
 .task-row {
+  background-color: #ddd;
+  border: 1px #bbb solid;
+  border-radius: 0.5rem;
+  transition: 0.15s ease-in;
   width: 100%;
   display: flex;
   flex-wrap: wrap;
   column-gap: 3px;
   row-gap: 2px;
-  background-color: #ddd;
-  border: 1px #bbb solid;
-  border-radius: 0.5rem;
   margin-block: 0.5rem;
   padding-block: 3px;
   padding-left: 3px;
+}
+.task-row:hover {
+  background-color: #ededed;
+  border: 1px #ddd solid;
+  box-shadow: rgba(170, 170, 170, 0.2) 0px 3px 3px;
+}
+.task-row__date-header {
+  font-style: italic;
+  color: rgb(102, 102, 102);
+  margin-left: 3rem;
 }
 .task-row__id {
   display: none;
@@ -512,13 +521,19 @@ input:focus {
   min-width: min(100%, 35rem);
   max-width: min(100%, 35rem);
 }
-@media (max-width: 1399px) {
+@media (min-width: 1530px) {
+  .task-row__name-project {
+    max-width: unset;
+    flex-grow: 8;
+  }
+}
+@media (max-width: 1479px) {
   .task-row__name-project {
     min-width: min(100%, 42rem);
     max-width: min(100%, 42rem);
   }
 }
-@media (max-width: 1250px) {
+@media (max-width: 1340px) {
   .task-row__name-project {
     min-width: 100%;
   }
@@ -527,6 +542,22 @@ input:focus {
   .task-row__name-project {
     flex-wrap: wrap;
   }
+}
+.task-row .editable {
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline;
+  height: 1.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  text-align: left;
+  overflow: hidden;
+  transition: all 0.3s ease 0s;
+}
+.task-row .editable-display:hover {
+  cursor: text;
+  box-shadow: rgb(170, 170, 170) 0px 3px 5px;
 }
 .task-row__name-container {
   width: 100%;
@@ -544,15 +575,20 @@ input:focus {
     min-width: 0px;
   }
 }
-@media (max-width: 1250px) {
+@media (max-width: 1340px) {
   .task-row__name-container {
     flex-grow: 1;
   }
 }
-@media (min-width: 1400px) {
+@media (min-width: 1480px) {
   .task-row__name-container {
     min-width: 20rem;
     max-width: 20rem;
+  }
+}
+@media (min-width: 1530px) {
+  .task-row__name-container {
+    max-width: 90%;
   }
 }
 .task-row__project-container {
@@ -566,10 +602,9 @@ input:focus {
   }
 }
 .task-row__separator {
-  height: 10px;
   flex-grow: 1;
 }
-@media (max-width: 1250px) {
+@media (max-width: 1340px) {
   .task-row__separator {
     display: none;
   }
@@ -578,7 +613,7 @@ input:focus {
   display: flex;
   flex-wrap: wrap;
 }
-@media (max-width: 750px) {
+@media (max-width: 820px) {
   .task-row__interval-container {
     width: 100%;
     justify-content: end;
@@ -586,6 +621,7 @@ input:focus {
 }
 .task-row__inner-interval-container {
   display: flex;
+  font-size: unset;
 }
 .task-row__inner-interval-container .editable {
   white-space: nowrap;
@@ -594,6 +630,16 @@ input:focus {
   .task-row__inner-interval-container {
     width: 100%;
     gap: 0.5rem;
+  }
+}
+@media (max-width: 250px) {
+  .task-row__inner-interval-container {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .task-row__inner-interval-container .mui-icon {
+    display: none;
   }
 }
 @media (max-width: 500px) {
@@ -610,9 +656,19 @@ input:focus {
     min-width: 4rem;
   }
 }
-@media (max-width: 300px) {
+@media (max-width: 350px) {
   .task-row__interval-label {
     display: none;
+  }
+}
+@media (min-width: 1340px) {
+  .task-row__date-container {
+    min-width: 95px;
+  }
+}
+@media (min-width: 1340px) {
+  .task-row__time-container {
+    min-width: 110px;
   }
 }
 .task-row__remaining-fields {
@@ -621,9 +677,14 @@ input:focus {
   align-items: center;
   justify-content: end;
 }
-@media (max-width: 1400px) {
+@media (max-width: 1480px) {
   .task-row__remaining-fields {
     flex-grow: 1;
+  }
+}
+@media (max-width: 300px) {
+  .task-row__remaining-fields {
+    justify-content: start;
   }
 }
 .task-row__duration-container {
