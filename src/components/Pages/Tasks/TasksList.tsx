@@ -58,13 +58,11 @@ const TasksList = ({ tasksList: givenTasks, editTask, deleteTask, currentTask, s
     }
 
     return (
-        <section>
+        <section className="task-list-display">
             {Object.keys(mappedTasks).map((milestone: string) =>
                 // This represents each one of the separators in the list of tasks
                 <React.Fragment key={mappedTasks[milestone].title}>
-                    <h3>
-                        {mappedTasks[milestone].title}
-                    </h3>
+                    <h3> {mappedTasks[milestone].title} </h3>
                     {
                         mappedTasks[milestone].tasks.map((task: Task) =>
                             <React.Fragment key={`taskrow-${task.id}`}>

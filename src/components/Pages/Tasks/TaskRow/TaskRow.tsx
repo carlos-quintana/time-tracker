@@ -69,38 +69,41 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
     }
 
     return (
-        <div className="row-task">
+        <div className="task-row">
             {/* Task id */}
-            <span className="task-id">{task.id}</span>
-            {/* Task name */}
-            <div className="task-name-container">
-                <EditableName
-                    id={task.id}
-                    name={task.name}
-                    handleNameUpdate={handleNameUpdate}
-                />
+            <span className="task-row__id">{task.id}</span>
+            <div className="task-row__name-project">
+                {/* Task name */}
+                <div className="task-row__name-container">
+                    <EditableName
+                        id={task.id}
+                        name={task.name}
+                        handleNameUpdate={handleNameUpdate}
+                    />
+                </div>
+                {/* Task project */}
+                <div className="task-row__project-container">
+                    <DropdownSearch
+                        defaultText={"Assign a project"}
+                        searchPlaceholder={"Search a project or create a new one"}
+                        optionsList={
+                            projectsList.map(project => {
+                                return { id: project.id, value: project.name }
+                            })}
+                        initialSelection={projectsList.find(project => project.id === task.project)?.id || null}
+                        onCreateCallback={handleProjectCreation}
+                        onSelectCallback={handleProjectUpdate}
+                    />
+                </div>
             </div>
-            {/* Task project */}
-            <div className="task-project-container">
-                <DropdownSearch
-                    defaultText={"Assign a project"}
-                    searchPlaceholder={"Search a project or create a new one"}
-                    optionsList={
-                        projectsList.map(project => {
-                            return { id: project.id, value: project.name }
-                        })}
-                    initialSelection={projectsList.find(project => project.id === task.project)?.id || null}
-                    onCreateCallback={handleProjectCreation}
-                    onSelectCallback={handleProjectUpdate}
-                />
-            </div>
-            <div className="separator"></div>
+            <div className="task-row__separator">&nbsp;</div>
             {/* Task start and end datetimes */}
-            <div className="task-interval-container">
-                <div className="start-interval-container">
-                    <span className="start-interval-label">Start:</span>
+            <div className="task-row__interval-container">
+                {/* <div className="start-interval-container"> */}
+                <div className="task-row__inner-interval-container">
                     <span className="mui-icon" title="Start date"><TodayIcon /></span>
-                    <div className="task-date-container">
+                    <span className="task-row__interval-label">Start:</span>
+                    <div className="task-row__date-container">
                         <EditableDate
                             id={task.id}
                             interval={task.interval}
@@ -108,7 +111,7 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                             intervalPosition="start"
                         />
                     </div>
-                    <div className="task-time-container">
+                    <div className="task-row__time-container">
                         <EditableTime
                             id={task.id}
                             interval={task.interval}
@@ -117,11 +120,11 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                         />
                     </div>
                 </div>
-                <span className="mui-icon row-task-hyphen" title="End date"><RemoveIcon /></span>
-                <div className="end-interval-container">
-                    <span className="end-interval-label">End:</span>
+                <span className="mui-icon task-row__hyphen" title="End date"><RemoveIcon /></span>
+                <div className="task-row__inner-interval-container">
                     <span className="mui-icon" title="End date"><EventIcon /></span>
-                    <div className="task-date-container">
+                    <span className="task-row__interval-label">End:</span>
+                    <div className="task-row__date-container">
                         <EditableDate
                             id={task.id}
                             interval={task.interval}
@@ -129,7 +132,7 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                             intervalPosition="end"
                         />
                     </div>
-                    <div className="task-time-container">
+                    <div className="task-row__time-container">
                         <EditableTime
                             id={task.id}
                             interval={task.interval}
@@ -139,21 +142,25 @@ const TaskRow = ({ task, editTask, deleteTask, currentTask, setCurrentTask, proj
                     </div>
                 </div>
             </div>
-            {/* Task duration */}
-            <div className="task-duration-container">
-                <span className="mui-icon" title="Duration"><TimerOutlinedIcon /></span>
-                <EditableDuration
-                    id={task.id}
-                    interval={task.interval}
-                    handleIntervalUpdate={handleIntervalUpdate}
-                />
-            </div>
-            <div className="task-controls">
-                <TaskRowControls
-                    currentTask={currentTask}
-                    handleRestart={restartTask}
-                    handleDelete={deleteTask}
-                />
+            {/* TODO: Find a more suitable name */}
+            <div className="task-row__remaining-fields">
+                {/* Task duration */}
+                <div className="task-row__duration-container">
+                    <span className="mui-icon" title="Duration"><TimerOutlinedIcon /></span>
+                    <EditableDuration
+                        id={task.id}
+                        interval={task.interval}
+                        handleIntervalUpdate={handleIntervalUpdate}
+                    />
+                </div>
+                {/* Controls */}
+                <div className="task-row__controls">
+                    <TaskRowControls
+                        currentTask={currentTask}
+                        handleRestart={restartTask}
+                        handleDelete={deleteTask}
+                    />
+                </div>
             </div>
         </div>
     );

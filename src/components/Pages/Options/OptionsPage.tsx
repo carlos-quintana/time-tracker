@@ -63,7 +63,7 @@ const OptionsPage = ({ clearAllData }: Props) => {
                     </Modal>
                 </div>
                 <div className="option__description">
-                    This option will remove all of the current tasks and projects and replace them with the example data.
+                    This option will remove all of the current tasks and projects and replace them with the example data. It will also bring back the auto-reset cookie.
                 </div>
             </div>
             <div className="option__container">
@@ -95,7 +95,7 @@ const OptionsPage = ({ clearAllData }: Props) => {
                         onClick={toggleAutoResetCookie}
                         disabled={isAutoResetDisabled}
                     >
-                        Toggle auto-reset
+                        Disable auto-reset
                     </button>
                 </div>
                 <div className="option__description">
