@@ -45,7 +45,7 @@ export default function useDataAccess() {
             setProjectsList(exampleProjects);
         }
         else {
-            setTasksList(JSON.parse(localStorageTasks))
+            setTasksList(JSON.parse(localStorageTasks ?? '[]'))
             localStorageCurrentTask ?
                 setCurrentTask(JSON.parse(localStorageCurrentTask)) :
                 setCurrentTask(null);
