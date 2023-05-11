@@ -128,5 +128,5 @@ export function timestampToDateToDisplay(timestamp: number): string {
  * '12:00:00 a. m.' // might change depending on the settings of the machine where it's executed
  */
 export function timestampToTimeToDisplay(timestamp: number): string {
-    return (new Date(timestamp)).toLocaleString().split(",")[1].trim()
+    return (new Date(timestamp)).toLocaleString().split(",")[1].trim().split('m.')[0].trim()+'m.';
 }
