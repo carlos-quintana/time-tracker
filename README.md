@@ -50,11 +50,9 @@ https://carlos-quintana.github.io/time-tracker/
 - [X] Custom dropdown component for assigning Projects.
 - [X] Tasks are ordered chronologically and separated by milestones (Today, Yesterday, This week, etc).
 - [X] Implement modals and tooltips.
-- [ ] Expand on projects features.
-  - [X] Implement React Router.
-  - [ ] Separate view for Projects CRUD.
-  - [ ] Expand on Projects information.
-- [ ] Separate view for data analysis with graphs and charts.
+- [X] Implement React Router.
+- [ ] Expand on Projects information.
+- [ ] Separate Analytics view for data analysis with graphs and charts.
 - [ ] Implement a state management library (maybe Redux).
 
 ## Instructions
